@@ -1,0 +1,37 @@
+.input-texts{
+    display: flex;
+}
+.input-texts input {    
+    margin-top: 2vh;
+    width: 25vw;
+    height: 6vh;
+}
+
+.input-texts #seletor{
+    display: flex;
+    margin-top: 2vh;
+    height: 6vh;
+}
+
+.input-texts .input-um{
+    margin-right: 2vw;
+}
+
+.input-texts{
+    width: 15vw;
+}
+
+.bts{
+    display: flex;
+    flex-direction: row-reverse;
+   
+}
+.bts .bt{
+    flex-direction: row-reverse;
+    margin: 10px;
+}
+.error{
+    color: red;
+    flex-direction: column;
+    margin-top: 50px;
+}

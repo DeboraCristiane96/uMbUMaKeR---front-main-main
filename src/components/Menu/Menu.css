@@ -1,0 +1,47 @@
+
+*{
+   
+    margin: 0;
+    padding: 0;
+}
+
+.menu{
+    width: 20vw;
+    height: 100vh;
+    background-color: #14770b;
+    position: fixed;
+    top: 0;
+    
+}
+
+.logo{
+    width: 20vw;
+    height: 10vh;    
+    margin: auto;
+  }
+
+.butoes #bt{       
+    color: rgb(247, 249, 247);
+    width: 20vw;
+    height: 13vh; 
+    text-align: left;
+    padding-left: 2vw;
+    font-size: 20px;
+    margin-top: 1px;
+}
+
+.butoes #bt:focus,.butoes #bt:hover,.butoes #bt:active { 
+    background-color: white;
+    color: rgb(20 119 11);
+    border-radius: 0;
+    border-color: none;
+    
+}
+.logo img{
+    width: 245px;
+    height: 34px;
+    margin-top: 15px;
+    margin-left: 10px;
+    margin-bottom: 30px;
+    
+}

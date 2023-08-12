@@ -1,0 +1,25 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.container{
+    margin-top: 1vw;
+    margin-left: 22vw;
+    margin-right: 2vw;
+}
+
+.mostragem1{  
+    margin-left: 500px;
+    margin: 2vw 2vh; 
+    padding: 2vw 2vh; 
+    background-color: rgb(219, 211, 228);
+    width: 30vw;
+    height: 60vh;
+}
+
+
+
+.breadCrumb {
+    border: 1px solid #ffffff;
+}
