@@ -44,7 +44,7 @@ export default class UpdateUser extends React.Component{
     componentDidMount(){
         const url = window.location.href;
         const id = url.substring(url.lastIndexOf('/') + 1);
-        this.findByid(id)
+        this.find(id)
     }
 
     validarTipo =() =>{

@@ -10,7 +10,7 @@ import { faPlus, faTrashAlt, faPenToSquare} from '@fortawesome/free-solid-svg-ic
 export default props =>{
 
     const rows = props.associates.map(associate =>{
-        if(associate.id === ''){
+        if(associate.contaAcesso.id === ''){
             <Card>
                 <div id="status" className="center">
                         <p>

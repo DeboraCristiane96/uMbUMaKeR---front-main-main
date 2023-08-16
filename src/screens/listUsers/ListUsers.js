@@ -76,35 +76,28 @@ export default class ListUsers extends React.Component{
         }
         if(this.state.tipoAssociate ==='GESTOR' ){
             this.service = new ManagerService();
-            this.service.findAll('');
+            this.service.findAll();
         }
         if(this.state.tipoAssociate ==='TUTOR'){
             this.service = new TutorService();
-            this.service.findAll('');
+            this.service.findAll();
         }
     }
   
-    componentDidMount(){
-        this.findAll('');
-        console.log(this.findAll(''));
-    }
-
-    findAll = () => {
-
-        this.service.findAll('')
+    async componentDidMount(){
+        this.validarTipo();
+        await this.service.findAll()
             .then(response => {
-                const associates2 = response.data;
-                
-                this.setState({associates2})
-
-                console.log(this.state.associate3);
+                const associates = response.data;
+                this.setState({associates})
+                console.log(associates);
+                console.log(this.state.associates);
             }
             ).catch(error => {
                 console.log(error.response);
             }
             );
     }
-
 
     filtro = () =>{
         let lista = []
