@@ -16,12 +16,10 @@ export default class ManagerService extends ApiService{
     delete(id){
         return super.delete(`/${id}`);
     }
-     
-    find(params){
-        return this.get(`${params}`);
+    find(id){
+        return this.get(`/${id}`);
     }
-    
     findAll(){
-        return this.get('');
+        return this.get(``);
     }
 }

@@ -7,7 +7,7 @@ export default class ApiService {
         this.endpoint = endpoint;
 
         this.httpCliente = axios.create({
-            baseURL:'http://localhost:8090/'
+            baseURL:'http://localhost:8090'
         });
         
     }
@@ -17,19 +17,19 @@ export default class ApiService {
         return this.httpCliente.post(url, params);
     }
 
-    put(url, params){
+    put(url, id){
         url = this.buildUrl(url);
-        return this.httpCliente.put(url, params);
+        return this.httpCliente.put(url, id);
     }
 
-    delete(url){
+    delete(url, id){
         url = this.buildUrl(url);
-        return this.httpCliente.delete(url);
+        return this.httpCliente.delete(url , id);
     }
 
-    get(url){
+    get(url, id){
         url = this.buildUrl(url);
-        return this.httpCliente.get(url);
+        return this.httpCliente.get(url, id);
     }
 
     buildUrl(url){

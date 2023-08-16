@@ -42,7 +42,6 @@ export default class CreateUser extends React.Component{
                     linkWhatsapp:'',
                     ativo:'',
                     tipo:'',
-                    qrcode:''
                 }
             ],
 
@@ -72,14 +71,14 @@ export default class CreateUser extends React.Component{
     }
     
     validarTipo =() =>{
-        if(this.tipoAssociate ==='ASSOCIADO' ){
-            this.state.service = new AssociateService(); 
+        if(this.state.tipoAssociate ==='ASSOCIADO' ){
+            this.service = new AssociateService(); 
         }
         if(this.state.tipoAssociate ==='GESTOR' ){
             this.service = new ManagerService();
         }
-        if(this.tipoAssociate ==='TUTOR'){
-            this.state.service = new TutorService();
+        if(this.state.tipoAssociate ==='TUTOR'){
+            this.service = new TutorService();
         }
     }
   
@@ -139,18 +138,10 @@ export default class CreateUser extends React.Component{
                 telefone: this.state.telefone,
                 linkWhatsapp:this.state.linkWhatsapp,
                 ativo:this.state.ativo,
-                tipo:this.state.tipoAssociate, 
-                qrCode:this.state.qrCode    
+                tipo:this.state.tipoAssociate,    
  
         }
-       ).then ( (response) =>{
-            this.state.toast.show({ severity: 'success', summary: 'Sucesso', detail: 'Cadastro realizado!' });
-            this.delay(2000);
-            
-        }).catch(error =>{
-            this.state.toast.show({ severity: 'error', summary: 'Erro', detail: 'Erro ao cadastrar!' });
-            console.log(error.response)
-        })
+       )
     }
 
     accept = () => {
@@ -161,9 +152,6 @@ export default class CreateUser extends React.Component{
     reject = () => {
         this.state.toast.show({ severity: 'warn', summary: 'Regeitado', detail: 'Cadastro Cancelado!', life: 3000 });
     };
-
-    
-    
 
     render(){
         return(
@@ -181,8 +169,9 @@ export default class CreateUser extends React.Component{
                 <div className="input-texts">
                     <div className="input-um">
                         <InputText id="nome" className="borderColorEdit" type="text"
-                        onChange={(e) => { this.setState({nome: e.target.value }) }}
                         value={this.state.nome}
+                        onChange={(e) => { this.setState({nome: e.target.value }) }}
+                        
                          />
                         {this.state.error && <span className="error">{this.state.error}</span>}
                     </div>
@@ -237,7 +226,7 @@ export default class CreateUser extends React.Component{
                         onChange={e => {
                             this.setState({ tipoAssociate: e.value });
                         }}
-                        placeholder='Selecione o tipo'
+                        placeholder='SELECIONE UM TIPO'
                         />
                 </div>
                 <br/>
@@ -248,7 +237,7 @@ export default class CreateUser extends React.Component{
                         onChange={e => {
                             this.setState({ ativo: e.value });
                         }}
-                        placeholder='Selecione o status'
+                        placeholder='SELECIONE UM STATUS'
                     />
                 </div>
                 <br/>

@@ -17,11 +17,11 @@ export default class TutorService extends ApiService{
         return this.delete(`/${id}`);
     }
     
-    findById(id){
-        return this.find(`/${id}`);
+    find(id){
+        return this.get(`/${id}`);
     }
 
     findAll(){
-        return this.get('');
+        return this.get(``);
     }
 }

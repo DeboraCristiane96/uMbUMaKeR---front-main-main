@@ -7,9 +7,7 @@ import Login from "../screens/Login";
 
 import UpdateUser from "../screens/updateUser/UpdateUser";
 import CreateUser from "../screens/createUser/CreateUser";
-import ListAssociate from "../screens/listAssociates/ListAssociates";
-import ListManagers from "../screens/listManagers/ListManagers";
-import ListTutors from "../screens/listTutors/ListTutors";
+import ListUsers from "../screens/listUsers/ListUsers";
 
 function AppRouts(){
     return(
@@ -17,9 +15,7 @@ function AppRouts(){
            <Routes>
                 <Route  path="/" element={<Home/>} exact ></Route>
                 <Route  path="/login" element={<Login/>} exact ></Route>
-                <Route element={<ListAssociate/>} path="/associates"></Route>
-                <Route element={<ListManagers/>} path="/managers"></Route>
-                <Route element={<ListTutors/>} path="/tutors"></Route>
+                <Route element={<ListUsers/>} path="/tutors"></Route>
                 <Route element={<CreateUser/>} path="/createUser"></Route>
                 <Route element={<UpdateUser/>} path="/updateUser/:id"></Route>
                 

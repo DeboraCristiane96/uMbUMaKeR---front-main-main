@@ -14,6 +14,8 @@ import { Button } from 'primereact/button';
 
 import Menu from "../../components/Menu/Menu"
 
+import AssociateService from "../../services/AssociateService";
+import TutorService from "../../services/TutorService";
 import ManagerService from "../../services/ManagerService";
 
 export default class UpdateUser extends React.Component{
@@ -45,17 +47,28 @@ export default class UpdateUser extends React.Component{
         this.findByid(id)
     }
 
-    constructor(){
-        super();
-        this.service = new ManagerService();
-        console.log(this.state.associate.contaAcesso)
+    validarTipo =() =>{
+        if(this.state.tipoAssociate ==='ASSOCIADO' ){
+            this.service = new AssociateService(); 
+            
+        }
+        if(this.state.tipoAssociate ==='GESTOR' ){
+            this.service = new ManagerService();
+            
+        }
+        if(this.state.tipoAssociate ==='TUTOR'){
+            this.service = new TutorService();
+            
+        }
     }
+    
 
     delay = (ms) => {
         return new Promise(resolve => setTimeout(resolve, ms));
       };
 
-   update  = async () =>{
+   editar  = async () =>{
+
     await this.service.update(this.state.idContaAcesso,{
 
         nome:this.state.nome,
@@ -68,14 +81,12 @@ export default class UpdateUser extends React.Component{
        
     }).then(async (response) =>{
         this.state.toast.show({ severity: 'success', summary: 'Sucesso', detail: ' Editado Com Sucesso' });
-
         await this.delay(2000);
-        window.location.href = `/users`;
+        window.location.href = `/associates`;
     })
         .catch(error =>{
 
             this.state.toast.show({ severity: 'error', summary: 'Erro', detail: 'Erro ao Editar' });
-
             console.log(error)
         })
     }
@@ -168,6 +179,7 @@ export default class UpdateUser extends React.Component{
     }
 
     findByid = (id) =>{
+
         this.service.find(`/${id}`)
             .then(response =>{
 
@@ -268,7 +280,7 @@ export default class UpdateUser extends React.Component{
                
                 <div className="bts">
                     <div className="bt-save">
-                        <Button className="bt" label="SALVAR" onClick={this.update} />
+                        <Button className="bt" label="SALVAR" onClick={this.editar} />
                     </div>
                     <div className="bt-cancel">
                          <Button className="bt" label="CANCELAR" />

@@ -2,7 +2,7 @@ import ApiService from "../services/ApiService";
 
 export default class AssociateService extends ApiService{
     constructor(){
-        super('/api/umbumake/Associados')
+        super('/api/umbumake/associados')
     }
 
     create(obj){
@@ -10,18 +10,18 @@ export default class AssociateService extends ApiService{
     }
 
     update(id,obj){
-        return this.put(`/associados/{id}`,obj);
+        return this.put(`/${id}`,obj);
     }
 
     delete(id){
-        return super.delete(`/associados/{id}`);
+        return super.delete(`/${id}`);
     }
     
-    find(params){
-        return this.get(`${params}`);
+    find(id){
+        return this.get(`/${id}`);
     }
 
     findAll(){
-        return this.get('');
+        return this.get(``);
     }
 }
