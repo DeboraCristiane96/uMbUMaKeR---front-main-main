@@ -11,7 +11,7 @@ import { InputText } from "primereact/inputtext";
 import { BreadCrumb } from 'primereact/breadcrumb';
 
 import { Button } from 'primereact/button';
-import Menu from "../../components/Menu/Menu"
+import MenuLeft from "../../components/Menu/MenuLeft"
 
 import AssociateService from "../../services/AssociateService";
 import TutorService from "../../services/TutorService";
@@ -27,10 +27,11 @@ export default class ListUsers extends React.Component{
         items:[{label: 'Associados', url:"/associates" }],
         home: {icon: 'pi pi-home ', url: '/' },
        
-        associateId:'',
+        
 
         associates:[
             {
+                associateId:'',
                 contaAcesso:{
                     id:'',
                     nome:'',
@@ -194,7 +195,7 @@ export default class ListUsers extends React.Component{
 
     accept = () => {
         this.state.toast.show({ severity: 'info', summary: 'Confirmado', detail: 'Cadastro Deletado Com Sucesso ', life: 3000 });
-        this.delete(this.state.colaboradorId);
+        this.delete(this.state.associateId);
     };
 
     reject = () => {
@@ -222,7 +223,7 @@ export default class ListUsers extends React.Component{
     render(){
         return(
             <>
-            <Menu/>
+            <MenuLeft/>
             <div className="container">
                  <Toast ref={(el) => (this.state.toast = el)} />
                  <ConfirmDialog 

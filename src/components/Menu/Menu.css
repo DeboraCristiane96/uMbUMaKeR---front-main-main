@@ -14,6 +14,47 @@
     
 }
 
+.p-menu {
+    padding: 0.25rem 0;
+    background: #14770b;
+    border: 0px solid #ffffff;
+    border-radius: 6px;
+    width: 17rem;
+    height: 50rem;
+    
+}
+
+.p-menu .p-submenu-header {
+    
+    margin: 0;
+    padding: 0.75rem 1.25rem;
+    color: #fcfcfc;
+    background:#14770b;
+    font-weight: 700;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+}
+
+.p-menu .p-menuitem-link {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: block;
+    font-weight: bold;
+    font-size: 3vh;
+}
+
+.p-menu .p-menuitem-link .p-menuitem-text {
+    color: #f9fcfa;
+}
+
+.butoes #bt:focus,.butoes #bt:hover,.butoes #bt:active { 
+    background-color: white;
+    color: rgb(20 119 11);
+    border-radius: 0;
+    border-color: none;
+    
+}
+
 .logo{
     width: 20vw;
     height: 10vh;    
@@ -28,9 +69,11 @@
     padding-left: 2vw;
     font-size: 20px;
     margin-top: 1px;
+    flex-direction: row-reverse;
 }
 
 .butoes #bt:focus,.butoes #bt:hover,.butoes #bt:active { 
+
     background-color: white;
     color: rgb(20 119 11);
     border-radius: 0;
@@ -38,10 +81,14 @@
     
 }
 .logo img{
+
     width: 245px;
     height: 34px;
     margin-top: 15px;
     margin-left: 10px;
     margin-bottom: 30px;
-    
+}
+
+.bts{
+    margin-left: 10px;
 }

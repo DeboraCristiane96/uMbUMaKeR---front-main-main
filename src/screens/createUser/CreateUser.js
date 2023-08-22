@@ -13,7 +13,7 @@ import './CreateUser.css'
 import AssociateService from "../../services/AssociateService";
 import ManagerService from "../../services/ManagerService";
 import TutorService from "../../services/TutorService";
-import Menu from "../../components/Menu/Menu";
+import MenuLeft from "../../components/Menu/MenuLeft";
 
 
 
@@ -24,11 +24,10 @@ export default class CreateUser extends React.Component{
         this.state = {
             items:[{ label: 'Associados', url:"/associates" }, { label: 'Cadastrar'}],
             home: {icon: 'pi pi-home ', url: '/' },
-            
-            associateId:'',
 
             associates:[
                 {
+                    associateId:'',
                     contaAcesso:{
                         id:'',
                         nome:'',
@@ -178,7 +177,7 @@ export default class CreateUser extends React.Component{
     
          return(
             <>
-           <Menu/>
+           <MenuLeft/>
                 <div className="container">
                     <div className="header">
                     <Toast ref={(el) => (this.state.toast = el)} />

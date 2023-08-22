@@ -14,7 +14,7 @@ import TutorService from "../../services/TutorService";
 
 import './UpdateUser.css'
 
-import Menu from "../../components/Menu/Menu";
+import MenuLeft from "../../components/Menu/MenuLeft";
 
 export default class updateUser extends React.Component{
 
@@ -24,10 +24,9 @@ export default class updateUser extends React.Component{
             items:[{ label: 'Associados', url:"/associates" }, { label: 'Atualizar Cadastrar'}],
             home: {icon: 'pi pi-home ', url: '/' },
             
-            associateId:'',
-
             associates:[
                 {
+                associateId:'',
                     contaAcesso:{
                         id:'',
                         nome:'',
@@ -37,7 +36,6 @@ export default class updateUser extends React.Component{
                         linkWhatsapp:'',
                         ativo:'',
                         qrcode:''
-    
                     }
                    
                 }
@@ -195,7 +193,7 @@ export default class updateUser extends React.Component{
     
          return(
             <>
-             <Menu/>
+             <MenuLeft/>
                 <div className="container">
                     <div className="header">
                     <Toast ref={(el) => (this.state.toast = el)} />
