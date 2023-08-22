@@ -5,7 +5,6 @@ export default class ApiService {
     constructor(endpoint){
 
         this.endpoint = endpoint;
-
         this.httpCliente = axios.create({
             baseURL:'http://localhost:8090'
         });

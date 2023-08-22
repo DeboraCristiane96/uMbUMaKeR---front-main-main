@@ -2,7 +2,7 @@ import ApiService from "../services/ApiService";
 
 export default class ManagerService extends ApiService{
     constructor(){
-        super('/api/umbumake/gestores')
+        super('/api/umbumaker/gestores')
     }
 
     create(obj){
@@ -10,13 +10,19 @@ export default class ManagerService extends ApiService{
     }
 
     update(id,obj){
-        return this.put(`/${id}`,obj);
+        
+        return this.patch(`/${id}`, obj);
     }
 
     delete(id){
         return super.delete(`/${id}`);
     }
-    find(id){
+
+    findByName(params){
+        return this.get(`/${params}`);
+    }
+
+    findById(id){
         return this.get(`/${id}`);
     }
     findAll(){

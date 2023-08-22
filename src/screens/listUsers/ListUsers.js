@@ -18,17 +18,21 @@ import TutorService from "../../services/TutorService";
 import ManagerService from "../../services/ManagerService";
 import CardListUsers from "../../components/cardListUsers/CardListUsers";
 
+import { faPlus} from '@fortawesome/free-solid-svg-icons'; 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 export default class ListUsers extends React.Component{
+
     state = {
         items:[{label: 'Associados', url:"/associates" }],
         home: {icon: 'pi pi-home ', url: '/' },
+       
+        associateId:'',
 
         associates:[
             {
-
-                idAssociates:'',
                 contaAcesso:{
-                    idContaAcesso:'',
+                    id:'',
                     nome:'',
                     email:'',
                     senha:'',
@@ -41,11 +45,11 @@ export default class ListUsers extends React.Component{
                
             }
         ],
-        token:"",
+        token:'',
         toast:'',
         nomeParaFiltro:'',
-
-
+        
+        
         associatesFiltro:[
             {
                 id:'',
@@ -69,94 +73,141 @@ export default class ListUsers extends React.Component{
         
     }
 
-    validarTipo =() =>{
-        if(this.state.tipoAssociate ==='ASSOCIADO' ){
-            this.service = new AssociateService(); 
-            this.service.findAll();
-        }
-        if(this.state.tipoAssociate ==='GESTOR' ){
+ 
+
+    validarTipo = () => {
+        console.log('entrou no validar tipo');
+        if (this.state.tipoAssociate === 'ASSOCIADO') {
+            this.service = new AssociateService();
+            this.listAssociates();
+        } else if (this.state.tipoAssociate === 'GESTOR') {
             this.service = new ManagerService();
-            this.service.findAll();
-        }
-        if(this.state.tipoAssociate ==='TUTOR'){
+            this.listGestor();
+            console.log('entoru no if');
+        } else if (this.state.tipoAssociate === 'TUTOR') {
             this.service = new TutorService();
-            this.service.findAll();
+            this.listTutor();
+        }else{
+            this.service = new AssociateService();    
+            this.listAssociates();
         }
+        
     }
-  
-    async componentDidMount(){
+   
+    async componentDidMount() {
         this.validarTipo();
-        await this.service.findAll()
+        await this.service.findAll('')
             .then(response => {
                 const associates = response.data;
-                this.setState({associates})
-                console.log(associates);
-                console.log(this.state.associates);
+                
+                this.setState({ associates });
+                console.log(response);
             }
             ).catch(error => {
+                console.log('errrrrror');
                 console.log(error.response);
             }
-            );
+        );
     }
 
-    filtro = () =>{
+
+    listAssociates = async () => {
+        await this.service.findAll('')
+            .then(response => {
+            const associates = response.data;
+            this.setState({ associates });
+        }).catch(error => {
+        });
+    }
+
+    listTutor = async () => {
+        await this.service.findAll('')
+        .then(response => {
+            const associates = response.data;
+            this.setState({ associates });
+        }).catch(error => {
+        });
+        
+    }
+
+    listGestor = async () => {
+        await this.service.findAll('')
+        .then(response => {
+            const associates = response.data;
+            this.setState({ associates });
+        }).catch(error => {
+        });
+        
+    }
+
+
+    filtroByNome = () =>{
+        this.validarTipo();
         let lista = []
         this.state.associates.forEach(element => {
             if(element.nome === this.state.nomeParaFiltro){
                 lista.push(element);
             }
-           
         });
-
         this.setState({associates:lista})
+        console.log("teste",this.state.lista)
     }
-
+    
+    
+    filtro = () =>{
+        this.validarTipo();
+        let lista = []
+        this.state.associates.forEach(element => {
+            if(element.nome === this.state.nomeParaFiltro){
+                lista.push(element);
+            }
+        });
+        this.setState({associates:lista})
+        console.log("teste",this.state.associates)
+    }
 
     limparFiltro = () =>{
         this.setState({nomeParaFiltro:''})
-        this.findAll();
     }
-
     
 
     delay = (ms) => {
         return new Promise(resolve => setTimeout(resolve, ms));
       };
-
-      delete = (associatesId) =>{
-        this.service.delete(associatesId)
+    
+      
+      delete = (associateId) =>{
+        this.service.delete(associateId)
             .then(async (response) =>{
-                this.state.toast.show({ severity: 'success', summary: 'Sucesso', detail: 'Associado Excluido Com Sucesso' });
+                this.state.toast.show({ severity: 'success', summary: 'Sucesso', detail: ' Cadastro Excluido Com Sucesso' });
                 await this.delay(2000);
-                window.location("/associates")
+               window.location.reload();
             }).catch(error =>{
-                this.state.toast.show({ severity: 'error', summary: 'Erro', detail: 'Erro ao Excluir o Associado' });
+                this.state.toast.show({ severity: 'error', summary: 'Erro', detail: 'Erro ao Excluir o Cadastro ' });
             })
     }
 
-    editar = (associatesId) => {
-        window.location.href = `/updateUser/${associatesId}`;    
+    editar = (associateId) => {
+        window.location.href = `/updateUser/${associateId}`;    
         
     }
 
     accept = () => {
-        this.state.toast.show({ severity: 'info', summary: 'Confirmado', detail: 'Deletar Associado Confirmado', life: 3000 });
-        this.delete(this.state.associatesId.idContaAcesso);
+        this.state.toast.show({ severity: 'info', summary: 'Confirmado', detail: 'Cadastro Deletado Com Sucesso ', life: 3000 });
+        this.delete(this.state.colaboradorId);
     };
 
     reject = () => {
-        this.state.toast.show({ severity: 'warn', summary: 'Regeitado', detail: 'Associado Não Deletado', life: 3000 });
+        this.state.toast.show({ severity: 'warn', summary: 'Regeitado', detail: 'Cadastro Mantido', life: 3000 });
     };
-
-
     
-    confirm = async (associatesId) => {
-        this.setState({associatesId: associatesId})
+    confirm = async (associateId) => {
+        this.setState({associateId: associateId})
         // eslint-disable-next-line no-unused-vars
         const a = document.getElementsByClassName('p-button p-component p-confirm-dialog-reject p-button-text')
         confirmDialog({
           
-            message: 'Você Realmente quer Deletar esse Associado?',
+            message: 'Você Realmente quer Deletar esse Cadastro?',
             icon: 'pi pi-info-circle',
             acceptClassName: 'p-button-danger',
             
@@ -168,8 +219,6 @@ export default class ListUsers extends React.Component{
         document.getElementsByClassName('p-button-label')[9].textContent = "Sim"
         document.getElementsByClassName('p-button-label')[8].textContent = "Não"
     };
-
-
     render(){
         return(
             <>
@@ -185,7 +234,6 @@ export default class ListUsers extends React.Component{
                 <div className="header">
                     <div>
                         <BreadCrumb model={this.state.items} home={this.state.home} />
-
                         <br/>
                         <div className="input-texts">
                         <Dropdown
@@ -198,7 +246,7 @@ export default class ListUsers extends React.Component{
                         />
                     <div>
                         <Button className="bt-filtro" label="Filtrar" 
-                            onClick={this.validarTipo}
+                            onClick={this.filtro}
                             title="Filtrar" severity="warning" raised />
                     </div>
                         
@@ -213,7 +261,7 @@ export default class ListUsers extends React.Component{
                             </span>
 
                             <Button className="bt-filtro" label="Filtrar" 
-                            onClick={this.filtro}
+                            onClick={this.filtroByNome}
                             title="Filtrar" severity="warning" raised />
 
                             <Button className="bt-filtro" label="Limpar Filtro" 
@@ -221,10 +269,17 @@ export default class ListUsers extends React.Component{
                             title="Listar Todos" severity="warning" raised />
                         </div>
 
-                        <br/>
+                        <div className="divCreat">
+                            <a href="/createUser">
+                            <Button className="btCreat" 
+                            severity="warning" 
+                            raised>
+                            <FontAwesomeIcon icon={faPlus}
+                          style={{color: "#0b6429",}} /></Button>
+                            </a>
+                        </div>  
 
-                
-                       
+                        <br/>
                     </div>
 
                 </div>
@@ -234,7 +289,6 @@ export default class ListUsers extends React.Component{
                         associates = {this.state.associates}
                         delete = {this.confirm}
                         editar = {this.editar}
-                       
                     />
                     
                 </div>

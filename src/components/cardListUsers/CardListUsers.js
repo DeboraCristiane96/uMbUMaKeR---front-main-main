@@ -4,8 +4,7 @@ import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 import './CardListUsers.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faTrashAlt, faPenToSquare} from '@fortawesome/free-solid-svg-icons'; 
-
+import {faTrashAlt, faPenToSquare} from '@fortawesome/free-solid-svg-icons'; 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default props =>{
 
@@ -22,15 +21,6 @@ export default props =>{
         return(
             
             <div className="card">  
-                <div className="divCreat">
-                    <a href="/createUser">
-                         <Button className="btCreat" 
-                         severity="warning" 
-                         raised>
-                            <FontAwesomeIcon icon={faPlus}
-                          style={{color: "#0b6429",}} /></Button>
-                    </a>
-                </div>  
                 <Card>
                     <div className="left">
                         <div className='divNome'>
@@ -63,7 +53,8 @@ export default props =>{
                            <FontAwesomeIcon icon={faPenToSquare} style={{color: "#0b6429",}} />
                         </Button>
 
-                        <Button className="bt" onClick={e => props.delete(associate.contaAcesso.id)} style={{color: "#0b6429",}} title="Deletar" severity="warning" aria-label="Deletar">
+                        <Button className="bt" onClick={e => props.delete(associate.contaAcesso.id)} style={{color: "#0b6429",}} 
+                        title="Deletar" severity="warning" aria-label="Deletar">
                             <FontAwesomeIcon icon={faTrashAlt} />
                         </Button>
                       
