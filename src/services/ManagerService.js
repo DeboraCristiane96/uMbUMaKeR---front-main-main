@@ -18,7 +18,7 @@ export default class ManagerService extends ApiService{
         return super.delete(`/${id}`);
     }
 
-    findByName(params){
+    find(params){
         return this.get(`/${params}`);
     }
 

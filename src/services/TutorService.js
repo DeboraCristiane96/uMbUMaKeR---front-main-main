@@ -21,7 +21,7 @@ export default class TutorService extends ApiService{
         return this.get(`/${id}`);
     }
 
-    findByName(params){
+    find(params){
         return this.get(`/${params}`);
     }
 

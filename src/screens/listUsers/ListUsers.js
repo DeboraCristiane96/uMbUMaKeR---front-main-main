@@ -140,26 +140,12 @@ export default class ListUsers extends React.Component{
         });
         
     }
-
-
-    filtroByNome = () =>{
-        this.validarTipo();
-        let lista = []
-        this.state.associates.forEach(element => {
-            if(element.nome === this.state.nomeParaFiltro){
-                lista.push(element);
-            }
-        });
-        this.setState({associates:lista})
-        console.log("teste",this.state.lista)
-    }
     
     
     filtro = () =>{
-        this.validarTipo();
         let lista = []
         this.state.associates.forEach(element => {
-            if(element.nome === this.state.nomeParaFiltro){
+            if(element.contaAcesso.nome === this.state.nomeParaFiltro){
                 lista.push(element);
             }
         });
@@ -170,21 +156,53 @@ export default class ListUsers extends React.Component{
     limparFiltro = () =>{
         this.setState({nomeParaFiltro:''})
     }
-    
+
+    token = async () => {
+        await this.service.getToken('')
+            .then(response => {
+               const token = response.data
+               this.setState({token:token})
+               
+                console.log("token",response.data);
+
+                this.findAll(token); 
+            }
+            ).catch(error => {
+                console.log("erro ao pegar o token",error);
+            }
+            );
+    }
 
     delay = (ms) => {
         return new Promise(resolve => setTimeout(resolve, ms));
       };
-    
+
       
+    findAll = (token) => {
+        const headers = { 'Authorization':` Bearer ${token}` };
+        console.log("bbbbbbbbbb",headers)
+        this.service.get('/all', {headers})
+            .then(response => {
+                const associates = response.data;
+                
+                this.setState({associates})
+
+                console.log(this.state.associates);
+            }
+            ).catch(error => {
+                console.log(error.response);
+            }
+            );
+    }
+    
       delete = (associateId) =>{
         this.service.delete(associateId)
             .then(async (response) =>{
-                this.state.toast.show({ severity: 'success', summary: 'Sucesso', detail: ' Cadastro Excluido Com Sucesso' });
+                this.state.toast.show({ severity: 'success', summary: 'Sucesso', detail: 'Colaborador Excluido Com Sucesso' });
                 await this.delay(2000);
                window.location.reload();
             }).catch(error =>{
-                this.state.toast.show({ severity: 'error', summary: 'Erro', detail: 'Erro ao Excluir o Cadastro ' });
+                this.state.toast.show({ severity: 'error', summary: 'Erro', detail: 'Erro ao Excluir o Colaborador' });
             })
     }
 
@@ -194,17 +212,18 @@ export default class ListUsers extends React.Component{
     }
 
     accept = () => {
-        this.state.toast.show({ severity: 'info', summary: 'Confirmado', detail: 'Cadastro Deletado Com Sucesso ', life: 3000 });
-        this.delete(this.state.associateId);
+        this.state.toast.show({ severity: 'info', summary: 'Confirmado', detail: 'Deletar Confirmado', life: 3000 });
+        this.delete(this.state.associates);
     };
 
     reject = () => {
-        this.state.toast.show({ severity: 'warn', summary: 'Regeitado', detail: 'Cadastro Mantido', life: 3000 });
+        this.state.toast.show({ severity: 'warn', summary: 'Regeitado', detail: ' Não Deletado', life: 3000 });
     };
+
+
     
-    confirm = async (associateId) => {
-        this.setState({associateId: associateId})
-        // eslint-disable-next-line no-unused-vars
+    confirm = async (colaboradorId) => {
+        this.setState({colaboradorId: colaboradorId})
         const a = document.getElementsByClassName('p-button p-component p-confirm-dialog-reject p-button-text')
         confirmDialog({
           
@@ -220,6 +239,7 @@ export default class ListUsers extends React.Component{
         document.getElementsByClassName('p-button-label')[9].textContent = "Sim"
         document.getElementsByClassName('p-button-label')[8].textContent = "Não"
     };
+
     render(){
         return(
             <>
@@ -247,7 +267,7 @@ export default class ListUsers extends React.Component{
                         />
                     <div>
                         <Button className="bt-filtro" label="Filtrar" 
-                            onClick={this.filtro}
+                            onClick={this.validarTipo}
                             title="Filtrar" severity="warning" raised />
                     </div>
                         
@@ -258,11 +278,11 @@ export default class ListUsers extends React.Component{
                                 <i  className="pi pi-search " />
                                 <InputText placeholder="PROCURAR"
                                 value= {this.state.nomeParaFiltro} 
-                                onChange={(e) => { this.setState({nomeParaFiltro: e.target.value }) }} />
+                                onChange={(e) => {this.setState({nomeParaFiltro: e.target.value }) }} />
                             </span>
 
                             <Button className="bt-filtro" label="Filtrar" 
-                            onClick={this.filtroByNome}
+                            onClick={this.filtro}
                             title="Filtrar" severity="warning" raised />
 
                             <Button className="bt-filtro" label="Limpar Filtro" 

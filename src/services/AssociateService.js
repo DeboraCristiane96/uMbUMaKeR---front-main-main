@@ -20,7 +20,7 @@ export default class AssociateService extends ApiService{
         return this.get(`/${id}`);
     }
 
-    findByName(params){
+    find(params){
         return this.get(`/${params}`);
     }
 
