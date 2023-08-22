@@ -57,12 +57,10 @@ export default class updateUser extends React.Component{
    
 
     validarTipo = () => {
-        console.log('entrou no validar tipo');
         if (this.state.tipoAssociate === 'ASSOCIADO') {
             this.service = new AssociateService();
         } else if (this.state.tipoAssociate === 'GESTOR') {
             this.service = new ManagerService();
-            console.log('entoru no if');
         } else if (this.state.tipoAssociate === 'TUTOR') {
             this.service = new TutorService();
         } else{
