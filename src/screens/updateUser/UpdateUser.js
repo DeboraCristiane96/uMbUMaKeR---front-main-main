@@ -93,7 +93,7 @@ export default class updateUser extends React.Component{
 
    editar  = async () =>{
         this.validarTipo();
-        await this.service.update(this.state.associates.contaAcesso.id,{
+        await this.service.update(this.associateId,{
         nome:this.state.nome,
         email:this.state.email,
         senha:this.senha,
@@ -138,8 +138,9 @@ export default class updateUser extends React.Component{
             
         });
         await this.delay(10);
-        document.getElementsByClassName('p-button-label')[9].textContent = "Sim"
-        document.getElementsByClassName('p-button-label')[8].textContent = "Não"
+        document.getElementsByClassName('p-button-label')[7].textContent = "Sim"
+        document.getElementsByClassName('p-button-label')[6].textContent = "Não"
+       
     };
 
 
@@ -186,13 +187,13 @@ export default class updateUser extends React.Component{
         this.service.findById(`/${id}`)
             .then(response =>{
                 const associate = response.data;
-                const id = associate.id
-                const nome = associate.nome
-                const email = associate.email
-                const senha = associate.senha
-                const telefone = associate.telefone
-                const ativo = associate.ativo
-                const linkWhatsapp = associate.linkWhatsapp
+                const id = associate.contaAcesso.id
+                const nome = associate.contaAcesso.nome
+                const email = associate.contaAcesso.email
+                const senha = associate.contaAcesso.senha
+                const telefone = associate.contaAcesso.telefone
+                const ativo = associate.contaAcesso.ativo
+                const linkWhatsapp = associate.contaAcesso.linkWhatsapp
                 this.setState({id:id,nome:nome,email:email, senha:senha, telefone:telefone, ativo:ativo, linkWhatsapp:linkWhatsapp})
 
                 console.log(this.state.associates, 'ok')
