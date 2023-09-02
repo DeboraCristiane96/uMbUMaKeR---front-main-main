@@ -7,6 +7,7 @@ import CardListDevices from "../../components/cardListDevices/CardListDevices";
 import { BreadCrumb } from 'primereact/breadcrumb';
 import { Button } from 'primereact/button';
 
+import MenuLeft from "../../components/Menu/MenuLeft"
 import { faPlus} from '@fortawesome/free-solid-svg-icons'; 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -15,7 +16,6 @@ import DeviceService from "../../services/DeviceService";
 export default class ListDevices extends React.Component{
 
     
-
     state = {
         items:[{ label: 'Dispositivos', url:"/devices" }],
 
@@ -47,7 +47,7 @@ export default class ListDevices extends React.Component{
     }
 
     componentDidMount(){          
-        this.findAll();
+        this.service.findAll('');
     }
 
    
@@ -74,7 +74,7 @@ export default class ListDevices extends React.Component{
 
     accept = () => {
         this.state.toast.show({ severity: 'info', summary: 'Confirmado', detail: 'Deletar Cadastro Confirmado', life: 3000 });
-        this.delete(this.state.colaboradorId);
+        this.delete(this.state.devices.findIndex);
     };
 
     reject = () => {
@@ -103,7 +103,8 @@ export default class ListDevices extends React.Component{
 
     render(){
         return(
-
+            <>
+            <MenuLeft/>
             <div className="container">
                  <Toast ref={(el) => (this.state.toast = el)} />
                  <ConfirmDialog 
@@ -111,7 +112,6 @@ export default class ListDevices extends React.Component{
                   rejectClassName="p-button-danger"
                  acceptLabel="Sim"
                  rejectLabel="Não"/>
-
                 <div className="header">
                     <div>
                         <BreadCrumb model={this.state.items} home={this.state.home} />
@@ -133,13 +133,16 @@ export default class ListDevices extends React.Component{
 
                 <div className="devices">
                     <CardListDevices
-                        colaboradores ={this.state.devices}
+                        devices ={this.state.devices}
                         delete = {this.confirm}
                         editar = {this.editar}
                     />
                     
                 </div>
             </div>
+            
+         </>
+
         )
     }
 

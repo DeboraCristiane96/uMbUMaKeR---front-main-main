@@ -21,8 +21,7 @@ export default class DeviceService extends ApiService{
     find(params){
         return this.get(`${params}`);
     }
-    
     findAll(){
-        return this.getAll('/all');
+        return this.get(``);
     }
 }
