@@ -1,3 +1,4 @@
+/* eslint-disable react/no-direct-mutation-state */
 import React from "react";
 import { Toast } from 'primereact/toast';
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
@@ -24,9 +25,10 @@ export default class updateUser extends React.Component{
             items:[{ label: 'Associados', url:"/associates" }, { label: 'Atualizar Cadastrar'}],
             home: {icon: 'pi pi-home ', url: '/' },
             
+            
             associates:[
                 {
-                associateId:'',
+                    associateId:'',
                     contaAcesso:{
                         id:'',
                         nome:'',
@@ -35,7 +37,8 @@ export default class updateUser extends React.Component{
                         telefone:'',
                         linkWhatsapp:'',
                         ativo:'',
-                        qrcode:''
+                        qrcode:'',
+                        
                     }
                    
                 }
@@ -57,11 +60,11 @@ export default class updateUser extends React.Component{
    
 
     validarTipo = () => {
-        if (this.state.tipoAssociate === 'ASSOCIADO') {
+        if (this.contaAcesso.tipoAssociate  === 'ASSOCIADO') {
             this.service = new AssociateService();
-        } else if (this.state.tipoAssociate === 'GESTOR') {
+        } else if (this.contaAcesso.tipoAssociate === 'GESTOR') {
             this.service = new ManagerService();
-        } else if (this.state.tipoAssociate === 'TUTOR') {
+        } else if (this.contaAcesso.tipoAssociate === 'TUTOR') {
             this.service = new TutorService();
         } else{
             this.service = new AssociateService();    
@@ -72,6 +75,7 @@ export default class updateUser extends React.Component{
     delay = (ms) => {
         return new Promise(resolve => setTimeout(resolve, ms));
       };
+
       componentDidMount(){
         const url = window.location.href;
         const id = url.substring(url.lastIndexOf('/') + 1);
@@ -79,14 +83,15 @@ export default class updateUser extends React.Component{
     }
 
    editar  = async () =>{
-    this.validarTipo();
-    await this.service.update(this.state.associateId,{
+        this.validarTipo();
+        await this.service.update(this.state.associates.contaAcesso.id,{
         nome:this.state.nome,
         email:this.state.email,
         senha:this.senha,
         telefone: this.state.telefone,
         ativo:this.state.ativo,
         linkWhatsapp: this.state.linkWhatsapp,
+        tipoAssociate:this.tipoAssociate
     }).then(async (response) =>{
         this.state.toast.show({ severity: 'success', summary: 'Sucesso', detail: 'Atualizado Com Sucesso' });
         await this.delay(2000);
@@ -111,6 +116,7 @@ export default class updateUser extends React.Component{
 
     confirm = async (associateId) => {
         this.setState({associateId: associateId})
+        // eslint-disable-next-line no-unused-vars
         const a = document.getElementsByClassName('p-button p-component p-confirm-dialog-reject p-button-text')
         confirmDialog({
           
@@ -123,8 +129,8 @@ export default class updateUser extends React.Component{
             
         });
         await this.delay(10);
-        document.getElementsByClassName('p-button-label')[7].textContent = "Sim"
-        document.getElementsByClassName('p-button-label')[6].textContent = "Não"
+        document.getElementsByClassName('p-button-label')[9].textContent = "Sim"
+        document.getElementsByClassName('p-button-label')[8].textContent = "Não"
     };
 
 
@@ -180,7 +186,7 @@ export default class updateUser extends React.Component{
                 const linkWhatsapp = associate.linkWhatsapp
                 this.setState({id:id,nome:nome,email:email, senha:senha, telefone:telefone, ativo:ativo, linkWhatsapp:linkWhatsapp})
 
-                console.log(this.state.associate, 'aaa')
+                console.log(this.state.associates, 'ok')
             })
             .catch(error =>{
                 console.log(error)

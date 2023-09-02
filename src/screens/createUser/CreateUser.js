@@ -132,8 +132,7 @@ export default class CreateUser extends React.Component{
             
         });
         await this.delay(10);
-        document.getElementsByClassName('p-button-label')[7].textContent = "Sim"
-        document.getElementsByClassName('p-button-label')[6].textContent = "Não"
+       
     };
 
 
@@ -184,8 +183,8 @@ export default class CreateUser extends React.Component{
                     <ConfirmDialog 
                     acceptClassName="p-button-success"
                     rejectClassName="p-button-danger"
-                    acceptLabel="Sim"
-                    rejectLabel="Não"/>
+                acceptLabel="Sim"
+                rejectLabel="Não"/>
                         <div>
                             <BreadCrumb model={this.state.items} home={this.state.home}></BreadCrumb>
                         </div>

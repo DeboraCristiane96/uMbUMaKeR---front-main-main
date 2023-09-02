@@ -16,7 +16,7 @@ export default function Menu(){
                 <Button id='bt' label="DASHBOARDS" severity="secondary" text />
                 <Button id='bt' label="INSUMOS" severity="secondary" text />
                 <Button id='bt' label="ZONAS" severity="secondary" text />
-                <Button id='bt' label="DISPOSITIVOS" severity="secondary" text />
+                <MenuItem href='/devices' label='DISPOSITIVOS'></MenuItem>
                 <MenuItem href='/associates' label='ASSOCIADOS'></MenuItem>
            </div>
         </div>

@@ -22,12 +22,12 @@ import { faPlus} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default class ListUsers extends React.Component{
-
-    state = {
+    
+    constructor(props){
+        super(props);
+        this.state = {
         items:[{label: 'Associados', url:"/associates" }],
         home: {icon: 'pi pi-home ', url: '/' },
-       
-        
 
         associates:[
             {
@@ -49,7 +49,6 @@ export default class ListUsers extends React.Component{
         token:'',
         toast:'',
         nomeParaFiltro:'',
-        
         
         associatesFiltro:[
             {
@@ -73,8 +72,8 @@ export default class ListUsers extends React.Component{
         tipoAssociate: '',
         
     }
+}
 
- 
 
     validarTipo = () => {
         console.log('entrou no validar tipo');
@@ -111,7 +110,6 @@ export default class ListUsers extends React.Component{
         );
     }
 
-
     listAssociates = async () => {
         await this.service.findAll('')
             .then(response => {
@@ -141,7 +139,6 @@ export default class ListUsers extends React.Component{
         
     }
     
-    
     filtro = () =>{
         let lista = []
         this.state.associates.forEach(element => {
@@ -157,52 +154,18 @@ export default class ListUsers extends React.Component{
         this.setState({nomeParaFiltro:''})
     }
 
-    token = async () => {
-        await this.service.getToken('')
-            .then(response => {
-               const token = response.data
-               this.setState({token:token})
-               
-                console.log("token",response.data);
-
-                this.findAll(token); 
-            }
-            ).catch(error => {
-                console.log("erro ao pegar o token",error);
-            }
-            );
-    }
-
     delay = (ms) => {
         return new Promise(resolve => setTimeout(resolve, ms));
       };
-
-      
-    findAll = (token) => {
-        const headers = { 'Authorization':` Bearer ${token}` };
-        console.log("bbbbbbbbbb",headers)
-        this.service.get('/all', {headers})
-            .then(response => {
-                const associates = response.data;
-                
-                this.setState({associates})
-
-                console.log(this.state.associates);
-            }
-            ).catch(error => {
-                console.log(error.response);
-            }
-            );
-    }
     
       delete = (associateId) =>{
         this.service.delete(associateId)
             .then(async (response) =>{
-                this.state.toast.show({ severity: 'success', summary: 'Sucesso', detail: 'Colaborador Excluido Com Sucesso' });
+                this.state.toast.show({ severity: 'success', summary: 'Sucesso', detail: 'Cadastro Excluido Com Sucesso' });
                 await this.delay(2000);
                window.location.reload();
             }).catch(error =>{
-                this.state.toast.show({ severity: 'error', summary: 'Erro', detail: 'Erro ao Excluir o Colaborador' });
+                this.state.toast.show({ severity: 'error', summary: 'Erro', detail: 'Erro ao Excluir' });
             })
     }
 
@@ -212,8 +175,8 @@ export default class ListUsers extends React.Component{
     }
 
     accept = () => {
-        this.state.toast.show({ severity: 'info', summary: 'Confirmado', detail: 'Deletar Confirmado', life: 3000 });
-        this.delete(this.state.associates);
+        this.state.toast.show({ severity: 'info', summary: 'Confirmado', detail: 'Cadastro Excluido', life: 3000 });
+        this.delete(this.state.associates.associateId);
     };
 
     reject = () => {
@@ -222,8 +185,9 @@ export default class ListUsers extends React.Component{
 
 
     
-    confirm = async (colaboradorId) => {
-        this.setState({colaboradorId: colaboradorId})
+    confirm = async (associateId) => {
+        this.setState({associateId: associateId})
+        // eslint-disable-next-line no-unused-vars
         const a = document.getElementsByClassName('p-button p-component p-confirm-dialog-reject p-button-text')
         confirmDialog({
           
@@ -236,8 +200,7 @@ export default class ListUsers extends React.Component{
             
         });
         await this.delay(10);
-        document.getElementsByClassName('p-button-label')[9].textContent = "Sim"
-        document.getElementsByClassName('p-button-label')[8].textContent = "Não"
+       
     };
 
     render(){

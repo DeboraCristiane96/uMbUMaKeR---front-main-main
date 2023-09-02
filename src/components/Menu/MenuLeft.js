@@ -1,11 +1,8 @@
 import React from 'react';
 
-import "./Menu.css";
-import { Button } from 'primereact/button';
-import MenuItem from './MenuItem';
+import "../Menu/Menu.css"
+
 import { Menu } from 'primereact/menu';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 
 
 //falta fazer a logica do botão ficar 
@@ -38,7 +35,7 @@ export default function MenuLeft (){
                     {
                         label: 'DISPOSITIVOS',
                         command: () => {
-                            window.location.hash = '/fileupload';
+                            window.location.href = '/devices';
                         }
                     },
                     {
