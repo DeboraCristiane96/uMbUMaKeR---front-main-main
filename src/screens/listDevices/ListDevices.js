@@ -6,6 +6,10 @@ import './ListDevices.css';
 import CardListDevices from "../../components/cardListDevices/CardListDevices";
 import { BreadCrumb } from 'primereact/breadcrumb';
 import { Button } from 'primereact/button';
+
+import { faPlus} from '@fortawesome/free-solid-svg-icons'; 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import DeviceService from "../../services/DeviceService";
 
 export default class ListDevices extends React.Component{
@@ -114,13 +118,18 @@ export default class ListDevices extends React.Component{
                        
                     </div>
     
-                    <div className="bt-add">
-                        <a href="/createDevices">
-                            <Button severity="warning" label="+" title="Cadastar novo dispositivo"  raised />
-                        </a>
-    
+                    <div className="divCreat">
+                            <a href="/createDevice">
+                            <Button className="btCreat" 
+                            severity="warning" 
+                            raised>
+                            <FontAwesomeIcon icon={faPlus}
+                          style={{color: "#0b6429",}} /></Button>
+                            </a>
+                        </div>  
+
+                        <br/>
                     </div>
-                </div>
 
                 <div className="devices">
                     <CardListDevices
