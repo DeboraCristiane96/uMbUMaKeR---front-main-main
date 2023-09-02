@@ -208,7 +208,6 @@ export default class CreateDevice extends React.Component{
                 eixoY:this.state.eixoY,
                 eixoZ:this.state.eixoZ,
                 tipoSelecionado: this.state.tipoSelecionado
-               
         }
         ).then (async (response) =>{
 

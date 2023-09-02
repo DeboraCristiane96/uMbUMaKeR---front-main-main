@@ -37,13 +37,21 @@ export default class updateUser extends React.Component{
                         telefone:'',
                         linkWhatsapp:'',
                         ativo:'',
-                        qrcode:'',
-                        
+                        qrcode:''
+    
                     }
                    
                 }
             ],
 
+            tipoAssociateSelectItems: [
+				{ label: 'ASSOCIADO', value: 'ASSOCIADO' },
+				{ label: 'TUTOR', value: 'TUTOR' },
+				{ label: 'GESTOR', value: 'GESTOR' }
+			],
+            tipoAssociate: '',
+            
+			
             ativoSelectItems: [
 				{ label: 'ATIVO', value: true},
 				{ label: 'NÃO ATIVO', value: false }
@@ -57,14 +65,15 @@ export default class updateUser extends React.Component{
        }
         
     }
-   
 
     validarTipo = () => {
-        if (this.contaAcesso.tipoAssociate  === 'ASSOCIADO') {
+        console.log('entrou no validar tipo');
+        if (this.state.tipoAssociate === 'ASSOCIADO') {
             this.service = new AssociateService();
-        } else if (this.contaAcesso.tipoAssociate === 'GESTOR') {
+        } else if (this.state.tipoAssociate === 'GESTOR') {
             this.service = new ManagerService();
-        } else if (this.contaAcesso.tipoAssociate === 'TUTOR') {
+            console.log('entoru no if');
+        } else if (this.state.tipoAssociate === 'TUTOR') {
             this.service = new TutorService();
         } else{
             this.service = new AssociateService();    
@@ -287,7 +296,7 @@ export default class updateUser extends React.Component{
 
                     <div className="bts">
                         <div className="bt">
-                            <Button label="Salvar" severity="warning" raised onClick={this.validar} />
+                            <Button label="SALVAR" severity="warning" raised onClick={this.validar} />
                         </div>
                         <div className="bt">
                             <a href="/associates"><Button label="CANCELAR" ></Button></a>

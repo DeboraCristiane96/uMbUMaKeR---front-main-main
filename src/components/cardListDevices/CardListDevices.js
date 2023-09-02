@@ -28,17 +28,17 @@ export default props =>{
                     </div>
                     <div className="card-butons">
 
-                        <Button className="bt" onClick={e => props.editar(device.id)}
+                        <Button className="bt" onClick={e => props.device.editar(device.id)}
                         title="Editar" severity="warning" aria-label="Editar">
                            <FontAwesomeIcon icon={faPenToSquare} style={{color: "#0b6429",}} />
                         </Button>
 
-                        <Button className="bt" onClick={e => props.delete(device.id)} style={{color: "#0b6429",}} 
+                        <Button className="bt" onClick={e => props.device.delete(device.id)} style={{color: "#0b6429",}} 
                         title="Deletar" severity="warning" aria-label="Deletar">
                             <FontAwesomeIcon icon={faTrashAlt} />
                         </Button>
 
-                        <Button className="bt" onClick={e => props.delete(device.id)} style={{color: "#0b6429",}} 
+                        <Button className="bt" onClick={e => props.device.delete(device.id)} style={{color: "#0b6429",}} 
                         title="Detalhes" severity="warning" aria-label="Detalhes">
                            <FontAwesomeIcon icon={faChevronRight} style={{color: "#1d8729",}} />
                         </Button>

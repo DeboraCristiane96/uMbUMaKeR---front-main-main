@@ -46,21 +46,7 @@ export default class ListDevices extends React.Component{
         this.findAll();
     }
 
-    token = async () => {
-        await this.service.getToken('')
-            .then(response => {
-               const token = response.data
-               this.setState({token:token})
-               
-                //console.log("token",response.data);
-
-                this.findAll(token); 
-            }
-            ).catch(error => {
-                //console.log("erro ao pegar o token",error);
-            }
-            );
-    }
+   
 
     delay = (ms) => {
         return new Promise(resolve => setTimeout(resolve, ms));
@@ -98,7 +84,7 @@ export default class ListDevices extends React.Component{
         //const a = document.getElementsByClassName('p-button p-component p-confirm-dialog-reject p-button-text')
         confirmDialog({
           
-            message: 'Você Realmente quer Deletar esse Colaborador?',
+            message: 'Você Realmente quer deletar o cadastro do dispositivo?',
             icon: 'pi pi-info-circle',
             acceptClassName: 'p-button-danger',
             
