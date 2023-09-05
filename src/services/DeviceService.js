@@ -5,7 +5,7 @@ export default class DeviceService extends ApiService{
         super('/api/umbumaker/Dispositivos')
     }
 
-    creat(obj){
+    create(obj){
         return this.post('', obj)
     }
 

@@ -1,3 +1,4 @@
+/* eslint-disable react/no-direct-mutation-state */
 import React from "react";
 import { Toast } from 'primereact/toast';
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
@@ -56,6 +57,10 @@ export default class ListDevices extends React.Component{
         return new Promise(resolve => setTimeout(resolve, ms));
       };
 
+    detalhes = ()=>{
+        
+
+      }
     delete = (devicesId) =>{
         this.service.delete(devicesId)
             .then(async (response) =>{
@@ -74,7 +79,7 @@ export default class ListDevices extends React.Component{
 
     accept = () => {
         this.state.toast.show({ severity: 'info', summary: 'Confirmado', detail: 'Deletar Cadastro Confirmado', life: 3000 });
-        this.delete(this.state.devices.findIndex);
+        this.delete(this.devicesId);
     };
 
     reject = () => {
@@ -97,8 +102,7 @@ export default class ListDevices extends React.Component{
             
         });
         await this.delay(10);
-        document.getElementsByClassName('p-button-label')[9].textContent = "Sim"
-        document.getElementsByClassName('p-button-label')[8].textContent = "Não"
+        
     };
 
     render(){
@@ -136,6 +140,7 @@ export default class ListDevices extends React.Component{
                         devices ={this.state.devices}
                         delete = {this.confirm}
                         editar = {this.editar}
+                        detalhes = {this.detalhes} 
                     />
                     
                 </div>

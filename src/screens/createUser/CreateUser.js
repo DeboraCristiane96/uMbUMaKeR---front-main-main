@@ -83,6 +83,8 @@ export default class CreateUser extends React.Component{
     delay = (ms) => {
         return new Promise(resolve => setTimeout(resolve, ms));
       };
+
+      
       salvar = async () =>{
         this.validarTipo();
         await this.service.create(

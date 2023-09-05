@@ -38,7 +38,6 @@ export default class updateUser extends React.Component{
                         linkWhatsapp:'',
                         ativo:'',
                         qrcode:''
-    
                     }
                    
                 }
@@ -51,7 +50,7 @@ export default class updateUser extends React.Component{
 			],
             tipoAssociate: '',
             
-			
+		
             ativoSelectItems: [
 				{ label: 'ATIVO', value: true},
 				{ label: 'NÃO ATIVO', value: false }

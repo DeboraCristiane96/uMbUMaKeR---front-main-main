@@ -12,13 +12,12 @@ import { BreadCrumb } from "primereact/breadcrumb";
 import { Button } from 'primereact/button';
 import { InputText } from "primereact/inputtext";
 import MenuLeft from "../../components/Menu/MenuLeft";
+import DeviceService from "../../services/DeviceService";
 
 
 export default class CreateDevice extends React.Component{
 
-    constructor(props){
-        super(props);
-        this.state = {
+   state = {
             items:[{ label: 'Dispositivos', url:"/devices" }, { label: 'Cadastrar'}],
     
             home: {icon: 'pi pi-home ', url: '/' },
@@ -56,7 +55,11 @@ export default class CreateDevice extends React.Component{
             errorTipo:''
         }
        
-    }
+        constructor(){
+            super();
+            this.service = new DeviceService();
+        }
+
     checkFilamento(e){
         let _filamentos =[document.getElementsByName(e)] ;
         if (e.checked)
@@ -152,11 +155,6 @@ export default class CreateDevice extends React.Component{
             a.classList.add('p-invalid')
             this.setState({errorData: frasePadrao})
         }
-        const data = new Date(this.state.dataDeNascimento);
-        const dataAtual = new Date();
-        const diferensaEmMS = dataAtual - data;
-        // eslint-disable-next-line no-unused-vars
-        const anos = diferensaEmMS / (1000 * 60 * 60 * 24 * 365.25); 
         if(disparo !== 0){
             this.state.toast.show(msgError);
 
@@ -187,18 +185,18 @@ export default class CreateDevice extends React.Component{
         this.state.toast.show({ severity: 'warn', summary: 'Regeitado', detail: 'Cadastro não Aceito', life: 3000 });
     };
 
-    salvar = () =>{
-        const dataOriginal = this.state.dataDeManu;
-        const data = new Date(dataOriginal);
+     salvar = () =>{
+            const dataOriginal = this.state.dataDeManu;
+            const data = new Date(dataOriginal);
 
-        const dia = data.getDate();
-        const mes = data.getMonth() + 1;
-        const ano = data.getFullYear();
+            const dia = data.getDate();
+            const mes = data.getMonth() + 1;
+            const ano = data.getFullYear();
 
         //Formata o mes antes de mandar para o back
         console.log("tamanho do mes", mes.size )
         const dataFormatada = `${dia.toString().padStart(2, '0')}/${mes.toString().padStart(2, '0')}/${ano.toString().padStart(2, '0')}`;
-        this.service.creat(
+        this.service.create(
              {
                 dataDeManu: dataFormatada,
                 codigo: this.state.codigo,
@@ -330,15 +328,15 @@ export default class CreateDevice extends React.Component{
                     <br/>
                     <div className="input-texts">
                         <div className="flex align-items-center">
-                            <Checkbox inputId="ingredient1" name="filamentos" value="PLA" onChange={this.checkFilamento('PLA')} />
+                            <Checkbox inputId="ingredient1" name="filamentos" value="PLA" checked={this.checkFilamento('PLA')}/>
                             <label htmlFor="ingredient1" className="ml-2">PLA</label>
                         </div>
                         <div className="flex align-items-center">
-                             <Checkbox inputId="ingredient2" name="filamentos" value="ABS" onChange={this.checkFilamento('ABS')} />
+                             <Checkbox inputId="ingredient2" name="filamentos" value="ABS" checked={this.checkFilamento('ABS')}/>
                             <label htmlFor="ingredient2" className="ml-2">ABS</label>
                         </div>
                         <div className="flex align-items-center">
-                            <Checkbox inputId="ingredient3" name="filamentos" value="PET" onChange={this.checkFilamento('PET')}/>
+                            <Checkbox inputId="ingredient3" name="filamentos" value="PET" checked={this.checkFilamento('PET')}/>
                             <label htmlFor="ingredient3" className="ml-2">PET</label>
                         </div>
                     </div>
