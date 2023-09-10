@@ -9,7 +9,7 @@ import UpdateUser from "../screens/updateUser/UpdateUser";
 import CreateUser from "../screens/createUser/CreateUser";
 import ListUsers from "../screens/listUsers/ListUsers";
 import CreateDevice from "../screens/CreateDevices/CreateDevice";
-import ListDevices from "../screens/listDevices/ListDevices";
+import ListDevice from "../screens/listDevices/ListDevice";
 
 function AppRouts(){
     return(
@@ -21,7 +21,7 @@ function AppRouts(){
                 <Route element={<CreateUser/>} path="/createUser"></Route>
                 <Route element={<UpdateUser/>} path="/updateUser/:id"></Route>
                 <Route element={<CreateDevice/>} path="/createDevice"></Route>
-                <Route element={<ListDevices/>} path="/devices"></Route>
+                <Route element={<ListDevice/>} path="/devices"></Route>
                 
            </Routes>
         </Router>
