@@ -10,6 +10,8 @@ import CreateUser from "../screens/createUser/CreateUser";
 import ListUsers from "../screens/listUsers/ListUsers";
 import CreateDevice from "../screens/CreateDevices/CreateDevice";
 import ListDevice from "../screens/listDevices/ListDevice";
+import ListInsumos from "../screens/listInsumos/ListInsumos";
+import CreateInsumo from "../screens/createInsumo/CreateInsumos";
 
 function AppRouts(){
     return(
@@ -22,6 +24,8 @@ function AppRouts(){
                 <Route element={<UpdateUser/>} path="/updateUser/:id"></Route>
                 <Route element={<CreateDevice/>} path="/createDevice"></Route>
                 <Route element={<ListDevice/>} path="/devices"></Route>
+                <Route element={<CreateInsumo/>} path="/createInsumos"></Route>
+                <Route element={<ListInsumos/>} path="/insumos"></Route>
                 
            </Routes>
         </Router>

@@ -31,7 +31,7 @@ export default class ListUsers extends React.Component{
 
         associates:[
             {
-                associateId:'',
+                id:'',
                 contaAcesso:{
                     id:'',
                     nome:'',
@@ -158,8 +158,9 @@ export default class ListUsers extends React.Component{
         return new Promise(resolve => setTimeout(resolve, ms));
       };
     
-      delete = (associateId) =>{
-        this.service.delete(associateId)
+      delete = (id) =>{
+        this.validarTipo();
+        this.service.delete(id)
             .then(async (response) =>{
                 this.state.toast.show({ severity: 'success', summary: 'Sucesso', detail: 'Cadastro Excluido Com Sucesso' });
                 await this.delay(2000);
@@ -169,8 +170,9 @@ export default class ListUsers extends React.Component{
             })
     }
 
-    editar = (associateId) => {
-        window.location.href = `/updateUser/${associateId}`;    
+    editar = (id) => {
+        this.validarTipo();
+        window.location.href = `/updateUser/${id}`;    
         
     }
 
@@ -185,8 +187,9 @@ export default class ListUsers extends React.Component{
 
 
     
-    confirm = async (associateId) => {
-        this.setState({associateId: associateId})
+    confirm = async (id) => {
+       
+        this.setState({id: id})
         // eslint-disable-next-line no-unused-vars
         const a = document.getElementsByClassName('p-button p-component p-confirm-dialog-reject p-button-text')
         confirmDialog({
@@ -234,7 +237,7 @@ export default class ListUsers extends React.Component{
                             title="Filtrar" severity="warning" raised />
                     </div>
                         
-                    </div>
+                </div>
                    
                         <div className="filtragem">
                             <span className="p-input-icon-left">

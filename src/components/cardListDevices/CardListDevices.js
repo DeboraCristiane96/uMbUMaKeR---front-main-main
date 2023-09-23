@@ -2,6 +2,10 @@
 import React from "react";
 import { Card } from "primereact/card";
 import { Button } from "primereact/button";
+
+import { Image } from 'primereact/image';
+
+        
 import "./CardListDevices.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -17,11 +21,11 @@ export default (props) => {
         <Card>
           <div className="left">
             <div classImg="divImg">
-              <p>img</p>
+              <Image src="/imgsTest/impressora3d.png" alt="Image" width="80" height="60" />
             </div>
 
             <div className="divModelo">
-              <label className="lb">Impressora</label>
+              <label>Impressora</label>
               <br />
               <p>{device.modelo}</p>
             </div>

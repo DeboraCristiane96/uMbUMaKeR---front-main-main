@@ -1,0 +1,32 @@
+.lb{
+    color: #0b7726;
+    margin-top: -0.7rem;
+    font-size: 3vh;
+    font-weight: bold;
+    margin-left: 20rem;
+}
+
+.nome{
+    color: black;
+    font-weight: bold;
+    font-size: 3vh;
+}
+.p02{
+    margin-top: 2.5rem;
+    margin-left: -1rem;
+    font-size: 2vh;
+    font-weight: bold;
+    color: #bd1414;
+}
+
+.p03{
+    margin-top: 1.6rem;
+    margin-left: -6rem;
+    font-size: 2vh;
+    font-weight: bold;
+    color: #184118;
+}
+.icon{
+    margin-top: -0.7rem;
+    margin-left: 20rem;
+}

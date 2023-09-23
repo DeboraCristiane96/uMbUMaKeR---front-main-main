@@ -8,36 +8,29 @@ import { faTrashAlt, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (props) => {
   const rows = props.associates.map((associate) => {
-    if (associate.contaAcesso.id === "") {
-      <Card>
-        <div id="status" className="center">
-          <p>SEM INFORMAÇÃO</p>
-        </div>
-      </Card>;
-    }
+
     return (
       <div className="card">
         <Card>
           <div className="left">
             <div className="divNome">
-              <label className="lb">Nome</label>
+              <label className="lbNome">Nome</label>
               <p> {associate.contaAcesso.nome}</p>
             </div>
             <div className="divEmail">
-              <label className="lb">Email</label>
+              <label className="lbEmail">Email</label>
               <p>{associate.contaAcesso.email}</p>
             </div>
             <div className="divTelefone">
-              <label className="lb">Telefone</label>
+              <label className="lbTel">Telefone</label>
               <p>{associate.contaAcesso.telefone}</p>
             </div>
             <div className="divLinkWhatsapp">
-              <label className="lb">Link Whatsapp</label>
+              <label className="lbWht">Link Whatsapp</label>
               <p>{associate.contaAcesso.linkWhatsapp}</p>
             </div>
             <div className="divQrCode">
-              <label className="lb">QrCode</label>
-              <br />
+              <label className="lbQr">QrCode</label>
               <p>QrCode</p>
             </div>
           </div>

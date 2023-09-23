@@ -21,7 +21,7 @@ export default function MenuLeft() {
         {
           label: "INSUMOS",
           command: () => {
-            window.location.hash = "/fileupload";
+            window.location.href= "/insumos";
           },
         },
         {

@@ -13,20 +13,19 @@ import AssociateService from "../../services/AssociateService";
 import ManagerService from "../../services/ManagerService";
 import TutorService from "../../services/TutorService";
 
-import "./UpdateUser.css";
 
 import MenuLeft from "../../components/Menu/MenuLeft";
 
-export default class updateUser extends React.Component {
+export default class updateInsumos extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       items: [
-        { label: "Associados", url: "/associates" },
-        { label: "Atualizar Cadastrar" },
+        { label: "Listagem", url: "/insumos" },
+        { label: "Entrada / Saída" },
       ],
       home: { icon: "pi pi-home ", url: "/" },
-      
+
       associates: [
         {
           associateId: "",
@@ -248,13 +247,14 @@ export default class updateUser extends React.Component {
             <div className="input-texts">
               <div className="input-um">
                 <label htmlFor="nome">Nome</label>
-
                 <InputText
                   id="nome"
                   className="borderColorEdit"
                   type="text"
-                  onChangeText={(nome) => this.setState({nome})}
                   value={this.state.nome}
+                  onChange={(e) => {
+                    this.setState({ nome: e.target.value });
+                  }}
                 />
                 {this.state.error && (
                   <span style={{ color: "red" }}>{this.state.error}</span>
@@ -269,9 +269,10 @@ export default class updateUser extends React.Component {
                   id="email"
                   className="borderColorEdit"
                   type="text"
-                  onChangeText={(email) => this.setState({email})}
                   value={this.state.email}
-                  
+                  onChange={(e) => {
+                    this.setState({ email: e.target.value });
+                  }}
                 />
                 {this.state.errorEmail && (
                   <span style={{ color: "red" }}>{this.state.errorEmail}</span>
@@ -286,9 +287,10 @@ export default class updateUser extends React.Component {
                   id="senha"
                   className="borderColorEdit"
                   type="text"
-                  onChangeText={(senha) => this.setState({senha})}
                   value={this.state.senha}
-                  
+                  onChange={(e) => {
+                    this.setState({ senha: e.target.value });
+                  }}
                 />
                 {this.state.error && (
                   <span style={{ color: "red" }}>{this.state.error}</span>

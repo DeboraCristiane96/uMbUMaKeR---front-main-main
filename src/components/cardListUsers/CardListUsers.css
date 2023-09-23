@@ -8,14 +8,14 @@
 }
 
 .divTipo{
-    margin-left: 3px;
-    margin-right: 20px;
+    margin-left: 1rem;
+    margin-right: 10em;
 }
 .divNome{
     margin-left: 20px;
     margin-right: 20px;
 }
-.divEmail{
+.divEmail {
     margin-left: 20px;
     margin-right: 20px;
 }
@@ -38,7 +38,32 @@
     font-weight: bold;
     font-size: 3vh;
 }
-.lb{
+.lbNome{
+    display: flex;
+    color: #0b7726;
+    font-size: 3vh;
+    font-weight: bold;
+}
+
+.lbEmail{
+
+    color: #0b7726;
+    font-size: 3vh;
+    font-weight: bold;
+}
+.lbTel{
+
+    color: #0b7726;
+    font-size: 3vh;
+    font-weight: bold;
+}
+.lbWht{
+    color: #0b7726;
+    font-size: 3vh;
+    font-weight: bold;
+}
+
+.lbQr{
     color: #0b7726;
     font-size: 3vh;
     font-weight: bold;
@@ -63,6 +88,6 @@
     position: fixed;
     top: 0;
     right: 0;
-    margin-right: 25px;
-    margin-top: 25px;
+    margin-right: 4vh;
+    margin-top: 2.5vh;
 }

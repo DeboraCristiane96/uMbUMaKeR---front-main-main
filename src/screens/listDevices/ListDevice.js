@@ -43,12 +43,11 @@ export default class ListDevice extends React.Component {
   }
 
   async componentDidMount() {
-    await this.service
-      .findAll("")
+    await this.service.findAll("")
       .then((response) => {
-        const associates = response.data;
+        const divice = response.data;
 
-        this.setState({ associates });
+        this.setState({ divice });
         console.log(response);
       })
       .catch((error) => {
@@ -60,7 +59,7 @@ export default class ListDevice extends React.Component {
   setActiveIndex = () => {};
   detalhes = async () => {
     confirmDialog({
-      message: "DEtalhes do Dispositivo!",
+      message: "Detalhes do Dispositivo!",
       icon: "pi pi-info-circle",
       acceptClassName: "p-button-danger",
 
@@ -105,7 +104,7 @@ export default class ListDevice extends React.Component {
       detail: "Cadastro Excluido",
       life: 3000,
     });
-    this.delete(this.state.associates.associateId);
+    this.delete(this.state.devices.deviceId);
   };
 
   reject = () => {
@@ -117,8 +116,8 @@ export default class ListDevice extends React.Component {
     });
   };
 
-  confirm = async (associateId) => {
-    this.setState({ associateId: associateId });
+  confirm = async (deviceId) => {
+    this.setState({ deviceId: deviceId });
     // eslint-disable-next-line no-unused-vars
     const a = document.getElementsByClassName(
       "p-button p-component p-confirm-dialog-reject p-button-text"
@@ -152,7 +151,7 @@ export default class ListDevice extends React.Component {
               <BreadCrumb model={this.state.items} home={this.state.home} />
               <br />
               <div className="divCreat">
-                <a href="/createDevices">
+                <a href="/createDevice">
                   <Button className="btCreat" severity="warning" raised>
                     <FontAwesomeIcon
                       icon={faPlus}

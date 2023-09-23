@@ -14,6 +14,9 @@ import CreateUser from "./screens/createUser/CreateUser";
 import ListUsers from "./screens/listUsers/ListUsers";
 import CreateDevice from "./screens/CreateDevices/CreateDevice";
 import ListDevice from "./screens/listDevices/ListDevice";
+import CreateInsumos from "./screens/createInsumo/CreateInsumos";
+import ListInsumos from "./screens/listInsumos/ListInsumos";
+import UpdateInsumos from "./screens/updateInsumos/UpdateInsumos";
 
 function App() {
   return (
@@ -25,7 +28,10 @@ function App() {
         <Route element={<CreateUser />} path="/createUser" />
         <Route element={<UpdateUser />} path="/updateUser/:id" />
         <Route element={<CreateDevice />} path="/createDevice" />
-        <Route element={<ListDevice />} path="/devices" />
+        <Route element={<ListDevice/>} path="/devices" />
+        <Route element={<CreateInsumos/>} path="/createInsumos" />
+        <Route element={<ListInsumos/>} path="/insumos" />
+        <Route element={<UpdateInsumos/>} path="/updateInsumos" />
       </Routes>
     </div>
   );

@@ -7,31 +7,27 @@
     height: 6vh;
 }
 
-#picture{
-    flex-direction: row-reverse;
-    color: rgb(13, 65, 33);
-    margin: 10px;
-}
-.input-texts #seletor-tipo{
+.input-texts #seletor{
     display: flex;
     margin-top: 2vh;
     height: 6vh;
 }
-.flexalign-items-center .input-um{
+
+.input-texts .input-um{
     margin-right: 2vw;
 }
-.input-texts .input-um{
+
+.input-texts .input-dois{
+    width: 15vw;
     margin-right: 2vw;
 }
 
 .input-texts{
     width: 15vw;
 }
-.input-texts .input-dois{
-    width: 15vw;
-    margin-right: 2vw;
-}
+
 .bts{
+    display: flex;
     flex-direction: row-reverse;
    
 }
@@ -43,4 +39,9 @@
     color: red;
     flex-direction: column;
     margin-top: 50px;
+}
+
+.input-texts .input-um-qnt{
+    display: flex;
+    margin-right: 2vw;
 }

@@ -1,10 +1,11 @@
+/* eslint-disable react/no-direct-mutation-state */
 import React from "react";
 
 import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 
 import { Toast } from "primereact/toast";
 
-import { Checkbox } from "primereact/checkbox";
+import GrupoChekBox from "../../components/checkBox/GrupoChekBox" ;
 
 import { Dropdown } from "primereact/dropdown";
 
@@ -14,6 +15,8 @@ import { InputText } from "primereact/inputtext";
 import MenuLeft from "../../components/Menu/MenuLeft";
 import DeviceService from "../../services/DeviceService";
 
+
+
 export default class CreateDevice extends React.Component {
   state = {
     items: [{ label: "Dispositivos", url: "/devices" }, { label: "Cadastrar" }],
@@ -22,14 +25,17 @@ export default class CreateDevice extends React.Component {
 
     devices: [
       {
-        tipoSelecionado: "",
-        dataDeManu: "",
+        
+        deviceid:"",
+        img:"",
+        dataUltManu: "",
         codigo: "",
         modelo: "",
         tempMax: "",
         eixoX: "",
         eixoY: "",
         eixoZ: "",
+        tipoDispositivo: "",
         filamentosSelecionados: [],
       },
     ],
@@ -41,10 +47,10 @@ export default class CreateDevice extends React.Component {
       { label: "DLP", value: "DLP" },
       { label: "CANETA 3D", value: "CANETA 3D" },
     ],
+    
     toast: "",
 
     msgDeErro: "",
-    errorData: "",
     errorCod: "",
     errorMod: "",
     errorTemp: "",
@@ -59,107 +65,64 @@ export default class CreateDevice extends React.Component {
     this.service = new DeviceService();
   }
 
-  checkFilamento(e) {
-    let _filamentos = [document.getElementsByName(e)];
-    if (e.checked) _filamentos.push(e.value);
-    else _filamentos.splice(_filamentos.indexOf(e.value), 1);
+  
 
-    console.log(this.filamentosSelecionados);
-  }
+  addImg = ()=>{
+      
+     
+    
+    console.log("add img");
 
-  checkFilamentos(e) {
-    let filamentos = document.getElementsByName(e);
-    for (var i = 0; i < filamentos.length; i++) {
-      if (filamentos[i].checked) {
-        console.log("filamentos selecionados" + filamentos[i].value);
-        this.filamentosSelecionados.push(filamentos[i].value);
-      }
-    }
-    console.log(this.filamentosSelecionados);
   }
 
   delay = (ms) => {
     return new Promise((resolve) => setTimeout(resolve, ms));
   };
 
-  // Validar se os campos estão preenchidos corretamente
-  validar = () => {
-    let msgError = {
-      severity: "error",
-      summary: "Corrija os Erros a Baixo",
-      detail: "Campos não podem ser nulos",
-    };
-    let frasePadrao = "Esse Campo é Obrigatorio";
-    let disparo = 0;
+  salvar = () => {
+    const dataOriginal = this.state.dataDeManu;
+    const data = new Date(dataOriginal);
 
-    this.setState({ errorMod: "" });
-    this.setState({ errorCod: "" });
-    this.setState({ errorTemp: "" });
-    this.setState({ errorEX: "" });
-    this.setState({ errorEY: "" });
-    this.setState({ errorEZ: "" });
-    this.setState({ errorTipo: "" });
-    this.setState({ errorData: "" });
-
-    //Pre Validação do codigo
-    if (this.state.codigo === "") {
-      disparo++;
-      let a = document.getElementById("cod");
-      a.classList.add("p-invalid");
-      this.setState({ errorCod: frasePadrao });
-    }
-
-    if (this.state.modelo === "") {
-      disparo++;
-      let a = document.getElementById("modelo");
-      a.classList.add("p-invalid");
-      this.setState({ errorMod: frasePadrao });
-    }
-
-    if (this.state.tempMax === "") {
-      disparo++;
-      let a = document.getElementById("temp");
-      a.classList.add("p-invalid");
-      this.setState({ errorTemp: frasePadrao });
-    }
-
-    //Pre Validação do eixo X
-    if (this.state.eixoX === "") {
-      disparo++;
-      let a = document.getElementById("eX");
-      a.classList.add("p-invalid");
-      this.setState({ errorEX: frasePadrao });
-    }
-
-    //Pre Validação do eixo Y
-    if (this.state.eixoY === "") {
-      disparo++;
-      let a = document.getElementById("eY");
-      a.classList.add("p-invalid");
-      this.setState({ errorEY: frasePadrao });
-    }
-
-    //Pre Validação de eixo Z
-    if (this.state.eixoZ === "") {
-      disparo++;
-      let a = document.getElementById("eZ");
-      a.classList.add("p-invalid");
-      this.setState({ errorEZ: frasePadrao });
-    }
-    //Pre Validação de Data de Manutenção
-    if (this.state.dataDeManu === "") {
-      disparo++;
-      let a = document.getElementById("dataM");
-      a.classList.add("p-invalid");
-      this.setState({ errorData: frasePadrao });
-    }
-    if (disparo !== 0) {
-      this.state.toast.show(msgError);
-    } else {
-      this.confirm();
-    }
+    const dia = data.getDate();
+    const mes = data.getMonth();
+    const ano = data.getFullYear();
+    console.log("tamanho do mes1", mes.size);
+   
+    const dataFormatada =`${ano.toString().padStart(2, "0")}-${mes.toString().padStart(2, "0")}-${dia.toString().padStart(2, "0")}`;
+     
+   
+    
+    this.service
+      .create({
+        img: this.state.img,
+        dataUltManu: dataFormatada,
+        codigo: this.state.codigo,
+        modelo: this.state.modelo,
+        tempMax: this.state.tempMax,
+        eixoX: this.state.email,
+        eixoY: this.state.eixoY,
+        eixoZ: this.state.eixoZ,
+        tipoDispositivo: this.state.tipoSelecionado,
+      })
+      .then(async (response) => {
+        this.state.toast.show({
+          severity: "success",
+          summary: "Sucesso",
+          detail: "Salvo Com Sucesso",
+        });
+        await this.delay(2000);
+        window.location.href = `/devices`;
+      })
+      .catch((error) => {
+        this.state.toast.show({
+          severity: "error",
+          summary: "Erro",
+          detail: "Erro ao Salvar",
+        });
+        console.log(error);
+      });
   };
-  // Po up para velidar se realmente deseja
+
   confirm = async () => {
     confirmDialog({
       message: "Você Realmente quer Cadastrar?",
@@ -189,62 +152,91 @@ export default class CreateDevice extends React.Component {
       life: 3000,
     });
   };
-
-  salvar = () => {
-    const dataOriginal = this.state.dataDeManu;
-    const data = new Date(dataOriginal);
-
-    const dia = data.getDate();
-    const mes = data.getMonth() + 1;
-    const ano = data.getFullYear();
-
-    //Formata o mes antes de mandar para o back
-    console.log("tamanho do mes", mes.size);
-    const dataFormatada = `${dia.toString().padStart(2, "0")}/${mes
-      .toString()
-      .padStart(2, "0")}/${ano.toString().padStart(2, "0")}`;
-    this.service
-      .create({
-        dataDeManu: dataFormatada,
-        codigo: this.state.codigo,
-        modelo: this.state.modelo,
-        tempMax: this.state.tempMax,
-        eixoX: this.state.email,
-        eixoY: this.state.eixoY,
-        eixoZ: this.state.eixoZ,
-        tipoSelecionado: this.state.tipoSelecionado,
-      })
-      .then(async (response) => {
-        this.state.toast.show({
-          severity: "success",
-          summary: "Sucesso",
-          detail: "Cadastro realizado Com Sucesso",
-        });
-        await this.delay(2000);
-        window.location.href = `/devices`;
-      })
-      .catch((error) => {
-        this.state.toast.show({
-          severity: "error",
-          summary: "Erro",
-          detail: "Erro ao Cadastrar",
-        });
-        this.state.toast.show({
-          severity: "error",
-          summary: "Erro",
-          detail: error.response.data,
-        });
-        console.log(error.response.data);
-      });
+ // Validar se os campos estão preenchidos corretamente
+ validar = () => {
+  let msgError = {
+    severity: "error",
+    summary: "Corrija os Erros a Baixo",
+    detail: "Campos não podem ser nulos",
   };
+  let frasePadrao = "Esse Campo é Obrigatorio";
+  let disparo = 0;
 
+  this.setState({ errorMod: "" });
+  this.setState({ errorCod: "" });
+  this.setState({ errorTemp: "" });
+  this.setState({ errorEX: "" });
+  this.setState({ errorEY: "" });
+  this.setState({ errorEZ: "" });
+  this.setState({ errorTipo: "" });
+
+
+  //Pre Validação do codigo
+  if (this.state.codigo === "") {
+    disparo++;
+    let a = document.getElementById("cod");
+    a.classList.add("p-invalid");
+    this.setState({ errorCod: frasePadrao });
+  }
+
+  if (this.state.modelo === "") {
+    disparo++;
+    let a = document.getElementById("modelo");
+    a.classList.add("p-invalid");
+    this.setState({ errorMod: frasePadrao });
+  }
+
+  if (this.state.tempMax === "") {
+    disparo++;
+    let a = document.getElementById("temp");
+    a.classList.add("p-invalid");
+    this.setState({ errorTemp: frasePadrao });
+  }
+
+  //Pre Validação do eixo X
+  if (this.state.eixoX === "") {
+    disparo++;
+    let a = document.getElementById("eX");
+    a.classList.add("p-invalid");
+    this.setState({ errorEX: frasePadrao });
+  }
+
+  //Pre Validação do eixo Y
+  if (this.state.eixoY === "") {
+    disparo++;
+    let a = document.getElementById("eY");
+    a.classList.add("p-invalid");
+    this.setState({ errorEY: frasePadrao });
+  }
+
+  //Pre Validação de eixo Z
+  if (this.state.eixoZ === "") {
+    disparo++;
+    let a = document.getElementById("eZ");
+    a.classList.add("p-invalid");
+    this.setState({ errorEZ: frasePadrao });
+  }
+  //Pre Validação de Data de Manutenção
+  if (this.state.dataDeManu === "") {
+    disparo++;
+    let a = document.getElementById("dataM");
+    a.classList.add("p-invalid");
+    this.setState({ errorData: frasePadrao });
+  }
+  if (disparo !== 0) {
+    this.state.toast.show(msgError);
+  } else {
+    this.confirm();
+  }
+};
+// Po up para velidar se realmente deseja
+  
   render() {
     return (
       <>
         <MenuLeft />
         <div className="container">
           <div className="header">
-            {/* Toast: Usado para mostrar mensagem de alerta  */}
             <Toast ref={(el) => (this.state.toast = el)} />
 
             {/* BreadCrumb: Usado para o menu de navegaçao que fica ao lado do bt de salvar */}
@@ -266,48 +258,33 @@ export default class CreateDevice extends React.Component {
             />
           </div>
           {/* Começas os Campos  */}
+          <div className="bts"> 
+            <div className="bt">
+              <input type="file" accept="image/*" 
+              value={this.state.img}
+              onChange={(e) => {
+                this.setState({ img: e.target.value });
+              }}/>
+            </div>
+              
+          </div>
+    
 
-          <div className="input-um">
+          <div className="input-dois">
             <br />
-            <label htmlFor="dataM">Data de Manutenção</label>
+            <label htmlFor="dataUltManu">Ultima Manutenção</label>
             <br />
             <InputText
-              id="dataM"
+              id="dataUltManu"
               className="borderColorEdit input-cidade"
               type="date"
-              value={this.state.dataDeManu}
+              value={this.state.dataUltManu}
               onChange={(e) => {
-                this.setState({ dataDeManu: e.target.value });
+                this.setState({ dataUltManu: e.target.value });
               }}
             />
-
-            {/* usado para mostrar a msg de erro, caso tenha */}
-            {this.state.errorData && (
-              <span style={{ color: "red" }}>{this.state.errorData}</span>
-            )}
           </div>
-
-          <div className="input-texts">
-            <div className="input-um">
-              <label htmlFor="cod">Código</label>
-              <br />
-              <InputText
-                id="cod"
-                className="borderColorEdit"
-                type="text"
-                value={this.state.codigo}
-                onChange={(e) => {
-                  this.setState({ codigo: e.target.value });
-                }}
-              />
-
-              {/* usado para mostrar a msg de erro, caso tenha */}
-              {this.state.errorNome && (
-                <span style={{ color: "red" }}>{this.state.errorNome}</span>
-              )}
-            </div>
-          </div>
-
+         
           <div className="input-texts">
             <div className="input-um">
               <label htmlFor="modelo">Modelo</label>
@@ -349,139 +326,69 @@ export default class CreateDevice extends React.Component {
               )}
             </div>
           </div>
-          <div className="input-um">Eixos: </div>
           <br />
+
           <div className="input-texts">
-            <label htmlFor="eX"> X</label>
-            <InputText
-              id="eX"
-              className="borderColorEdit"
-              type="text"
-              value={this.state.eixoX}
-              onChange={(e) => {
-                this.setState({ eixoX: e.target.value });
-              }}
-            />
+            <div className="input-um">
 
-            {/* usado para mostrar a msg de erro, caso tenha */}
-            {this.state.errorEX && (
-              <span style={{ color: "red" }}>{this.state.errorEX}</span>
-            )}
+            <label htmlFor="eX">Eixo X </label>
+              <InputText
+                id="eX"
+                className="borderColorEdit"
+                type="text"
+                value={this.state.eixoX}
+                onChange={(e) => {
+                  this.setState({ eixoX: e.target.value });
+                }}
+              />
 
-            <label htmlFor="eY"> Y</label>
-            <InputText
-              id="eY"
-              className="borderColorEdit"
-              type="text"
-              value={this.state.eixoY}
-              onChange={(e) => {
-                this.setState({ eixoY: e.target.value });
-              }}
-            />
+              {/* usado para mostrar a msg de erro, caso tenha */}
+              {this.state.errorEX && (
+                <span style={{ color: "red" }}>{this.state.errorEX}</span>
+              )}
+            <label htmlFor="eY">Eixo Y </label>
+              <InputText
+                id="eY"
+                className="borderColorEdit"
+                type="text"
+                value={this.state.eixoY}
+                onChange={(e) => {
+                  this.setState({ eixoY: e.target.value });
+                }}
+              />
 
-            {/* usado para mostrar a msg de erro, caso tenha */}
-            {this.state.errorEY && (
-              <span style={{ color: "red" }}>{this.state.errorEY}</span>
-            )}
+              {/* usado para mostrar a msg de erro, caso tenha */}
+              {this.state.errorEY && (
+                <span style={{ color: "red" }}>{this.state.errorEY}</span>
+              )}
 
-            <label htmlFor="eZ"> Z</label>
-            <InputText
-              id="eZ"
-              className="borderColorEdit"
-              type="text"
-              value={this.state.eixoZ}
-              onChange={(e) => {
-                this.setState({ eixoZ: e.target.value });
-              }}
-            />
-            {/* usado para mostrar a msg de erro, caso tenha */}
-            {this.state.errorEZ && (
-              <span style={{ color: "red" }}>{this.state.errorEZ}</span>
-            )}
+              <label htmlFor="eZ">Eixo Z </label>
+                <InputText
+                  id="eZ"
+                  className="borderColorEdit"
+                  type="text"
+                  value={this.state.eixoZ}
+                  onChange={(e) => {
+                    this.setState({ eixoZ: e.target.value });
+                  }}
+                />
+                {/* usado para mostrar a msg de erro, caso tenha */}
+                {this.state.errorEZ && (
+                  <span style={{ color: "red" }}>{this.state.errorEZ}</span>
+                )}
+            </div>
+            </div>
+          <br />  
+          <div>
+            <GrupoChekBox/>
           </div>
-          <br />
-          <div>FILAMENTOS SUPORTADOS</div>
-          <br />
-          <div className="input-texts">
-            <div className="flex align-items-center">
-              <Checkbox
-                inputId="ingredient1"
-                name="filamentos"
-                value="PLA"
-                checked={this.checkFilamento("PLA")}
-              />
-              <label htmlFor="ingredient1" className="ml-2">
-                PLA
-              </label>
-            </div>
-            <div className="flex align-items-center">
-              <Checkbox
-                inputId="ingredient2"
-                name="filamentos"
-                value="ABS"
-                checked={this.checkFilamento("ABS")}
-              />
-              <label htmlFor="ingredient2" className="ml-2">
-                ABS
-              </label>
-            </div>
-            <div className="flex align-items-center">
-              <Checkbox
-                inputId="ingredient3"
-                name="filamentos"
-                value="PET"
-                checked={this.checkFilamento("PET")}
-              />
-              <label htmlFor="ingredient3" className="ml-2">
-                PET
-              </label>
-            </div>
-          </div>
-          <br />
-          <div className="input-texts">
-            <div className="flex align-items-center">
-              <Checkbox
-                inputId="ingredient4"
-                name="filamentos"
-                value="HIP"
-                onChange={this.checkFilamento("HIP")}
-              />
-              <label htmlFor="ingredient4" className="ml-2">
-                HIP
-              </label>
-            </div>
-            <div className="flex align-items-center">
-              <Checkbox
-                inputId="ingredient4"
-                name="filamentos"
-                value="TPU"
-                onChange={this.checkFilamento("TPU")}
-              />
-              <label htmlFor="ingredient4" className="ml-2">
-                TPU
-              </label>
-            </div>
-            <div className="flex align-items-center">
-              <Checkbox
-                inputId="ingredient4"
-                name="filamentos"
-                value="ASA"
-                onChange={this.checkFilamento("ASA")}
-              />
-              <label htmlFor="ingredient4" className="ml-2">
-                ASA
-              </label>
-            </div>
-          </div>
-
-          <br />
           <br />
           <div className="input-texts">
             <Dropdown
               id="seletor-tipo"
-              value={this.state.tipoSelecionado}
+              value={this.state.tipoDispositivo}
               options={this.state.tipos}
-              onChange={(e) => this.setState({ tipoSelecionado: e.value })}
+              onChange={(e) => this.setState({ tipoDispositivo: e.value })}
               placeholder="TIPO"
             />
             {/* usado para mostrar a msg de erro, caso tenha */}
