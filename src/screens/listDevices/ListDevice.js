@@ -20,17 +20,20 @@ export default class ListDevice extends React.Component {
   state = {
     items: [{ label: "Dispositivos", url: "/devices" }],
     home: { icon: "pi pi-home ", url: "/" },
+
     deviceId: "",
+
     devices: [{
-        id:"",
-        dataM: "",
-        codigo: "",
-        modelo: "",
-        tempMax: "",
-        tipo: "",
-        eixoX: "",
-        eixoY: "",
-        eixoZ: "",
+
+      id:"",
+      ultimaManutencao: "",
+      modelo: "",
+      temperaturaMaxima: "",
+      eixoX: "",
+      eixoY: "",
+      eixoZ: "",
+      tipoDispositivo: "",
+      filamentosSelecionados: [],
       },
     ],
     token: "",
@@ -43,11 +46,13 @@ export default class ListDevice extends React.Component {
   }
 
   async componentDidMount() {
+
     await this.service.findAll("")
+
       .then((response) => {
         const divice = response.data;
-
         this.setState({ divice });
+        
         console.log(response);
       })
       .catch((error) => {

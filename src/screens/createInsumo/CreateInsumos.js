@@ -26,17 +26,18 @@ export default class CreateInsumo extends React.Component {
         { label: "Insumos", url: "/insumos" },
         { label: "Cadastrar" },
       ],
+      
       home: { icon: "pi pi-home ", url: "/" },
+      
+      insumoId: "",
 
       insumos: [
         {
-          insumoId: "",
+          id:"",
           nome: "",
           quantidadeTotal:"",
           quantidadeMinimaEstoque:"",
-          quantidadeDiasAlertaVencimento:"",
-          armario:null,
-          nicho:null
+          quantidadeDiasAlertaVencimento:""
         },
       ],
 
@@ -57,7 +58,19 @@ export default class CreateInsumo extends React.Component {
       super();
       this.service = new InsumoService();
     }
-
+    async teste(){
+      await this.service.findAll("")
+      .then((response) => {
+        const insumo = response.data;
+        this.setState({ insumo });
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log("erro!");
+        console.log(error.response);
+      });
+    }
+    
   delay = (ms) => {
     return new Promise((resolve) => setTimeout(resolve, ms));
   };
@@ -67,11 +80,9 @@ export default class CreateInsumo extends React.Component {
       .create({
         nome: this.state.nome,
         quantidadeTotal: this.state.quantidadeTotal,
-        quantidadeMinimaEstoque:this.state.quantidadeMinimaEstoque,
-        quantidadeDiasAlertaVencimento:this.state.quantidadeDiasAlertaVencimento,
+        quantidadeMinimaEstoque: this.state.quantidadeMinimaEstoque,
+        quantidadeDiasAlertaVencimento: this.state.quantidadeDiasAlertaVencimento,
         unidadeMedida: this.state.unidadeMedida,
-        armario:this.state.armario,
-        nicho:this.state.nicho,
        
       })
       .then(async (response) => {
@@ -89,6 +100,7 @@ export default class CreateInsumo extends React.Component {
           summary: "Erro",
           detail: "Erro ao Salvar",
         });
+       
         console.log(error);
       });
   };
@@ -216,47 +228,16 @@ export default class CreateInsumo extends React.Component {
                 this.setState({quantidadeMinimaEstoque: e.target.value})} mode="decimal" showButtons min={0} max={10000} />
                 </div>
             </div>
-
-            <div className="input-texts">
-                <div className="input-um">
-                  <label htmlFor="qntTotal">Armário</label>
-                  <InputText
-                    id="armario"
-                    className="borderColorEdit"
-                    type="text"
-                    value={this.state.armario}
-                    onChange={(e) => {
-                      this.setState({ armario: e.target.value });
-                    }}
-                  />
-                </div>
-            </div>
-
-            <div className="input-texts">
-            
-              <div className="input-um">
-              <label htmlFor="nicho">Nicho</label>
-                  <InputText
-                    id="nicho"
-                    className="borderColorEdit"
-                    type="text"
-                    value={this.state.nicho}
-                    onChange={(e) => {
-                      this.setState({ nicho: e.target.value });
-                    }}
-                  />
-              </div>
-            </div>
             <div className="bts">
-              <div className="bt">
+              <div className="btS">
                 <Button
-                  label="Salvar"
+                  label="SALVAR"
                   severity="warning"
                   raised
                   onClick={this.validar}
                 />
               </div>
-              <div className="bt">
+              <div className="btS">
                 <a href="/insumos">
                   <Button label="CANCELAR"></Button>
                 </a>

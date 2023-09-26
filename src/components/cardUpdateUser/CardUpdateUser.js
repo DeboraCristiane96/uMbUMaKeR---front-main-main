@@ -7,7 +7,6 @@ import './cardUpdateUser.css'
 export default props=>{
         
         return(
-
             <div>                
                 
                 <div className="input-texts">

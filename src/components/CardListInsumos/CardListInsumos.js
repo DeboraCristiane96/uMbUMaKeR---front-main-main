@@ -11,7 +11,7 @@ import { faTrashAlt, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (props) => {
   const rows = props.insumos.map((insumo) => {
-
+    
     return (
       <div className="card01">
         <Card>
@@ -22,7 +22,7 @@ export default (props) => {
             </div>
             
             <div className="p02">
-              <p>{10} {insumo.unidadeMedida} / {insumo.quantidadeDiasAlertaVencimento} Dias</p>
+              <p>{0} {insumo.unidadeMedida} / {insumo.quantidadeDiasAlertaVencimento} Dias</p>
             </div>
             
             <div className="lb">

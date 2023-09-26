@@ -33,12 +33,13 @@
 }
 .bts{
     flex-direction: row-reverse;
-   
 }
-.bts .bt{
-    flex-direction: row-reverse;
+.btS{
+    margin-right: 1vw;
+    margin-top: -50rem;
+    
+}
 
-}
 .error{
     color: red;
     flex-direction: column;

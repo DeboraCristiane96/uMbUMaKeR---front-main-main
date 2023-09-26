@@ -29,7 +29,7 @@ export default class ListUsers extends React.Component{
         items:[{label: 'Associados', url:"/associates" }],
         home: {icon: 'pi pi-home ', url: '/' },
 
-        associates:[
+        associates: [
             {
                 id:'',
                 contaAcesso:{

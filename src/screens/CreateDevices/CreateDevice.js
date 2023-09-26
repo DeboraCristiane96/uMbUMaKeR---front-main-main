@@ -5,8 +5,6 @@ import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 
 import { Toast } from "primereact/toast";
 
-import GrupoChekBox from "../../components/checkBox/GrupoChekBox" ;
-
 import { Dropdown } from "primereact/dropdown";
 
 import { BreadCrumb } from "primereact/breadcrumb";
@@ -22,20 +20,21 @@ export default class CreateDevice extends React.Component {
     items: [{ label: "Dispositivos", url: "/devices" }, { label: "Cadastrar" }],
 
     home: { icon: "pi pi-home ", url: "/" },
-
+    
+    deviceid:"",
     devices: [
       {
         
-        deviceid:"",
+        id:"",
         img:"",
-        dataUltManu: "",
+        ultimaManutencao: "",
         codigo: "",
         modelo: "",
-        tempMax: "",
+        temperaturaMaxima: "",
         eixoX: "",
         eixoY: "",
         eixoZ: "",
-        tipoDispositivo: "",
+        
         filamentosSelecionados: [],
       },
     ],
@@ -47,6 +46,7 @@ export default class CreateDevice extends React.Component {
       { label: "DLP", value: "DLP" },
       { label: "CANETA 3D", value: "CANETA 3D" },
     ],
+    tipo: "",
     
     toast: "",
 
@@ -83,15 +83,15 @@ export default class CreateDevice extends React.Component {
     this.service
       .create({
         img: this.state.img,
-        dataUltManu: this.state.dataDeManu,
+        ultimaMnautencao: this.state.ultimaMnautencao,
         codigo: this.state.codigo,
         modelo: this.state.modelo,
-        tempMax: this.state.tempMax,
+        temperaturaMaxima: this.state.temperaturaMaxima,
         eixoX: this.state.eixoX,
         eixoY: this.state.eixoY,
         eixoZ: this.state.eixoZ,
         filamentosSelecionados: this.state.filamentosSelecionado,
-        tipoDispositivo: this.state.tipoSelecionado,
+        tipo: this.state.tipo,
       })
       .then(async (response) => {
         this.state.toast.show({
@@ -256,9 +256,9 @@ export default class CreateDevice extends React.Component {
               id="dataUltManu"
               className="borderColorEdit input-cidade"
               type="date"
-              value={this.state.dataUltManu}
+              value={this.state.ultimaManutencao}
               onChange={(e) => {
-                this.setState({ dataUltManu: e.target.value });
+                this.setState({ ultimaManutencao: e.target.value });
               }}
             />
           </div>
@@ -291,9 +291,9 @@ export default class CreateDevice extends React.Component {
                 id="temp"
                 className="borderColorEdit"
                 type="text"
-                value={this.state.tempMax}
+                value={this.state.temperaturaMaxima}
                 onChange={(e) => {
-                  this.setState({ tempMax: e.target.value });
+                  this.setState({ temperaturaMaxima: e.target.value });
                 }}
               />
 
@@ -357,15 +357,14 @@ export default class CreateDevice extends React.Component {
             </div>
           <br />  
           <div>
-            <GrupoChekBox/>
           </div>
           <br />
           <div className="input-texts">
             <Dropdown
               id="seletor-tipo"
-              value={this.state.tipoDispositivo}
+              value={this.state.tipo}
               options={this.state.tipos}
-              onChange={(e) => this.setState({ tipoDispositivo: e.value })}
+              onChange={(e) => this.setState({ tipo: e.value })}
               placeholder="TIPO"
             />
             {/* usado para mostrar a msg de erro, caso tenha */}
@@ -385,7 +384,6 @@ export default class CreateDevice extends React.Component {
               onClick={this.validar}
             />
           </div>
-
           <div className="bt">
             <a href="/devices">
               <Button label="CANCELAR"></Button>
@@ -394,5 +392,5 @@ export default class CreateDevice extends React.Component {
         </div>
       </>
     );
-  }
+  };
 }

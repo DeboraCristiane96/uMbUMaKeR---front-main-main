@@ -1,6 +1,6 @@
 import ApiService from "../services/ApiService";
 
-export default class TutorService extends ApiService{
+export default class InsumoService extends ApiService{
     constructor(){
         super('/api/umbumaker/insumos')
     }

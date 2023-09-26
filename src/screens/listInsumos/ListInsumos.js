@@ -26,6 +26,7 @@ export default class ListInsumos extends React.Component {
     home: { icon: "pi pi-home ", url: "/" },
 
     insumoId:"",
+
     insumos: [
       {
         id: "",
@@ -45,7 +46,7 @@ export default class ListInsumos extends React.Component {
       {
        
         id: "",
-        nome: "",
+        nome: "nome",
         quantidadeTotal:"",
         quantidadeMinimaEstoque:"",
         quantidadeDiasAlertaVencimento:"",
@@ -77,7 +78,8 @@ export default class ListInsumos extends React.Component {
     super();
     this.service = new InsumoService();
   }
-  
+ 
+
   async componentDidMount() {
     await this.service.findAll("")
       .then((response) => {
@@ -85,6 +87,7 @@ export default class ListInsumos extends React.Component {
         this.setState({ insumo });
         console.log(response);
       })
+      
       .catch((error) => {
         console.log("erro!");
         console.log(error.response);
@@ -101,6 +104,9 @@ export default class ListInsumos extends React.Component {
     this.setState({insumos:lista})
     console.log("teste",this.state.insumos)
 }
+
+
+ 
 
 
 
@@ -146,7 +152,7 @@ filtroStatus = () =>{
   editar = (insumoId) => {
     window.location.href = `/updateInsumo/${insumoId}`;
   };
-
+  
   accept = () => {
     this.state.toast.show({
       severity: "info",
@@ -266,7 +272,7 @@ filtroStatus = () =>{
                   label="FD-CNC"
                 />
                 <Button
-                  onClick={() => 0}
+                  onClick={(this.test)}
                   className="p-button-outlined mb-5"
                   label="FD-3D"
                 />

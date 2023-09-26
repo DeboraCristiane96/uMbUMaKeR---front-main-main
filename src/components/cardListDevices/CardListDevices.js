@@ -16,6 +16,7 @@ import {
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (props) => {
   const rows = props.devices.map((device) => {
+    console.log(device.nome)
     return (
       <div className="card">
         <Card>
@@ -25,6 +26,7 @@ export default (props) => {
             </div>
             <div className="divModelo">
               <p>{device.modelo}</p>
+              
             </div>
             <div className="divTipo">
               <p>{device.tipo}</p>
@@ -33,7 +35,7 @@ export default (props) => {
           <div className="card-butons">
             <Button
               className="bt"
-              onClick={(e) => props.detalhes(device.deviceId)}
+              onClick={(e) => props.detalhes(device.id)}
               style={{ color: "#0b6429" }}
               title="Detalhes"
               severity="warning"
@@ -44,7 +46,7 @@ export default (props) => {
 
             <Button
               className="bt"
-              onClick={(e) => props.editar(device.deviceId)}
+              onClick={(e) => props.editar(device.id)}
               title="Editar"
               severity="warning"
               aria-label="Editar"
