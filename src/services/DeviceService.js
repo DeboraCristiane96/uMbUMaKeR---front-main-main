@@ -2,25 +2,28 @@ import ApiService from "./ApiService";
 
 export default class DeviceService extends ApiService {
   constructor() {
-    super("/api/umbumaker/Dispositivos");
+    super("/api/umbumaker/dispositivos");
+  }
+  create(obj){
+    return this.post('',obj);
+  }
+  update(id,obj){
+      return this.patch(`/${id}`, obj);
   }
 
-  create(obj) {
-    return this.post("", obj);
+  delete(id){
+      return super.delete(`/${id}`);
   }
 
-  update(id, obj) {
-    return this.patch(`/${id}`, obj);
+  findById(id){
+      return this.get(`/${id}`);
   }
 
-  delete(id) {
-    return super.delete(`/${id}`);
+  find(params){
+      return this.get(`/${params}`);
   }
 
-  find(params) {
-    return this.get(`${params}`);
-  }
-  findAll() {
-    return this.get(``);
+  findAll(){
+      return this.get(``);
   }
 }

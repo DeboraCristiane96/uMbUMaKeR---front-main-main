@@ -4,47 +4,35 @@ import { Card } from "primereact/card";
 import { Button } from "primereact/button";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashCanArrowUp } from "@fortawesome/free-solid-svg-icons";
-import { faCalendarDay, faCubes} from "@fortawesome/free-solid-svg-icons";
 
-import { faRotate} from "@fortawesome/free-solid-svg-icons";
-import { faTrashAlt, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { faCalendarDay, faCubes} from "@fortawesome/free-solid-svg-icons";
+import "./CardZonas.css";
+import { faTrashAlt, faPenToSquare,faUsers } from "@fortawesome/free-solid-svg-icons";
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (props) => {
-  const rows = props.zona.map((zona) => {
+  const rows = props.zonas.map((zona) => {
     return (
-      <div className="card">
+      <div className="cardZona">
         <Card>
           <div className="left">
-            <div className="nome">
+            <div className="lbNome">
               <p>{zona.nome}</p>
-              <FontAwesomeIcon icon={faTrashCanArrowUp} style={{color: "#d81313",}} />
             </div>
-            
-            <div className="lb">
-              <p>{zona.qntPessoas}</p>
-              
+            <div className="icone">
+              <FontAwesomeIcon icon={faUsers} style={{color: "#1f5122",}} />
             </div>
-            <div className="p03">
-              <p>{insumo.qntporcento} %</p>
+            <div className="lbPessoas">
+              <p> {zona.qntPessoas} Pessoas</p>
             </div>
-            
+           <div className="lbStatus">
+                  <p>{zona.status}</p>
+            </div>
           </div>
 
           <div className="card-butons">
-
-            <Button>
-                <FontAwesomeIcon icon={faCalendarDay} style={{color: "#2e511f",}} />
-            </Button>
-            <Button>
-                 <FontAwesomeIcon icon={faCubes} style={{color: "#22511f",}} />
-            </Button>
-            <Button>
-                <FontAwesomeIcon icon={faPenToSquare} style={{color: "#1f512b",}} />
-            </Button>
           <Button
               className="bt"
-              onClick={(e) => props.delete(insumo.id)}
+              onClick={(e) => props.delete(zona.id)}
               style={{ color: "#0b6429" }}
               title="Deletar"
               severity="warning"
@@ -53,25 +41,20 @@ export default (props) => {
               <FontAwesomeIcon icon={faTrashAlt} />
             </Button>
 
-            <Button
-              className="bt"
-              onClick={(e) => props.editar(insumo.id)}
-              title="Editar"
-              severity="warning"
-              aria-label="Editar">
-
-              <FontAwesomeIcon
-                icon={faPenToSquare}
-                style={{ color: "#0b6429" }}/>
-            </Button>
-
             <div>
-                <a href="/updateInsumos">
+                <a href="/updateZona">
                   <Button className="bt" aria-label="atualizar" severity="warning" raised title="atualizar"> 
-                    <FontAwesomeIcon icon={faRotate} style={{color: "#20511f",}} />
+                  <FontAwesomeIcon icon={faPenToSquare} style={{ color: "#0b6429" }}/>
                   </Button>
                 </a>
               </div>
+              <Button  className="bt">
+                 <FontAwesomeIcon icon={faCubes} style={{color: "#22511f",}} />
+            </Button>
+              <Button  className="bt">
+                <FontAwesomeIcon icon={faCalendarDay} style={{color: "#2e511f",}} />
+            </Button>
+           
           </div>
         </Card>
       </div>

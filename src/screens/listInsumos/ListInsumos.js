@@ -25,13 +25,15 @@ export default class ListInsumos extends React.Component {
     items: [{ label: "Insumos", url: "/insumos" }],
     home: { icon: "pi pi-home ", url: "/" },
 
+    insumoId:"",
     insumos: [
       {
-        insumoId: "",
+        id: "",
         nome: "",
         quantidadeTotal:"",
         quantidadeMinimaEstoque:"",
         quantidadeDiasAlertaVencimento:"",
+        unidadeMedida:"",
       },
     ],
     token: "",
@@ -42,12 +44,12 @@ export default class ListInsumos extends React.Component {
     insumoFiltro: [
       {
        
-        insumoId: "",
+        id: "",
         nome: "",
         quantidadeTotal:"",
         quantidadeMinimaEstoque:"",
         quantidadeDiasAlertaVencimento:"",
-
+        unidadeMedida:""
       },
     ],
 
@@ -75,17 +77,16 @@ export default class ListInsumos extends React.Component {
     super();
     this.service = new InsumoService();
   }
-
+  
   async componentDidMount() {
     await this.service.findAll("")
       .then((response) => {
         const insumo = response.data;
-
         this.setState({ insumo });
         console.log(response);
       })
       .catch((error) => {
-        console.log("errrrrror");
+        console.log("erro!");
         console.log(error.response);
       });
   }

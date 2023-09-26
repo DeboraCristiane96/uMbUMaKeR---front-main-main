@@ -1,5 +1,7 @@
-.card{
-    margin-bottom: 1vw;
+.card01{
+   
+    margin-top: 2rem;
+    margin-bottom: 2vw;
     border-color: #0c9213;
 }
 
@@ -12,8 +14,8 @@
     margin-right: 10em;
 }
 .divNome{
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-left: 25px;
+    margin-right: 25px;
 }
 .divEmail {
     margin-left: 20px;
@@ -39,20 +41,18 @@
     font-size: 3vh;
 }
 .lbNome{
-    display: flex;
+    margin-left: -9rem;
     color: #0b7726;
     font-size: 3vh;
-    font-weight: bold;
+    font-weight: bold
 }
 
 .lbEmail{
-
     color: #0b7726;
     font-size: 3vh;
     font-weight: bold;
 }
 .lbTel{
-
     color: #0b7726;
     font-size: 3vh;
     font-weight: bold;

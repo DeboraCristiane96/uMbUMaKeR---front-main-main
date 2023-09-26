@@ -1,0 +1,20 @@
+
+.input-texts{
+    display: flex;
+}
+
+.bts{
+
+    display: flex;
+    margin-top: 25rem;
+    flex-direction: row-reverse;
+   
+}
+.bts .bt{
+    margin: 10px;
+}
+.error{
+    color: red;
+    flex-direction: column;
+    margin-top: 50px;
+}

@@ -15,9 +15,10 @@ export default function Menu(){
            <div className="butoes">
                 <Button id='bt' label="DASHBOARDS" severity="secondary" text />
                 <MenuItem href='/insumos' label='INSUMOS'></MenuItem>
-                <Button id='bt' label="ZONAS" severity="secondary" text />
+                <MenuItem href='/zonas' label='ZONAS'></MenuItem>
                 <MenuItem href='/devices' label='DISPOSITIVOS'></MenuItem>
                 <MenuItem href='/associates' label='ASSOCIADOS'></MenuItem>
+
                 
            </div>
         </div>

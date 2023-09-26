@@ -34,7 +34,7 @@ export default class CreateInsumo extends React.Component {
           nome: "",
           quantidadeTotal:"",
           quantidadeMinimaEstoque:"",
-          quantidadeDiasAlertaVencimento:8,
+          quantidadeDiasAlertaVencimento:"",
           armario:null,
           nicho:null
         },

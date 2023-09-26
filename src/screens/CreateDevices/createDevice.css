@@ -37,7 +37,7 @@
 }
 .bts .bt{
     flex-direction: row-reverse;
-    margin: 10px;
+
 }
 .error{
     color: red;

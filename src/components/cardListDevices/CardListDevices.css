@@ -1,4 +1,6 @@
 .card{
+    height:2rem;
+    margin-top: 2rem;
     margin-bottom: 1vw;
     border-color: #0c9213;
 }

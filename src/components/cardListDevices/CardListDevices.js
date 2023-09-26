@@ -20,20 +20,20 @@ export default (props) => {
       <div className="card">
         <Card>
           <div className="left">
-            <div classImg="divImg">
+            <div className="divImg">
               <Image src="/imgsTest/impressora3d.png" alt="Image" width="80" height="60" />
             </div>
-
             <div className="divModelo">
-              <label>Impressora</label>
-              <br />
               <p>{device.modelo}</p>
+            </div>
+            <div className="divTipo">
+              <p>{device.tipo}</p>
             </div>
           </div>
           <div className="card-butons">
             <Button
               className="bt"
-              onClick={(e) => props.detalhes(device.id)}
+              onClick={(e) => props.detalhes(device.deviceId)}
               style={{ color: "#0b6429" }}
               title="Detalhes"
               severity="warning"
@@ -44,7 +44,7 @@ export default (props) => {
 
             <Button
               className="bt"
-              onClick={(e) => props.editar(device.id)}
+              onClick={(e) => props.editar(device.deviceId)}
               title="Editar"
               severity="warning"
               aria-label="Editar"
@@ -57,7 +57,7 @@ export default (props) => {
 
             <Button
               className="bt"
-              onClick={(e) => props.delete(device.id)}
+              onClick={(e) => props.delete(device.deviceId)}
               style={{ color: "#0b6429" }}
               title="Deletar"
               severity="warning"

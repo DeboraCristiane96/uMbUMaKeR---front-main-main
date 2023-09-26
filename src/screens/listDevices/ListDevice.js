@@ -16,17 +16,17 @@ import CardListDevices from "../../components/cardListDevices/CardListDevices";
 import DeviceService from "../../services/DeviceService";
 
 export default class ListDevice extends React.Component {
+  
   state = {
     items: [{ label: "Dispositivos", url: "/devices" }],
     home: { icon: "pi pi-home ", url: "/" },
-
-    devices: [
-      {
-        deviceId: "",
+    deviceId: "",
+    devices: [{
+        id:"",
         dataM: "",
         codigo: "",
         modelo: "",
-        tempM: "",
+        tempMax: "",
         tipo: "",
         eixoX: "",
         eixoY: "",

@@ -10,12 +10,12 @@ export default (props) => {
   const rows = props.associates.map((associate) => {
 
     return (
-      <div className="card">
+      <div className="card01">
         <Card>
           <div className="left">
-            <div className="divNome">
-              <label className="lbNome">Nome</label>
-              <p> {associate.contaAcesso.nome}</p>
+            <div className="divEmail">
+              <label className="lbEmail">Nome</label>
+              <p>{associate.contaAcesso.nome}</p>
             </div>
             <div className="divEmail">
               <label className="lbEmail">Email</label>

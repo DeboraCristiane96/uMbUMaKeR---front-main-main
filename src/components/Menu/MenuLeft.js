@@ -27,7 +27,7 @@ export default function MenuLeft() {
         {
           label: "ZONAS",
           command: () => {
-            window.location.hash = "/fileupload";
+            window.location.href = "/zonas";
           },
         },
         {

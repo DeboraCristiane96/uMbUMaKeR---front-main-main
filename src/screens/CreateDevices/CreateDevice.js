@@ -80,28 +80,17 @@ export default class CreateDevice extends React.Component {
   };
 
   salvar = () => {
-    const dataOriginal = this.state.dataDeManu;
-    const data = new Date(dataOriginal);
-
-    const dia = data.getDate();
-    const mes = data.getMonth();
-    const ano = data.getFullYear();
-    console.log("tamanho do mes1", mes.size);
-   
-    const dataFormatada =`${ano.toString().padStart(2, "0")}-${mes.toString().padStart(2, "0")}-${dia.toString().padStart(2, "0")}`;
-     
-   
-    
     this.service
       .create({
         img: this.state.img,
-        dataUltManu: dataFormatada,
+        dataUltManu: this.state.dataDeManu,
         codigo: this.state.codigo,
         modelo: this.state.modelo,
         tempMax: this.state.tempMax,
-        eixoX: this.state.email,
+        eixoX: this.state.eixoX,
         eixoY: this.state.eixoY,
         eixoZ: this.state.eixoZ,
+        filamentosSelecionados: this.state.filamentosSelecionado,
         tipoDispositivo: this.state.tipoSelecionado,
       })
       .then(async (response) => {
@@ -258,18 +247,7 @@ export default class CreateDevice extends React.Component {
             />
           </div>
           {/* Começas os Campos  */}
-          <div className="bts"> 
-            <div className="bt">
-              <input type="file" accept="image/*" 
-              value={this.state.img}
-              onChange={(e) => {
-                this.setState({ img: e.target.value });
-              }}/>
-            </div>
-              
-          </div>
-    
-
+         
           <div className="input-dois">
             <br />
             <label htmlFor="dataUltManu">Ultima Manutenção</label>
@@ -284,7 +262,6 @@ export default class CreateDevice extends React.Component {
               }}
             />
           </div>
-         
           <div className="input-texts">
             <div className="input-um">
               <label htmlFor="modelo">Modelo</label>

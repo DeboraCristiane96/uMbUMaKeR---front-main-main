@@ -13,25 +13,25 @@ export default (props) => {
   const rows = props.insumos.map((insumo) => {
 
     return (
-      <div className="card">
+      <div className="card01">
         <Card>
           <div className="left">
             <div className="nome">
-              <p> {insumo.nome}</p>
+              <p>{insumo.nome}</p>
               <FontAwesomeIcon icon={faTrashCanArrowUp} style={{color: "#d81313",}} />
             </div>
             
             <div className="p02">
-              <p>{insumo.quantidadeMinimaEstoque} {insumo.unidadeMedida} / {insumo.quantidadeDiasAlertaVencimento} Dias</p>
+              <p>{10} {insumo.unidadeMedida} / {insumo.quantidadeDiasAlertaVencimento} Dias</p>
             </div>
-
+            
             <div className="lb">
               <p>{insumo.quantidadeTotal} {insumo.unidadeMedida}</p>
               <FontAwesomeIcon icon={faCaretSquareUp } style={{color: "#1f5122",}} />
             </div>
 
             <div className="p03">
-              <p>{(insumo.quantidadeTotal * insumo.quantidadeTotal) / 100} % </p>
+              <p>{(insumo.quantidadeTotal * insumo.quantidadeMinimaEstoque) / 100} % </p>
             </div>
           </div>
 
@@ -61,8 +61,8 @@ export default (props) => {
             </Button>
 
             <div>
-                <a href="/updateInsumos">
-                  <Button className="bt" aria-label="atualizar" severity="warning" raised title="atualizar"> 
+                <a href="/entradaSaidaInsumos">
+                  <Button className="bt" aria-label="atualizar" severity="warning" raised title="Mostra Entrada e Saida"> 
                     <FontAwesomeIcon icon={faRotate} style={{color: "#20511f",}} />
                   </Button>
                 </a>
