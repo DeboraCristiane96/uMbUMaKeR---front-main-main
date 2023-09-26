@@ -24,7 +24,10 @@ export default function GrupoChekBox() {
             <br/>
             <div className="input-texts">
                 <div className="input-um">
-                    <Checkbox inputId="filamento1" name="suporte" value="PLA" onChange={onFilamentosChange} checked={filamentos.includes('PLA')} />
+                    <Checkbox inputId="filamento1" 
+                    name="suporte" value="PLA" 
+                    onChange={onFilamentosChange} 
+                    checked={filamentos.includes('PLA')} />
                     <label htmlFor="filamento1" className="ml-2">PLA</label>
                 </div>
                 <div className="input-um">

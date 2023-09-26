@@ -252,6 +252,7 @@ export default class CreateDevice extends React.Component {
             <br />
             <label htmlFor="dataUltManu">Ultima Manutenção</label>
             <br />
+            {/* verificar como esta sendo o valor de data  */}
             <InputText
               id="dataUltManu"
               className="borderColorEdit input-cidade"
