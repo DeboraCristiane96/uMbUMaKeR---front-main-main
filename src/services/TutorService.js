@@ -14,7 +14,7 @@ export default class TutorService extends ApiService{
     }
 
     delete(id){
-        return this.delete(`/${id}`);
+        return super.delete(`/${id}`);
     }
     
     findById(id){

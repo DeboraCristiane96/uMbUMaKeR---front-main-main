@@ -1,3 +1,4 @@
+
 /* eslint-disable no-undef */
 import React from "react";
 import { Card } from "primereact/card";
@@ -8,38 +9,38 @@ import { faTrashCanArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { faCaretSquareUp } from "@fortawesome/free-solid-svg-icons";
 import { faRotate} from "@fortawesome/free-solid-svg-icons";
 import { faTrashAlt, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (props) => {
-  const rows = props.insumos.map((insumo) => {
-    
+  const rows = props.insumos.map((insumos) => {
     return (
       <div className="card01">
         <Card>
-          <div className="left">
-            <div className="nome">
-              <p>{insumo.nome}</p>
-              <FontAwesomeIcon icon={faTrashCanArrowUp} style={{color: "#d81313",}} />
-            </div>
-            
-            <div className="p02">
-              <p>{0} {insumo.unidadeMedida} / {insumo.quantidadeDiasAlertaVencimento} Dias</p>
-            </div>
-            
-            <div className="lb">
-              <p>{insumo.quantidadeTotal} {insumo.unidadeMedida}</p>
-              <FontAwesomeIcon icon={faCaretSquareUp } style={{color: "#1f5122",}} />
-            </div>
-
-            <div className="p03">
-              <p>{(insumo.quantidadeTotal * insumo.quantidadeMinimaEstoque) / 100} % </p>
-            </div>
+          <div className="nomeZona">
+              <p>{insumos.nome}</p>
           </div>
+            <div className="qntTotal">
+              <p>{insumos.quantidadeTotal} {insumos.unidadeMedida}</p>
+            </div>
+              <div className="porcento">
+                  <p>{(insumos.quantidadeMinimaEstoque * insumos.quantidadeTotal) / 100} % </p>
+              </div>
+              <div className="icon01">
+                <FontAwesomeIcon  icon={faCaretSquareUp} style={{color: "#1f5122",}} /> 
+              </div>
+              
+            <div className="dias">
+              <p>{insumos.quantidadeDiasAlertaVencimento} Dias</p>
+            </div>
+            <div className="icon02">
+              <FontAwesomeIcon  icon={faTrashCanArrowUp} />
+            </div>
 
           <div className="card-butons">
 
           <Button
               className="bt"
-              onClick={(e) => props.delete(insumo.id)}
+              onClick={(e) => props.delete(insumos.codigo)}
               style={{ color: "#0b6429" }}
               title="Deletar"
               severity="warning"
@@ -50,20 +51,20 @@ export default (props) => {
 
             <Button
               className="bt"
-              onClick={(e) => props.editar(insumo.id)}
+              onClick={(e) => props.editar(insumos.codigo)}
               title="Editar"
               severity="warning"
               aria-label="Editar">
-
               <FontAwesomeIcon
                 icon={faPenToSquare}
                 style={{ color: "#0b6429" }}/>
+              
             </Button>
-
+              
             <div>
-                <a href="/entradaSaidaInsumos">
+                <a href="/updateInsumo">
                   <Button className="bt" aria-label="atualizar" severity="warning" raised title="Mostra Entrada e Saida"> 
-                    <FontAwesomeIcon icon={faRotate} style={{color: "#20511f",}} />
+                    <FontAwesomeIcon icon={faRotate} style={{color: "#20511f"}} />
                   </Button>
                 </a>
               </div>

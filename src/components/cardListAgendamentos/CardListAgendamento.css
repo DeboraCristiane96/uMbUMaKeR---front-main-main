@@ -1,0 +1,28 @@
+.card{
+    margin-top: 2rem;
+    margin-bottom: 2vw;
+    border-color: #0c9213;
+}
+.left{
+    display: flex;
+}
+
+.nome{
+    font-size: bold;
+    color: #0c9213;
+    margin-top: -3rem;
+    margin-left: 15rem;
+}
+.hInicial{
+    font-size: bold;
+    color: #0c9213;
+    margin-top: -3rem;
+    margin-left: -18rem;
+}
+
+.hTermino{
+    font-size: bold;
+    color: #0c9213;
+    margin-top: -2rem;
+    margin-left: -2.4rem;
+}

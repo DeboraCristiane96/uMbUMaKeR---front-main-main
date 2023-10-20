@@ -1,24 +1,22 @@
 .card{
+    display: flex;
     margin-top: 10vh;
     border-color: #0da13e;
 }
+
 .bt-filtro{
     height: 3.5em;
     margin-left: 1em;
     height: 3rem;
-
 }
 
 .filtragem{
     width: 25em; 
-    margin-top: 3em;
+    margin-top: -8em;
     align-items: center;
     
 }
 .input-status{
-    margin-top: 5em;
+    margin-top: -9em;
     margin-left: 25vw;
-}
-.menu-zonas1{
-    margin-top: 6rem;
 }

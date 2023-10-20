@@ -1,5 +1,7 @@
 /* eslint-disable react/no-direct-mutation-state */
+
 import React from "react"
+
 import { Toast } from "primereact/toast";
 import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 
@@ -11,19 +13,19 @@ import { Button } from "primereact/button";
 import ZonaService from "../../services/ZonaService";
 import MenuLeft from "../../components/Menu/MenuLeft";
 
-import "./CreateZona.css";
 
-export default class CreateZona extends React.Component {
+
+export default class CreateAgendamento extends React.Component {
 
     state = {
-        items: [{ label: "Zonas", url: "/zonas" }, { label: "Cadastrar" }],
+        items: [{ label: "Agendamento", url: "/zonaMM" }],
 
         home: { icon: "pi pi-home ", url: "/" },
 
-       zonas:[{
-        codigo:"",
+       zona:[{
+        zonaId:"",
         nome:"",
-        qtdPessoas: ""
+        qntPessoas: ""
        }],
        
        toast: "",
@@ -46,7 +48,7 @@ export default class CreateZona extends React.Component {
         await this.service
           .create({
             nome: this.state.nome,
-            qtdPessoas:this.state.qtdPessoas,
+            qntPessoas:this.state.qntPessoas,
           })
           .then(async (response) => {
             this.state.toast.show({
@@ -167,8 +169,8 @@ export default class CreateZona extends React.Component {
                     <div className="input-texts">
                     <div className="input-um">
                         <label htmlFor="qntTotal"></label>
-                        <InputNumber value={this.state.qtdPessoas} onValueChange={(e) => 
-                        this.setState({qtdPessoas: e.target.value})}placeholder="QUANTIDADE DE PESSOAS" mode="decimal" showButtons min={0} max={10000} />
+                        <InputNumber value={this.state.qntPessoas} onValueChange={(e) => 
+                        this.setState({qntPessoas: e.target.value})}placeholder="QUANTIDADE DE PESSOAS" mode="decimal" showButtons min={0} max={10000} />
                     </div>
                     </div>
             
@@ -183,7 +185,7 @@ export default class CreateZona extends React.Component {
               </div>
 
               <div className="bt">
-                <a href="/zonas">
+                <a href="/zonaMM">
                   <Button label="CANCELAR"></Button>
                 </a>
               </div>

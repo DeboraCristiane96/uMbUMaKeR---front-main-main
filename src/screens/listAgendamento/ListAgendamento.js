@@ -1,6 +1,6 @@
 /* eslint-disable react/no-direct-mutation-state */
 import React from "react";
-import "./ListDevices.css";
+
 import { Toast } from "primereact/toast";
 
 import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
@@ -9,33 +9,24 @@ import { BreadCrumb } from "primereact/breadcrumb";
 
 import { Button } from "primereact/button";
 import MenuLeft from "../../components/Menu/MenuLeft";
-
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { Dropdown } from "primereact/dropdown";
+import { faCalendarDay} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import CardListDevices from "../../components/cardListDevices/CardListDevices";
-import DeviceService from "../../services/DeviceService";
-import { Dialog } from 'primereact/dialog';
-
-export default class ListDevice extends React.Component {
+import ZonaService from "../../services/ZonaService";
+import "./ListAgendamento.css";
+import CardListAgendamento from "../../components/cardListAgendamentos/CardListAgendamento";
+export default class ListAgendamento extends React.Component {
   
   state = {
-    items: [{ label: "Dispositivos", url: "/devices" }],
+    items: [{ label: "Agendamentos", url: "/zonas" }],
     home: { icon: "pi pi-home ", url: "/" },
 
-    deviceId: "",
-
-    devices: [{
-
-      id:"",
-      ultimaManutencao: "",
-      modelo: "",
-      temperaturaMaxima: "",
-      eixoX: "",
-      eixoY: "",
-      eixoZ: "",
-      tipoDispositivo: "",
-      filamentosSelecionados: [],
-      visible:false
+    agenda: [{
+      codigo:0,
+      nome:"",
+      horaInicial: "",
+      horaTermino: "",
+      diaSemana: "",
       },
     ],
     token: "",
@@ -44,45 +35,33 @@ export default class ListDevice extends React.Component {
 
   constructor() {
     super();
-    this.service = new DeviceService();
+    this.service = new ZonaService();
   }
- 
 
-    async componentDidMount() {
-      await this.service.findAll("")
-          .then(response => {
-              const devices = response.data;
-              
-              this.setState({ devices });
-              console.log(response);
-          }
-          ).catch(error => {
-              console.log('falhou!');
-              console.log(error.response);
-          }
-      );
+  async componentDidMount() {
+    await this.service.findAll("")
+      .then((response) => {
+        const zonas = response.data;
+        this.setState({ zonas });
+        
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log("error");
+        console.log(error.response);
+      });
   }
 
   setActiveIndex = () => {};
-
-  detalhes = async () => {
-    <div className="card flex justify-content-center">
-    <Dialog header="Header"  style={{ width: '50vw' }} onHide={() => this.state.visible(true)}>
-        <p className="m-0">
-           ulla pariatur. 
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-        </p>
-    </Dialog>
-</div>
-    await this.delay(10);
-  };
+  
 
   delay = (ms) => {
     return new Promise((resolve) => setTimeout(resolve, ms));
   };
 
-  delete = (deviceId) => {
-    this.service.delete(deviceId)
+  delete = (codigo) => {
+    this.service
+      .delete(codigo)
       .then(async (response) => {
         this.state.toast.show({
           severity: "success",
@@ -101,8 +80,8 @@ export default class ListDevice extends React.Component {
       });
   };
 
-  editar = (deviceId) => {
-    window.location.href = `/updateDevice/${deviceId}`;
+  editar = (codigo) => {
+    window.location.href = `/updateAgendamento/${codigo}`;
   };
 
   accept = () => {
@@ -112,7 +91,7 @@ export default class ListDevice extends React.Component {
       detail: "Cadastro Excluido",
       life: 3000,
     });
-    this.delete(this.state.devices.deviceId);
+    this.delete(this.state.codigo);
   };
 
   reject = () => {
@@ -124,8 +103,8 @@ export default class ListDevice extends React.Component {
     });
   };
 
-  confirm = async (deviceId) => {
-    this.setState({ deviceId: deviceId });
+  confirm = async (codigo) => {
+    this.setState({ codigo: codigo });
     // eslint-disable-next-line no-unused-vars
     const a = document.getElementsByClassName(
       "p-button p-component p-confirm-dialog-reject p-button-text"
@@ -155,14 +134,36 @@ export default class ListDevice extends React.Component {
           />
 
           <div className="header">
+
             <div>
               <BreadCrumb model={this.state.items} home={this.state.home} />
               <br />
+              <div>
+              <br />
+              <div className="filtragem">
+                <span className="p-input-icon-left">
+                  <i className="pi pi-search " />
+                  <Dropdown
+                  value={this.state.nomeParaFiltro}
+                  options={this.state.nomeSelect}
+                  onChange={(e) => {
+                    this.setState({ nomeParaFiltro: e.value });
+                    
+                  }}placeholder="STATUS DE AGENDAMENTO"
+                />
+                </span>
+                 <Button className="bt-filtro" label="Filtrar" 
+                            onClick={this.filtro}
+                            title="Filtrar" severity="warning" raised />
+              </div>
+                  
+              
+            </div>
               <div className="divCreat">
-                <a href="/createDevice">
+                <a href="/agendarZona">
                   <Button className="btCreat" severity="warning" raised>
                     <FontAwesomeIcon
-                      icon={faPlus}
+                      icon={faCalendarDay}
                       style={{ color: "#0b6429" }}
                     />
                   </Button>
@@ -174,36 +175,40 @@ export default class ListDevice extends React.Component {
                 <Button
                   onClick={() => 0}
                   className="p-button-outlined mb-5"
-                  label="M"
+                  label="SEGUNDA"
                 />
                 <Button
                   onClick={() => 0}
                   className="p-button-outlined mb-5"
-                  label="RA"
+                  label="TERÇA"
                 />
                 <Button
                   onClick={() => 0}
                   className="p-button-outlined mb-5"
-                  label="FD-CNC"
+                  label="QUARTA-FEIRA"
                 />
                 <Button
                   onClick={() => 0}
                   className="p-button-outlined mb-5"
-                  label="FD-3D"
+                  label="QUINTA-FEIRA"
                 />
-                <hr />
+                <Button
+                  onClick={() => 0}
+                  className="p-button-outlined mb-5"
+                  label="SEXTA-FEIRA"
+                />
+                <hr/>
               </div>
               <br />
               <br />
             </div>
           </div>
 
-          <div className="devices">
-            <CardListDevices
-              devices={this.state.devices}
-              delete={this.confirm}
-              editar={this.editar}
-              detalhes={this.detalhes}
+          <div className="zonas">
+            <CardListAgendamento
+              agenda={this.state.agenda}
+              delete = {this.confirm}
+              editar = {this.editar}
             />
           </div>
         </div>

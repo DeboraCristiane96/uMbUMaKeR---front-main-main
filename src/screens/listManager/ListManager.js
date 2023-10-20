@@ -1,6 +1,8 @@
 /* eslint-disable react/no-direct-mutation-state */
 import React from "react";
-import './ListUsers.css';
+
+import './ListManager.css';
+
 import { Toast } from 'primereact/toast';
 
 import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
@@ -8,20 +10,19 @@ import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
 import { Dropdown } from 'primereact/dropdown';
 
 import { InputText } from "primereact/inputtext";
+
 import { BreadCrumb } from 'primereact/breadcrumb';
 
 import { Button } from 'primereact/button';
+
 import MenuLeft from "../../components/Menu/MenuLeft"
 
-import AssociateService from "../../services/AssociateService";
-import TutorService from "../../services/TutorService";
-import ManagerService from "../../services/ManagerService";
-import CardListUsers from "../../components/cardListUsers/CardListUsers";
+import CardListTutores from "../../components/cardListTutores/CardListTutores";
 
 import { faPlus} from '@fortawesome/free-solid-svg-icons'; 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default class ListUsers extends React.Component{
+export default class ListManager extends React.Component{
     
     constructor(props){
         super(props);
@@ -29,7 +30,7 @@ export default class ListUsers extends React.Component{
         items:[{label: 'Associados', url:"/associates" }],
         home: {icon: 'pi pi-home ', url: '/' },
        
-        associates: [
+        gestores: [
             {
                 contaAcesso:{
                     idContaAcesso: 0,
@@ -49,7 +50,7 @@ export default class ListUsers extends React.Component{
         toast:'',
         nomeParaFiltro:'',
         
-        associatesFiltro:[
+        gestoresFiltro:[
             {
                 idContaAcesso:'',
                 nome:'',
@@ -74,12 +75,11 @@ export default class ListUsers extends React.Component{
 }
  
 async componentDidMount() {
-    this.validarTipo();
     await this.service.findAll('')
         .then(response => {
-            const associates = response.data;
+            const gestores = response.data;
             
-            this.setState({ associates });
+            this.setState({gestores});
             console.log(response);
         }
         ).catch(error => {
@@ -88,64 +88,17 @@ async componentDidMount() {
         }
     );
 }
-
-    validarTipo = () => {
-        console.log('entrou no validar tipo');
-        if (this.state.tipoAssociate === 'ASSOCIADO') {
-            this.service = new AssociateService();
-            this.listAssociates();
-        } else if (this.state.tipoAssociate === 'GESTOR') {
-            this.service = new ManagerService();
-            this.listGestor();
-            console.log('entoru no if');
-        } else if (this.state.tipoAssociate === 'TUTOR') {
-            this.service = new TutorService();
-            this.listTutor();
-        }else{
-            this.service = new AssociateService();    
-            this.listAssociates();
-        }
-        
-    }
    
-    listAssociates = async () => {
-        await this.service.findAll("")
-            .then(response => {
-            const associates = response.data;
-            this.setState({ associates });
-        }).catch(error => {
-        });
-    }
-
-    listTutor = async () => {
-        await this.service.findAll("")
-        .then(response => {
-            const associates = response.data;
-            this.setState({ associates });
-        }).catch(error => {
-        });
-        
-    }
-
-    listGestor = async () => {
-        await this.service.findAll("")
-        .then(response => {
-            const associates = response.data;
-            this.setState({ associates });
-        }).catch(error => {
-        });
-        
-    }
     
     filtro = () =>{
         let lista = []
-        this.state.associates.forEach(element => {
+        this.state.gestores.forEach(element => {
             if(element.contaAcesso.nome === this.state.nomeParaFiltro){
                 lista.push(element);
             }
         });
-        this.setState({associates:lista})
-        console.log("teste",this.state.associates)
+        this.setState({tutores:lista})
+        console.log("teste",this.state.tutores)
     }
 
     limparFiltro = () =>{
@@ -184,7 +137,6 @@ async componentDidMount() {
 
     
     confirm = async (idContaAcesso) => {
-        this.validarTipo();
         this.setState({idContaAcesso: idContaAcesso})
         confirmDialog({
           
@@ -212,14 +164,29 @@ async componentDidMount() {
                  acceptLabel="Sim"
                  rejectLabel="Não"/>
 
-              <div className="header">
-                <div>
-                    <BreadCrumb model={this.state.items} home={this.state.home} />
-                <br />
-               
-                    <div className="filtragem">
-                        <span className="p-input-icon-left">
-                            <i  className="pi pi-search " />
+                <div className="header">
+                    <div>
+                        <BreadCrumb model={this.state.items} home={this.state.home} />
+                        <br/>
+                        <br/>
+                        <div className="input-texts">
+                        <Dropdown
+                        value={this.state.tipoAssociate}
+                        options={this.state.tipoAssociateSelectItems}
+                        onChange={e => {
+                            this.setState({ tipoAssociate: e.value });
+                        }}
+                        placeholder='TIPO'
+                        />
+                    <div>
+                        <Button className="bt-filtro" label="Filtrar" 
+                            onClick={this.validarTipo}
+                            title="Filtrar" severity="warning" raised />
+                    </div>
+                </div>
+                        <div className="filtragem">
+                            <span className="p-input-icon-left">
+                                <i  className="pi pi-search " />
                                 <InputText placeholder="PROCURAR"
                                 value= {this.state.nomeParaFiltro} 
                                 onChange={(e) => {this.setState({nomeParaFiltro: e.target.value }) }} />
@@ -233,19 +200,6 @@ async componentDidMount() {
                             onClick={this.limparFiltro}
                             title="Listar Todos" severity="warning" raised />
                         </div>
-                        <div className="input-status">
-                            <Dropdown
-                            value={this.state.tipoAssociate}
-                            options={this.state.tipoAssociateSelectItems}
-                            onChange={e => {
-                                this.setState({ tipoAssociate: e.value });
-                            }}
-                            placeholder='TIPO'
-                            />
-                            <Button className="bt-filtro" label="Filtrar" 
-                                onClick={this.validarTipo}
-                                title="Filtrar" severity="warning" raised />
-                         </div>
 
                         <div className="divCreat">
                             <a href="/createUser">
@@ -262,9 +216,9 @@ async componentDidMount() {
 
                 </div>
 
-                <div className="associates">
-                    <CardListUsers
-                        associates = {this.state.associates}
+                <div className="gestores">
+                    <CardListTutores
+                        gestores = {this.state.gestores}
                         delete = {this.confirm}
                         editar = {this.editar}
                     />

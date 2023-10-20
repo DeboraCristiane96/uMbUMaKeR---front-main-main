@@ -1,23 +1,36 @@
 .card{
-    height:2rem;
-    margin-top: 2rem;
-    margin-bottom: 1vw;
+    display: flex;
+  
+}
+.card .eixos{
+  
+    color: #0c9213;   
+    width: 15vw;
+    margin-right: 2vw;
+}
+
+.cardDevice{
+    margin-top: 4rem;
+    margin-bottom: 2vw;
     border-color: #0c9213;
 }
+
 
 .left{
     display: flex;
 }
 
 .divModelo{
+    margin-top: 4rem;
     color: black;
     font-weight: bold;
     font-size: 3vh;
-    margin-left: 20rem;
+    margin-left: 5rem;
     margin-right: 20px;
 }
 
 .divImg{
+    margin-top: 4rem;
     margin-left: 20px;
     margin-right: 20px;
 }

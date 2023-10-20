@@ -1,0 +1,30 @@
+.input{
+    margin-top: -1rem;
+    margin-left: 16rem;
+}
+
+.input-texts{
+    display: flex;
+}
+.input-texts input {    
+    margin-top: 2vh;
+    width: 25vw;
+    height: 6vh;
+}
+
+.input-texts #seletor-estado, .input-texts #seletor-tipo{
+    margin-top: 4vh;
+    height: 6vh;
+    align-items: center;
+}
+
+.input-texts .input-um{
+    margin-right: 2vw;
+}
+
+
+.input-texts .input-dois{
+    width: 15vw;
+    margin-right: 2vw;
+}
+
