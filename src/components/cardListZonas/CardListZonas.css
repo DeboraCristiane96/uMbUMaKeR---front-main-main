@@ -1,0 +1,34 @@
+.cardZona{
+    display: inline-flex;
+    padding: 10px;
+    margin-bottom: 1vw;
+    border-color: #0c9213;
+    border: 1px;
+}
+.lbNome{
+    font-size: bold;
+    color: #0c9213;
+    margin-top: 1rem;
+    margin-left: 1rem;
+}
+.icone{
+    font-size: 2vh;
+    margin-top: 1rem;
+    margin-left: 1rem;
+}
+.lbPessoas{
+    margin-top: -1.2rem;
+    margin-left: 3rem;
+    color: #0c9213;
+}
+
+.lbStatus{
+    color: #080808;
+    font-size: 2.5vh;
+    margin-top: -1rem;
+    margin-left: 25rem;
+
+}
+.bt{ 
+    margin-top: 5rem;
+}

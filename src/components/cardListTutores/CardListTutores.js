@@ -2,12 +2,12 @@
 import React from "react";
 import { Card } from "primereact/card";
 import { Button } from "primereact/button";
-import "./CardListUsers.css";
+import "./CardListTutores.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (props) => {
-  const rows = props.associates.map((associate) => {
+  const rows = props.tutoress.map((tutores) => {
 
     return (
       <div className="card01">
@@ -15,23 +15,23 @@ export default (props) => {
           <div className="left">
             <div className="divEmail">
               <label className="lbEmail">Nome</label>
-              <p>{associate.contaAcesso.nome}</p>
+              <p>{tutores.contaAcesso.nome}</p>
             </div>
             <div className="divEmail">
               <label className="lbEmail">Email</label>
-              <p>{associate.contaAcesso.email}</p>
+              <p>{tutores.contaAcesso.email}</p>
             </div>
             <div className="divTelefone">
               <label className="lbTel">Telefone</label>
-              <p>{associate.contaAcesso.telefone}</p>
+              <p>{tutores.contaAcesso.telefone}</p>
             </div>
             <div className="divLinkWhatsapp">
               <label className="lbWht">Link Whatsapp</label>
-              <p>{associate.contaAcesso.linkWhatsapp}</p>
+              <p>{tutores.contaAcesso.linkWhatsapp}</p>
             </div>
             <div className="divQrCode">
               <label className="lbQr">QrCode</label>
-              <p>{associate.contaAcesso.idContaAcesso}</p>
+              <p>{tutores.contaAcesso.idContaAcesso}</p>
             </div>
           </div>
 

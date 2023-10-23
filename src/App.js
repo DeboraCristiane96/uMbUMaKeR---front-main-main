@@ -16,10 +16,13 @@ import CreateDevice from "./screens/CreateDevices/CreateDevice";
 import ListDevice from "./screens/listDevices/ListDevice";
 import CreateInsumos from "./screens/createInsumo/CreateInsumos";
 import ListInsumos from "./screens/listInsumos/ListInsumos";
-import UpdateInsumos from "./screens/updateInsumos/UpdateInsumos";
+import UpdateInsumo from "./screens/updateInsumo/UpdateInsumo";
 import CreateZona from "./screens/createzonas/CreateZona";
 import ListZonas from "./screens/listZonas/ListZonas";
-
+import CreateAgendamento from "./screens/createAgendamento/AgendarZona";
+import ListAgendamento from "./screens/listAgendamento/ListAgendamento";
+import ListTutores from "./screens/listTutor/ListTutores";
+import ListManager from "./screens/listManager/ListManager";
 
 
 function App() {
@@ -29,15 +32,20 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/home" element={<Home />} />
         <Route element={<ListUsers />} path="/associates" />
+        <Route element={<ListTutores />} path="/tutores" />
+        <Route element={<ListManager />} path="/gestores" />
         <Route element={<CreateUser />} path="/createUser" />
-        <Route element={<UpdateUser />} path="/updateUser/:id" />
-        <Route element={<CreateDevice />} path="/createDevice" />
-        <Route element={<ListDevice/>} path="/devices" />
-        <Route element={<CreateInsumos/>} path="/createInsumos" />
+        <Route element={<UpdateUser />} path="/updateUser/:id"/>
+        <Route element={<CreateDevice />} path="/createDevice"/>
+        <Route element={<ListDevice/>} path="/devices"/>
+        <Route element={<CreateInsumos/>} path="/criarInsumos"/>
         <Route element={<ListInsumos/>} path="/insumos" />
-        <Route element={<UpdateInsumos/>} path="/updateInsumos" />
-        <Route element={<CreateZona/>} path="/createZona" />
-        <Route element={<ListZonas/>} path="/zonas" />
+        <Route element={<UpdateInsumo/>} path="/updateInsumo/:id"/>
+        <Route element={<CreateZona/>} path="/criarZona"/>
+        <Route element={<ListZonas/>} path="/zonas"></Route>
+        <Route element={<CreateAgendamento/>} path="/agendarZona"></Route>
+        <Route element={<ListAgendamento/>} path="/listAgendamento"></Route>
+        
       </Routes>
     </div>
   );

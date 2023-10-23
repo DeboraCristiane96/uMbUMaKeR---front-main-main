@@ -3,43 +3,33 @@
 }
 .input-texts input {    
     margin-top: 2vh;
+    width: 25vw;
     height: 6vh;
 }
 
-#picture{
-    flex-direction: row-reverse;
-    color: rgb(13, 65, 33);
-    margin: 10px;
-}
-.input-texts #seletor-tipo{
+.input-texts #seletor{
     display: flex;
     margin-top: 2vh;
     height: 6vh;
+    align-items: center;
 }
 
 .input-texts .input-um{
     margin-right: 2vw;
 }
 
- 
+.input-texts .input{
+    width: 15vw;
+}
+
 .input-texts .input-dois{
+    width: 15vw;
     margin-right: 2vw;
 }
-
-
 .bts{
+    display: flex;
     flex-direction: row-reverse;
 }
-.btS{
-    margin-right: 1vw;
-    margin-top: 20rem;
-    
+.bts .bt-save{
+    display: flex;
 }
-
-.error{
-    color: red;
-    flex-direction: column;
-    margin-top: 50px;
-}
-
-

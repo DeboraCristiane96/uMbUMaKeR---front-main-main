@@ -13,7 +13,13 @@ import AssociateService from "../../services/AssociateService";
 import ManagerService from "../../services/ManagerService";
 import TutorService from "../../services/TutorService";
 
+import {
+  showSuccessMessage,
+  showErrorMessage,
+} from "../../components/Toastr";
+
 import "./UpdateUser.css";
+
 
 import MenuLeft from "../../components/Menu/MenuLeft";
 
@@ -29,9 +35,9 @@ export default class updateUser extends React.Component {
       
       associates: [
         {
-          associateId: "",
+     
           contaAcesso: {
-            id: "",
+            idContaAcesso: 0,
             nome: "",
             email: "",
             senha: "",
@@ -82,61 +88,90 @@ export default class updateUser extends React.Component {
 
   componentDidMount() {
     const url = window.location.href;
-    const id = url.substring(url.lastIndexOf("/") + 1);
-    this.findId(id);
+    const idContaAcesso = url.substring(url.lastIndexOf('/') + 1);
+    this.findById(idContaAcesso);
   }
 
-  editar = async () => {
-    this.validarTipo();
-    await this.service
-      .update(this.associateId, {
-        nome: this.state.nome,
-        email: this.state.email,
-        senha: this.senha,
-        telefone: this.state.telefone,
-        ativo: this.state.ativo,
-        linkWhatsapp: this.state.linkWhatsapp,
-        tipoAssociate: this.tipoAssociate,
-      })
-      .then(async (response) => {
-        this.state.toast.show({
-          severity: "success",
-          summary: "Sucesso",
-          detail: "Atualizado Com Sucesso",
-        });
-        await this.delay(2000);
-        window.location.href = `/associates`;
+  findById = (idContaAcesso) => {
+    this.service.find(idContaAcesso)
+      .then((response) => {
+        const associado = response.data;
+        const idContaAcesso = associado.idContaAcesso;
+        const nome = associado.nome;
+        const email = associado.email;
+        const senha = associado.senha;
+        const telefone = associado.unidadeMedida;
+        const linkWhatsapp = associado.linkWhatsapp;
+        const ativo = associado.ativo;
+        const qrcode = associado.qrcode;
+        const tipoAssociate = associado.tipoAssociate;
+
+        this.setState({ idContaAcesso: idContaAcesso, nome: nome, email:email, senha:senha, telefone:telefone,linkWhatsapp:linkWhatsapp,ativo:ativo,qrcode:qrcode, tipoAssociate:tipoAssociate});
       })
       .catch((error) => {
-        this.state.toast.show({
-          severity: "error",
-          summary: "Erro",
-          detail: "Erro ao Atualizar",
-        });
+        console.log(error.response);
+      });
+  };
+ 
+  validate = () => {
+    const errors = [];
 
-        console.log(error);
+    if (!this.state.nome) {
+      errors.push("É obrigatório informar o nome!");
+    }
+    if (!this.state.email) {
+      errors.push("É obrigatório informar o email!");
+    }
+    if (!this.state.senha) {
+      errors.push("É obrigatório informar uma senha!");
+    }
+    if (!this.state.telefone) {
+      errors.push("É obrigatório informar o telefone!");
+    }
+    if (!this.state.linkWhatsapp) {
+      errors.push("É obrigatório informar o link do whatsapp!");
+    }
+    return errors;
+  };
+
+  put = () => {
+    const errors = this.validate();
+
+    if (errors.length > 0) {
+      errors.forEach((message, index) => {
+        showErrorMessage(message);
+      });
+      return false;
+    }
+
+    this.service
+      .update(this.state.idContaAcesso, {
+        nome: this.state.nome,
+        email: this.state.email,
+        senha: this.state.senha,
+        telefone:this.state.telefone,
+        linkWhatsapp: this.state.linkWhatsapp,
+        ativo: this.state.state.ativo,
+        qrcode: this.qrcode,
+        tipoAssociate: this.tipoAssociate
+      })
+      .then((Response) => {
+        showSuccessMessage("Insumo atualizado com sucesso!");
+        console.log(Response);
+        this.props.history.push("/listInsumos");
+      })
+      .catch((error) => {
+        showErrorMessage(error.response.data);
+        console.log(error.Response);
       });
   };
 
-  accept = () => {
-    this.state.toast.show({
-      severity: "info",
-      summary: "Confirmado",
-      detail: "Atualizado com Sucesso",
-      life: 3000,
-    });
-    this.editar();
+  cancel = () => {
+    this.props.history.push("/listInsumos");
   };
+  
 
-  reject = () => {
-    this.state.toast.show({
-      severity: "warn",
-      summary: "Regeitado",
-      detail: "Não foi Atualizado",
-      life: 3000,
-    });
-  };
-
+ 
   confirm = async (associateId) => {
     this.setState({ associateId: associateId });
     // eslint-disable-next-line no-unused-vars
@@ -154,73 +189,6 @@ export default class updateUser extends React.Component {
     await this.delay(10);
     document.getElementsByClassName("p-button-label")[7].textContent = "Sim";
     document.getElementsByClassName("p-button-label")[6].textContent = "Não";
-  };
-
-  validar = () => {
-    let msgError = {
-      severity: "error",
-      summary: "Corrija os Erros a Baixo",
-      detail: "Campos não podem ser nulos",
-    };
-    let disparo = 0;
-    if (this.state.nome === "") {
-      disparo++;
-      let a = document.getElementById("nome");
-      a.classList.add("p-invalid");
-      this.setState({ error: "Esse Campo é Obrigatorio" });
-    }
-
-    if (this.state.email === "") {
-      disparo++;
-
-      let a = document.getElementById("email");
-      a.classList.add("p-invalid");
-    }
-    const regex = /@/;
-    if (!regex.test(this.state.email)) {
-      this.setState({ errorEmail: "Esse Campo precisa ser um e-mail" });
-    }
-    if (this.state.senha === "") {
-      disparo++;
-      let a = document.getElementById("senha");
-      a.classList.add("p-invalid");
-    }
-
-    if (disparo !== 0) {
-      this.state.toast.show(msgError);
-    } else {
-      this.confirm();
-    }
-  };
-
-  findId = (id) => {
-    this.validarTipo();
-    this.service
-      .findById(`/${id}`)
-      .then((response) => {
-        const associate = response.data;
-        const id = associate.contaAcesso.id;
-        const nome = associate.contaAcesso.nome;
-        const email = associate.contaAcesso.email;
-        const senha = associate.contaAcesso.senha;
-        const telefone = associate.contaAcesso.telefone;
-        const ativo = associate.contaAcesso.ativo;
-        const linkWhatsapp = associate.contaAcesso.linkWhatsapp;
-        this.setState({
-          id: id,
-          nome: nome,
-          email: email,
-          senha: senha,
-          telefone: telefone,
-          ativo: ativo,
-          linkWhatsapp: linkWhatsapp,
-        });
-
-        console.log(this.state.associates, "ok");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
   };
 
   render() {
@@ -354,13 +322,16 @@ export default class updateUser extends React.Component {
                   label="SALVAR"
                   severity="warning"
                   raised
-                  onClick={this.validar}
+                  onClick={this.put}
                 />
               </div>
               <div className="bt">
-                <a href="/associates">
-                  <Button label="CANCELAR"></Button>
-                </a>
+              <Button
+                  label="CANCELAR"
+                  severity="warning"
+                  raised
+                  onClick={this.cancel}
+                />
               </div>
             </div>
           </div>

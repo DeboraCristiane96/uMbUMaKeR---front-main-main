@@ -1,29 +1,38 @@
 /* eslint-disable react/no-direct-mutation-state */
+
 import React from "react"
+import "./AgendarZona.css"
 import { Toast } from "primereact/toast";
 import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 
 import { InputText } from "primereact/inputtext";
-import { InputNumber } from 'primereact/inputnumber';
 
 import { BreadCrumb } from "primereact/breadcrumb";
 import { Button } from "primereact/button";
 import ZonaService from "../../services/ZonaService";
 import MenuLeft from "../../components/Menu/MenuLeft";
+import { faClock} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { InputSwitch } from "primereact/inputswitch";
+import { Calendar } from 'primereact/calendar';
 
-import "./CreateZona.css";
+import { InputTextarea } from 'primereact/inputtextarea';
+        
 
-export default class CreateZona extends React.Component {
+export default class AgendarZona extends React.Component {
 
     state = {
-        items: [{ label: "Zonas", url: "/zonas" }, { label: "Cadastrar" }],
+        items: [{ label: "Agendamento", url: "/zonaMM" }],
 
         home: { icon: "pi pi-home ", url: "/" },
 
-       zonas:[{
-        codigo:"",
+       zona:[{
+        zonaId:"",
         nome:"",
-        qtdPessoas: ""
+        qntPessoas: "",
+        checked:true,
+        dataInicio:"",
+        dataTermino:""
        }],
        
        toast: "",
@@ -32,6 +41,8 @@ export default class CreateZona extends React.Component {
     }    
         
     
+
+ 
 
     constructor() {
         super();
@@ -45,8 +56,10 @@ export default class CreateZona extends React.Component {
       salvar = async () => {
         await this.service
           .create({
-            nome: this.state.nome,
-            qtdPessoas:this.state.qtdPessoas,
+            checked: this.state.checked,
+            dataInicio:this.state.dataInicio,
+            dataTermino: this.state.dataTermino,
+            qntPessoas:this.state.qntPessoas,
           })
           .then(async (response) => {
             this.state.toast.show({
@@ -145,6 +158,7 @@ export default class CreateZona extends React.Component {
                       ></BreadCrumb>
                     </div>
                   </div>
+                  <br/>
                   <div>
                     <div className="input-texts">
                       <div className="input-um">
@@ -155,22 +169,47 @@ export default class CreateZona extends React.Component {
                           value={this.state.nome}
                           onChange={(e) => {
                             this.setState({ nome: e.target.value });
-                          }}placeholder="NOME DA ZONA"
+                          }}placeholder="TÍTULO DO AGENDAENTO"
                         />
                         {this.state.error && (
                           <span style={{ color: "red" }}>{this.state.error}</span>
                         )}
                       </div>
                     </div>
-
-                    <br/>
-                    <div className="input-texts">
+                    <br />
                     <div className="input-um">
-                        <label htmlFor="qntTotal"></label>
-                        <InputNumber value={this.state.qtdPessoas} onValueChange={(e) => 
-                        this.setState({qtdPessoas: e.target.value})}placeholder="QUANTIDADE DE PESSOAS" mode="decimal" showButtons min={0} max={10000} />
+                        <label htmlFor="dataUltManu" className="font-bold block mb-2">DATA E HORA DO INÍCIO </label>
+                        <br />
+                        <div className="flex-auto">
+                            <Calendar value={this.state.dataInicio} onChange={(e) => this.setState({ dataInicio: e.target.value })}showTime hourFormat="24" />
+                        </div>
+                    </div>
+
+                   
+                    <div className="input-dois">
+                        <br />
+                        <div className="input-um">
+                        <br />
+                        <label htmlFor="dataUltManu" className="font-bold block mb-2">DATA E HORA DO TERMINO </label>
+                        <div className="flex-auto">
+                            <Calendar value={this.state.dataTermino} onChange={(e) => this.setState({ dataTermino: e.target.value })}showTime hourFormat="24" />
+                        </div>
                     </div>
                     </div>
+                    <br/> <br/>
+                   <div>
+                   <span className="p-float-label">
+                        <InputTextarea id="username"  rows={5} cols={100} />
+                        <label htmlFor="username">DESCRIÇÃO</label>
+                    </span>
+                   </div>  
+
+                <div className="input-text"_>
+               
+                <InputSwitch checked={this.state.checked} onChange={(e) => this.setState({checked: e.target.value})} />
+                <label htmlFor="username">POLÍTICA DE ACAITE</label>
+                 
+                </div> 
             
             <div className="bts">
               <div className="bt">
@@ -183,7 +222,7 @@ export default class CreateZona extends React.Component {
               </div>
 
               <div className="bt">
-                <a href="/zonas">
+                <a href="/zonaMM">
                   <Button label="CANCELAR"></Button>
                 </a>
               </div>
