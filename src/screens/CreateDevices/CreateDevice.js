@@ -28,14 +28,14 @@ export default class CreateDevice extends React.Component {
         
         deviceid:"",
         img:"",
-        dataUltManu: "",
+        ultimaManutencao: "",
         codigo: "",
         modelo: "",
-        tempMax: "",
+        temperaturaMaxima: "",
         eixoX: "",
         eixoY: "",
         eixoZ: "",
-        tipoDispositivo: "",
+        tipo: "",
         filamentosSelecionados: [],
       },
     ],
@@ -83,15 +83,15 @@ export default class CreateDevice extends React.Component {
     this.service
       .create({
         img: this.state.img,
-        dataUltManu: this.state.dataDeManu,
+        ultimaManutencao: this.state.ultimaManutencao,
         codigo: this.state.codigo,
         modelo: this.state.modelo,
-        tempMax: this.state.tempMax,
+        temperaturaMaxima: this.state.temperaturaMaxima,
         eixoX: this.state.eixoX,
         eixoY: this.state.eixoY,
         eixoZ: this.state.eixoZ,
         filamentosSelecionados: this.state.filamentosSelecionado,
-        tipoDispositivo: this.state.tipoSelecionado,
+        tipo: this.state.tipos,
       })
       .then(async (response) => {
         this.state.toast.show({
@@ -291,7 +291,7 @@ export default class CreateDevice extends React.Component {
                 id="temp"
                 className="borderColorEdit"
                 type="text"
-                value={this.state.tempMax}
+                value={this.state.temperaturaMaxima}
                 onChange={(e) => {
                   this.setState({ tempMax: e.target.value });
                 }}
@@ -363,7 +363,7 @@ export default class CreateDevice extends React.Component {
           <div className="input-texts">
             <Dropdown
               id="seletor-tipo"
-              value={this.state.tipoDispositivo}
+              value={this.state.tipos}
               options={this.state.tipos}
               onChange={(e) => this.setState({ tipoDispositivo: e.value })}
               placeholder="TIPO"

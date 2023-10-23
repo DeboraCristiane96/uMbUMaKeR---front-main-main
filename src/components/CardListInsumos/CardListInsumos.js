@@ -18,7 +18,7 @@ export default (props) => {
           <div className="left">
             <div className="nome">
               <p>{insumo.nome}</p>
-              <FontAwesomeIcon icon={faTrashCanArrowUp} style={{color: "#d81313",}} />
+              <FontAwesomeIcon icon={faTrashCanArrowUp} style={{color: "#d81313"}} />
             </div>
             
             <div className="p02">
@@ -27,7 +27,7 @@ export default (props) => {
             
             <div className="lb">
               <p>{insumo.quantidadeTotal} {insumo.unidadeMedida}</p>
-              <FontAwesomeIcon icon={faCaretSquareUp } style={{color: "#1f5122",}} />
+              <FontAwesomeIcon icon={faCaretSquareUp } style={{color: "#1f5122"}} />
             </div>
 
             <div className="p03">
