@@ -6,8 +6,8 @@ import "./CardListUsers.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 // eslint-disable-next-line import/no-anonymous-default-export
-export default (props) => {
-  const rows = props.associates.map((associate) => {
+function CardListUser (props) {
+  const rows = props.contasAcesso.map((contasAcesso) => {
 
     return (
       <div className="card01">
@@ -15,30 +15,30 @@ export default (props) => {
           <div className="left">
             <div className="divEmail">
               <label className="lbEmail">Nome</label>
-              <p>{associate.contaAcesso.nome}</p>
+              <p>{contasAcesso.nome}</p>
             </div>
             <div className="divEmail">
               <label className="lbEmail">Email</label>
-              <p>{associate.contaAcesso.email}</p>
+              <p>{contasAcesso.email}</p>
             </div>
             <div className="divTelefone">
               <label className="lbTel">Telefone</label>
-              <p>{associate.contaAcesso.telefone}</p>
+              <p>{contasAcesso.telefone}</p>
             </div>
             <div className="divLinkWhatsapp">
               <label className="lbWht">Link Whatsapp</label>
-              <p>{associate.contaAcesso.linkWhatsapp}</p>
+              <p>{contasAcesso.linkWhatsapp}</p>
             </div>
             <div className="divQrCode">
               <label className="lbQr">QrCode</label>
-              <p>{associate.contaAcesso.idContaAcesso}</p>
+              <p>{contasAcesso.qrcode}</p>
             </div>
           </div>
 
           <div className="card-butons">
             <Button
               className="bt"
-              onClick={(e) => props.editar(associate.contaAcesso.idContaAcesso)}
+              onClick={(e) => props.editar(contaAcesso.idContaAcesso)}
               title="Editar"
               severity="warning"
               aria-label="Editar"
@@ -51,7 +51,7 @@ export default (props) => {
 
             <Button
               className="bt"
-              onClick={(e) => props.delete(associate.contaAcesso.idContaAcesso)}
+              onClick={(e) => props.delete(contaAcesso.idContaAcesso)}
               style={{ color: "#0b6429" }}
               title="Deletar"
               severity="warning"
@@ -67,3 +67,5 @@ export default (props) => {
 
   return <div>{rows}</div>;
 };
+
+export default CardListUser;
