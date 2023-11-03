@@ -1,21 +1,24 @@
 /* eslint-disable react/no-direct-mutation-state */
 
 import React from "react"
-
+import "./AgendarZona.css"
 import { Toast } from "primereact/toast";
 import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 
 import { InputText } from "primereact/inputtext";
-import { InputNumber } from 'primereact/inputnumber';
 
 import { BreadCrumb } from "primereact/breadcrumb";
 import { Button } from "primereact/button";
 import ZonaService from "../../services/ZonaService";
 import MenuLeft from "../../components/Menu/MenuLeft";
 
+import { InputSwitch } from "primereact/inputswitch";
+import { Calendar } from 'primereact/calendar';
 
+import { InputTextarea } from 'primereact/inputtextarea';
+        
 
-export default class CreateAgendamento extends React.Component {
+export default class AgendarZona extends React.Component {
 
     state = {
         items: [{ label: "Agendamento", url: "/zonaMM" }],
@@ -25,7 +28,10 @@ export default class CreateAgendamento extends React.Component {
        zona:[{
         zonaId:"",
         nome:"",
-        qntPessoas: ""
+        qntPessoas: "",
+        checked:true,
+        dataInicio:"",
+        dataTermino:""
        }],
        
        toast: "",
@@ -34,6 +40,8 @@ export default class CreateAgendamento extends React.Component {
     }    
         
     
+
+ 
 
     constructor() {
         super();
@@ -47,7 +55,9 @@ export default class CreateAgendamento extends React.Component {
       salvar = async () => {
         await this.service
           .create({
-            nome: this.state.nome,
+            checked: this.state.checked,
+            dataInicio:this.state.dataInicio,
+            dataTermino: this.state.dataTermino,
             qntPessoas:this.state.qntPessoas,
           })
           .then(async (response) => {
@@ -96,7 +106,7 @@ export default class CreateAgendamento extends React.Component {
           "p-button p-component p-confirm-dialog-reject p-button-text"
         );
         confirmDialog({
-          message: "Deseja realizar esse Cadastro ?",
+          message: "Deseja realizar esse Agendamento ?",
           icon: "pi pi-info-circle",
           acceptClassName: "p-button-danger",
     
@@ -147,8 +157,11 @@ export default class CreateAgendamento extends React.Component {
                       ></BreadCrumb>
                     </div>
                   </div>
+                  <br/>
                   <div>
+                  <h4 id="h4">Título do agendamento</h4>
                     <div className="input-texts">
+                      
                       <div className="input-um">
                         <InputText
                           id="nome"
@@ -157,22 +170,47 @@ export default class CreateAgendamento extends React.Component {
                           value={this.state.nome}
                           onChange={(e) => {
                             this.setState({ nome: e.target.value });
-                          }}placeholder="NOME DA ZONA"
+                          }}
                         />
                         {this.state.error && (
                           <span style={{ color: "red" }}>{this.state.error}</span>
                         )}
                       </div>
                     </div>
-
-                    <br/>
-                    <div className="input-texts">
+                    
                     <div className="input-um">
-                        <label htmlFor="qntTotal"></label>
-                        <InputNumber value={this.state.qntPessoas} onValueChange={(e) => 
-                        this.setState({qntPessoas: e.target.value})}placeholder="QUANTIDADE DE PESSOAS" mode="decimal" showButtons min={0} max={10000} />
+                        <h4 id="h4">Data e hora de início</h4>
+                        <br />
+                        <div className="flex-auto">
+                            <Calendar value={this.state.dataInicio} onChange={(e) => this.setState({ dataInicio: e.target.value })}showTime hourFormat="24" />
+                        </div>
+                    </div>
+
+                   
+                    <div className="input-dois">
+                        <h4 id="h4">Data e hora do termino</h4>
+                        <br />
+                        <div className="input-um">
+                        <div className="flex-auto">
+                            <Calendar value={this.state.dataTermino} onChange={(e) => this.setState({ dataTermino: e.target.value })}showTime hourFormat="24" />
+                        </div>
                     </div>
                     </div>
+                    
+                   <span className="p-float-label">
+                   <h4 id="h4">Descrição</h4>
+                   <br />
+                        <InputTextarea id="username"  rows={5} cols={100} />
+                        
+                    </span>
+                   
+
+                <div className="input-text"_>
+                <br />
+                <InputSwitch checked={this.state.checked} onChange={(e) => this.setState({checked: e.target.value})} />
+                <h4 id="h4A">Políticas de aceite</h4>
+                 
+                </div> 
             
             <div className="bts">
               <div className="bt">

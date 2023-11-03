@@ -19,7 +19,7 @@ import ListInsumos from "./screens/listInsumos/ListInsumos";
 import UpdateInsumo from "./screens/updateInsumo/UpdateInsumo";
 import CreateZona from "./screens/createzonas/CreateZona";
 import ListZonas from "./screens/listZonas/ListZonas";
-import CreateAgendamento from "./screens/createAgendamento/AgendarZona";
+import CreateAgendamento from "./screens/createAgendamentozona/AgendarZona";
 import ListAgendamento from "./screens/listAgendamento/ListAgendamento";
 import ListTutores from "./screens/listTutor/ListTutores";
 import ListManager from "./screens/listManager/ListManager";

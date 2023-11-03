@@ -21,6 +21,18 @@
 .input-texts .input-um{
     margin-right: 2vw;
 }
+#h4{
+    display: flex;
+
+    color: darkgreen;
+    margin-top: 2vw;
+  }
+  #h4A {
+    display: flex;
+    color: darkgreen;
+    margin-top: -2vw;
+    margin-left: 4vw;
+  }
 
 
 .input-texts .input-dois{
