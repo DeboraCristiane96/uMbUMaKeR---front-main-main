@@ -4,84 +4,102 @@ import { Toast } from "primereact/toast";
 import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 import "./UpdateInsumo.css";
 import { Dropdown } from "primereact/dropdown";
-import { InputNumber } from 'primereact/inputnumber';
+import { InputNumber } from "primereact/inputnumber";
 import { InputText } from "primereact/inputtext";
 import { BreadCrumb } from "primereact/breadcrumb";
 import { Button } from "primereact/button";
-import InsumoService from "../../services/InsumoService"
-import {
-  showSuccessMessage,
-  showErrorMessage,
-} from "../../components/Toastr";
+import InsumoService from "../../services/InsumoService";
 
 import MenuLeft from "../../components/Menu/MenuLeft";
 
 export default class updateInsumo extends React.Component {
- state = {
-      items: [
-        { label: "Listagem", url: "/insumos" },
-        { label: "Entrada / Saída" },
-      ],
-      home: { icon: "pi pi-home ", url: "/" },
+  state = {
+    items: [
+      { label: "Listagem", url: "/listInsumos" },
+      { label: "Entrada / Saída" },
+    ],
+    home: { icon: "pi pi-home ", url: "/" },
 
-      insumos: [
-        {
-         codigo:0,
-         nome:"",
-         quantidadeTotal:"",
-         quantidadeMinimaEstoque:"",
-         quantidadeDiasAlertaVencimento:"",
-         unidadeMedida:"",
-         statusEstoque:""
-        },
-      ],
-      unidadeMedidaSelect: [
-        { label: "UNIDADE", value: "UNIDADE" },
-        { label: "LITRO", value: "LITRO" },
-        { label: "METRO", value: "METRO" },
-        { label: "KILO", value: "KILO" },
-      ],
-      unidadeMedida: "",
+    codigo: 0,
+    nome: "",
+    quantidadeTotal: "",
+    quantidadeMinimaEstoque: "",
+    quantidadeDiasAlertaVencimento: "",
+    unidadeMedida: "",
+    statusEstoque: "",
 
+    unidadeMedidaSelect: [
+      { label: "UNIDADE", value: "UNIDADE" },
+      { label: "LITRO", value: "LITRO" },
+      { label: "METRO", value: "METRO" },
+      { label: "KILO", value: "KILO" },
+    ],
 
+    msgDeErro: "",
+  };
+
+  componentDidMount() {
+    const url = window.location.href;
+    const codigo = url.substring(url.lastIndexOf("/") + 1);
+    this.findById(codigo);
   }
 
-constructor() {
-  super();
-  this.service = new InsumoService();
-}
+  constructor() {
+    super();
+    this.service = new InsumoService();
+  }
 
   delay = (ms) => {
     return new Promise((resolve) => setTimeout(resolve, ms));
   };
 
-  componentDidMount() {
-    const url = window.location.href;
-    const codigo = url.substring(url.lastIndexOf('/') + 1);
-    this.findById(codigo);
-  }
-  
-  findById = (codigo) => {
-    this.service
-      .find(codigo)
-      .then((response) => {
-        const insumo = response.data;
-        const codigo = insumo.codigo;
-        const nome = insumo.nome;
-        const quantidadeMinimaEstoque = insumo.quantidadeMinimaEstoque;
-        const quantidadeTotal = insumo.quantidadeTotal;
-        const unidadeMedida = insumo.unidadeMedida;
-        const statusEstoque = insumo.statusEstoque;
-
-        this.setState({ codigo: codigo, nome: nome, quantidadeMinimaEstoque: quantidadeMinimaEstoque,quantidadeTotal:quantidadeTotal,unidadeMedida:unidadeMedida, statusEstoque:statusEstoque  });
+  editar = async () => {
+    await this.service
+      .update(this.state.codigo, {
+        nome: this.state.nome,
+        quantidadeMinimaEstoque: this.state.quantidadeMinimaEstoque,
+        quantidadeTotal: this.state.quantidadeTotal,
+        unidadeMedida: this.state.unidadeMedida,
+      })
+      .then(async (response) => {
+        this.state.toast.show({
+          severity: "success",
+          summary: "Sucesso",
+          detail: "Atualizado Com Sucesso",
+        });
+        await this.delay(2000);
+        window.location.href = `/insumos`;
       })
       .catch((error) => {
-        console.log(error.response);
+        this.state.toast.show({
+          severity: "error",
+          summary: "Erro",
+          detail: "Erro ao Atualizar",
+        });
+
+        console.log(error);
       });
   };
 
- 
- 
+  accept = () => {
+    this.state.toast.show({
+      severity: "info",
+      summary: "Confirmado",
+      detail: "Atualizado com Sucesso",
+      life: 3000,
+    });
+    this.editar();
+  };
+
+  reject = () => {
+    this.state.toast.show({
+      severity: "warn",
+      summary: "Rejeitado",
+      detail: "Atualização Cancelada",
+      life: 3000,
+    });
+  };
+
   confirm = async (codigo) => {
     this.setState({ codigo: codigo });
     // eslint-disable-next-line no-unused-vars
@@ -89,73 +107,60 @@ constructor() {
       "p-button p-component p-confirm-dialog-reject p-button-text"
     );
     confirmDialog({
-      message: "Você Realmente quer Editar?",
+      message: "Você Realmente quer Editar esse Insumos?",
       icon: "pi pi-info-circle",
       acceptClassName: "p-button-danger",
 
       accept: this.accept,
       reject: this.reject,
     });
-    await this.delay(10);
-    document.getElementsByClassName("p-button-label")[7].textContent = "Sim";
-    document.getElementsByClassName("p-button-label")[6].textContent = "Não";
+    await this.delay(15);
   };
 
-  validate = () => {
-    const errors = [];
-
-    if (!this.state.nome) {
-      errors.push("É obrigatório informar o nome do insumo!");
+  validar = () => {
+    let msgError = {
+      severity: "error",
+      summary: "Corrija os Erros a Baixo",
+      detail: "Campos não podem ser nulos",
+    };
+    let disparo = 0;
+    if (this.state.nome === "") {
+      disparo++;
+      let a = document.getElementById("nome");
+      a.classList.add("p-invalid");
+      this.setState({ error: "Esse Campo é Obrigatorio" });
     }
-    if (!this.state.quantidadeMinimaEstoque) {
-      errors.push("É obrigatório informar a quantidade mínima do estoque!");
+    if (disparo !== 0) {
+      this.state.toast.show(msgError);
+    } else {
+      this.confirm();
     }
-    if (!this.state.quantidadeTotal) {
-      errors.push("É obrigatório informar a quantidade total!");
-    }
-    if (!this.state.unidadeMedida) {
-      errors.push("É obrigatório informar o nome do insumo!");
-    }
-    if (!this.state.quantidadeDiasAlertaVencimento) {
-      errors.push("É obrigatório informar a quantidade de dias para o alerta do vencimento!");
-    }
-    return errors;
   };
 
-
-  put = () => {
-    const errors = this.validate();
-
-    if (errors.length > 0) {
-      errors.forEach((message, index) => {
-        showErrorMessage(message);
-      });
-      return false;
-    }
-
+  findById = (codigo) => {
     this.service
-      .update(this.state.codigo, {
-        nome: this.state.nome,
-        quantidadeMinimaEstoque: this.state.quantidadeMinimaEstoque,
-        quantidadeTotal: this.state.quantidadeTotal,
-        unidadeMedida:this.state.unidadeMedida,
-        statusEstoque: this.state.statusEstoque,
-      })
-      .then((Response) => {
-        showSuccessMessage("Insumo atualizado com sucesso!");
-        console.log(Response);
-        this.props.history.push("/listInsumos");
+      .find(`${codigo}`)
+      .then((response) => {
+        const insumo = response.data;
+        let codigo = insumo.codigo;
+        const nome = insumo.nome;
+        const quantidadeMinimaEstoque = insumo.quantidadeMinimaEstoque;
+        const quantidadeTotal = insumo.quantidadeTotal;
+        const unidadeMedida = insumo.unidadeMedida;
+
+        this.setState({
+          codigo: codigo,
+          nome: nome,
+          quantidadeMinimaEstoque: quantidadeMinimaEstoque,
+          quantidadeTotal: quantidadeTotal,
+          unidadeMedida: unidadeMedida,
+        });
       })
       .catch((error) => {
-        showErrorMessage(error.response.data);
-        console.log(error.Response);
+        console.log(error.response);
       });
   };
 
-  cancel = () => {
-    this.props.history.push("/listInsumos");
-  };
-  
   render() {
     return (
       <>
@@ -180,6 +185,7 @@ constructor() {
           <div>
             <div className="input-texts">
               <div className="input-um">
+                <h3 id="meuH3">Nome</h3>
                 <InputText
                   id="nome"
                   className="borderColorEdit"
@@ -187,15 +193,16 @@ constructor() {
                   value={this.state.nome}
                   onChange={(e) => {
                     this.setState({ nome: e.target.value });
-                  }}placeholder="NOME DO INSUMO"
+                  }}
+                  placeholder="NOME DO INSUMO"
                 />
                 {this.state.error && (
                   <span style={{ color: "red" }}>{this.state.error}</span>
                 )}
               </div>
             </div>
-
-            <br />
+            <h3 id="meuH3">Unidade de Medida</h3>
+            <br/>
             <div className="input-texts">
               <Dropdown
                 value={this.state.unidadeMedida}
@@ -203,43 +210,57 @@ constructor() {
                 onChange={(e) => {
                   this.setState({ unidadeMedida: e.value });
                 }}
-                placeholder="UNIDADE DE MEDIDA"/>
+                placeholder="UNIDADE DE MEDIDA"
+              />
             </div>
-            <br/>
+            <br />
             <div className="input-texts">
               <div className="input-um">
-                <label htmlFor="qntTotal"></label>
-                <InputNumber value={this.state.quantidadeTotal} onValueChange={(e) => 
-                this.setState({quantidadeTotal: e.target.value})}placeholder="QUANTIDADE DE INSUMO" mode="decimal" showButtons min={0} max={10000} />
+                <h3 id="meuH3">Quantidade Total</h3>
+                <InputNumber
+                  id="qntTotal"
+                  value={this.state.quantidadeTotal}
+                  onValueChange={(e) =>
+                    this.setState({ quantidadeTotal: e.target.value })
+                  }
+                  placeholder="QUANTIDADE DE INSUMO"
+                  mode="decimal"
+                  showButtons
+                  min={0}
+                  max={10000}
+                />
               </div>
             </div>
-            </div>
-            <br/>    
-            <div className="input-texts">
+          
+          <div className="input-texts">
             <div className="input-um">
-              <InputNumber value={this.state.quantidadeMinimaEstoque} onValueChange={(e) => 
-                this.setState({quantidadeMinimaEstoque: e.target.value})}placeholder="QUANTIDADE MINIMA DO ESTOQUE" mode="decimal" showButtons min={0} max={10000} />
-                </div>
-            </div>
-
-            <div className="bts">
-              <div className="bt">
-                <Button
-                  label="SALVAR"
-                  severity="secondary"
-                  raised
-                  onClick={this.put}
-                />
-              </div>
-              <div className="bt">
-              <Button
-                  label="CANCELAR"
-                  raised
-                  onClick={this.cancel}
-                />
-              </div>
+              <h3 id="meuH3">Mínimo de Estoque</h3>
+              <InputNumber
+                id="qntMin"
+                value={this.state.quantidadeMinimaEstoque}
+                onValueChange={(e) =>
+                  this.setState({ quantidadeMinimaEstoque: e.target.value })
+                }
+                placeholder="QUANTIDADE MINIMA DO ESTOQUE"
+                mode="decimal"
+                showButtons
+                min={0}
+                max={10000}
+              />
             </div>
           </div>
+          </div>
+          <div className="bts">
+            <div className="bt">
+              <Button label="SALVAR" severity="success" onClick={this.accept} />
+            </div>
+            <div className="bt">
+              <a href="/insumos">
+                <Button label="CANCELAR"></Button>
+              </a>
+            </div>
+          </div>
+        </div>
       </>
     );
   }
