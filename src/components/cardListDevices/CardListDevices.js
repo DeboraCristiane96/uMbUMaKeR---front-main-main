@@ -13,6 +13,7 @@ import {
   faTrashAlt,
   faPenToSquare,
   faChevronRight,
+  faCalendarDay
 } from "@fortawesome/free-solid-svg-icons";
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (props) => {
@@ -34,9 +35,19 @@ export default (props) => {
               <p>{devices.modelo}</p>
             </div>
           </div>
+         
           <div className="card-butons">
 
           <div className="card-butons">
+          
+                <a href="/agendarDispositivo">
+                  <Button className="bt" severity="warning" raised>
+                    <FontAwesomeIcon
+                      icon={faCalendarDay}
+                      style={{ color: "#0b6429" }}
+                    />
+                  </Button>
+                </a>
             <Button  className="bt"
               style={{ color: '#0c9213' }}
               title="Detalhes"
