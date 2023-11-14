@@ -19,6 +19,7 @@ import CreateZona from "../screens/createzonas/CreateZona";
 import AgendarZona from "../screens/createAgendamento/AgendarZona";
 import ListAgendamento from "../screens/listAgendamento/ListAgendamento";
 import AgendarDispositivo from "../screens/createAgendamentoDevice/AgendarDispositivo";
+import DashboardZonas from "../screens/dashboardZona/DashboardZonas";
 
 function AppRouts(){
     return(
@@ -26,6 +27,7 @@ function AppRouts(){
            <Routes>
                 <Route  path="/" element={<Home/>} exact ></Route>
                 <Route  path="/login" element={<Login/>} exact ></Route>
+                <Route element={<DashboardZonas/>} path="/dashboardZonas"></Route>
                 <Route element={<ListUsers/>} path="/associates"></Route>
                 <Route element={<CreateUser/>} path="/createUser"></Route>
                 <Route element={<UpdateUser/>} path="/updateUser/:id"></Route>

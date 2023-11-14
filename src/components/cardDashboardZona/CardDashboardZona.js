@@ -2,26 +2,26 @@
 import React from "react";
 import { Card } from "primereact/card";
 import { Button } from "primereact/button";
-
+import "./CardDashboardZona.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { faChevronRight,faUsers } from "@fortawesome/free-solid-svg-icons";
+import { faChevronRight,faUser } from "@fortawesome/free-solid-svg-icons";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (props) => {
 
-  const rows = props.zonas.map((zona) => {
+  const rows = props.agenda.map((agenda) => {
     return (
-      <div className="cardZona">
+      <div className="cardBoard">
         <Card>
           <div className="left">
             <div className="lbNome">
-              <p>{zona.nome}</p>
+              <p>{agenda.nome}</p>
             </div>
           </div>
-          <FontAwesomeIcon className="icone" icon={faUsers} />
+          <FontAwesomeIcon icon={faUser} style={{color: "#256a31",}} />
             <div className="lbPessoas">
-              <p>{zona.qtdPessoas} Pessoas</p>
+              <p>{agenda.nome}</p>
             </div>
            <div className="lbStatus">
               <p>{zona.status}</p>

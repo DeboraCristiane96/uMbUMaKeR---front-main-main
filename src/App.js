@@ -25,6 +25,7 @@ import ListAgendamento from "./screens/listAgendamento/ListAgendamento";
 import ListTutores from "./screens/listTutor/ListTutores";
 import ListManager from "./screens/listManager/ListManager";
 import AgendarDispositivo from "./screens/createAgendamentoDevice/AgendarDispositivo";
+import DashboardZonas from "./screens/dashboardZona/DashboardZonas";
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/home" element={<Home />} />
+        <Route element={<DashboardZonas/>} path="/dashboardZonas" />
         <Route element={<ListUsers />} path="/associates" />
         <Route element={<ListTutores />} path="/tutores" />
         <Route element={<ListManager />} path="/gestores" />
