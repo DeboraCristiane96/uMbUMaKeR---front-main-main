@@ -1,7 +1,7 @@
 /* eslint-disable react/no-direct-mutation-state */
 
 import React from "react"
-import "./AgendarZona.css"
+import "./AgendarDispositivo.css"
 import { Toast } from "primereact/toast";
 import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 
@@ -9,44 +9,39 @@ import { InputText } from "primereact/inputtext";
 
 import { BreadCrumb } from "primereact/breadcrumb";
 import { Button } from "primereact/button";
-import ZonaService from "../../services/ZonaService";
+import DeviceService from "../../services/DeviceService";
 import MenuLeft from "../../components/Menu/MenuLeft";
-import { faClock} from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { InputSwitch } from "primereact/inputswitch";
 import { Calendar } from 'primereact/calendar';
 
 import { InputTextarea } from 'primereact/inputtextarea';
         
 
-export default class AgendarZona extends React.Component {
+export default class AgendarDispositivo extends React.Component {
 
     state = {
-        items: [{ label: "Agendamento", url: "/zonaMM" }],
+        items: [{ label: "Agendamento", url: "/devices" }],
 
         home: { icon: "pi pi-home ", url: "/" },
 
-       zona:[{
-        zonaId:"",
-        nome:"",
-        qntPessoas: "",
-        checked:true,
-        dataInicio:"",
-        dataTermino:""
-       }],
+        codigo:0,
+        dataSolicitacao:"",
+        email: "",
+        statusObjeto:"",
+        descricao:"",
+        dataAgendada:"",
        
        toast: "",
        msgDeErro: "",
        error:""   
     }    
-        
-    
 
  
 
     constructor() {
         super();
-        this.service = new ZonaService();
+        this.service = new DeviceService();
       }
 
       delay = (ms) => {
@@ -56,10 +51,12 @@ export default class AgendarZona extends React.Component {
       salvar = async () => {
         await this.service
           .create({
-            checked: this.state.checked,
-            dataInicio:this.state.dataInicio,
-            dataTermino: this.state.dataTermino,
-            qntPessoas:this.state.qntPessoas,
+            dataSolicitacao: this.dataSolicitacao,
+            email: this.email,
+            statusObjeto: this.statusObjeto,
+            descricao:this.descricao,
+            dataAgendada:this.dataAgendada
+
           })
           .then(async (response) => {
             this.state.toast.show({
@@ -100,14 +97,14 @@ export default class AgendarZona extends React.Component {
         });
       };
     
-      confirm = async (zonaId) => {
-        this.setState({ zonaId: zonaId});
+      confirm = async (codigo) => {
+        this.setState({ codigo:codigo});
         // eslint-disable-next-line no-unused-vars
         const a = document.getElementsByClassName(
           "p-button p-component p-confirm-dialog-reject p-button-text"
         );
         confirmDialog({
-          message: "Deseja realizar esse Cadastro ?",
+          message: "Deseja realizar esse Agendamento ?",
           icon: "pi pi-info-circle",
           acceptClassName: "p-button-danger",
     
@@ -124,9 +121,9 @@ export default class AgendarZona extends React.Component {
           detail: "Campos não podem ser nulos",
         };
         let disparo = 0;
-        if (this.state.nome === "") {
+        if (this.state.email === "") {
           disparo++;
-          let a = document.getElementById("nome");
+          let a = document.getElementById("email");
           a.classList.add("p-invalid");
           this.setState({ error: "Esse Campo é Obrigatorio" });
         }
@@ -143,72 +140,83 @@ export default class AgendarZona extends React.Component {
                 <MenuLeft />
                 <div className="container">
                   <div className="header">
-                    <Toast ref={(el) => (this.state.toast = el)} />
-                    <ConfirmDialog
-                      acceptClassName="p-button-success"
-                      rejectClassName="p-button-danger"
-                      acceptLabel="Sim"
-                      rejectLabel="Não"
-                    />
-                    
-                    <div>
-                      <BreadCrumb
-                        model={this.state.items}
-                        home={this.state.home}
-                      ></BreadCrumb>
+                        <Toast ref={(el) => (this.state.toast = el)} />
+                        <ConfirmDialog
+                        acceptClassName="p-button-success"
+                        rejectClassName="p-button-danger"
+                        acceptLabel="Sim"
+                        rejectLabel="Não"
+                            />
+                        
+                
+                        <BreadCrumb
+                            model={this.state.items}
+                            home={this.state.home}
+                        ></BreadCrumb>
                     </div>
-                  </div>
-                  <br/>
+                
+                 
                   <div>
+                  <h4 id="meuH3" htmlFor="dataUltManu" className="font-bold block mb-2">Data e hora da solicitação</h4>
+                    <br/>
+                  
+                    <div className="input-um">
+                        <Calendar value={this.state.dataSolicitacao} onChange={(e) => this.setState({ dataSolicitacao: e.target.value })}showTime hourFormat="24" />
+                    </div>
+                    <h4 id="meuH3">Email</h4>
                     <div className="input-texts">
+                       
                       <div className="input-um">
                         <InputText
-                          id="nome"
+                          id=""
                           className="borderColorEdit"
                           type="text"
-                          value={this.state.nome}
+                          value={this.state.email}
                           onChange={(e) => {
-                            this.setState({ nome: e.target.value });
-                          }}placeholder="TÍTULO DO AGENDAENTO"
+                            this.setState({ email: e.target.value });
+                          }}
                         />
                         {this.state.error && (
                           <span style={{ color: "red" }}>{this.state.error}</span>
                         )}
                       </div>
                     </div>
-                    <br />
-                    <div className="input-um">
-                        <label htmlFor="dataUltManu" className="font-bold block mb-2">DATA E HORA DO INÍCIO </label>
-                        <br />
-                        <div className="flex-auto">
-                            <Calendar value={this.state.dataInicio} onChange={(e) => this.setState({ dataInicio: e.target.value })}showTime hourFormat="24" />
-                        </div>
-                    </div>
-
                    
                     <div className="input-dois">
-                        <br />
                         <div className="input-um">
+                        <h4 id="meuH3" htmlFor="dataUltManu" className="font-bold block mb-2">Data e hora do termino </h4>
                         <br />
-                        <label htmlFor="dataUltManu" className="font-bold block mb-2">DATA E HORA DO TERMINO </label>
                         <div className="flex-auto">
                             <Calendar value={this.state.dataTermino} onChange={(e) => this.setState({ dataTermino: e.target.value })}showTime hourFormat="24" />
                         </div>
                     </div>
                     </div>
-                    <br/> <br/>
+                  
                    <div>
+               
+                   <h4 id="meuH3" htmlFor="username">Descrição</h4>
+                   <br />
                    <span className="p-float-label">
                         <InputTextarea id="username"  rows={5} cols={100} />
-                        <label htmlFor="username">DESCRIÇÃO</label>
+                        
                     </span>
                    </div>  
 
                 <div className="input-text"_>
-               
-                <InputSwitch checked={this.state.checked} onChange={(e) => this.setState({checked: e.target.value})} />
-                <label htmlFor="username">POLÍTICA DE ACAITE</label>
-                 
+                <br/>
+                <InputSwitch checked={this.state.checked} onChange={(e) => this.setState({checked: e.target.value})} /> 
+                 <br/>
+                <h4 id="meuH3A" htmlFor="username">Política de aceite</h4>
+                
+
+                <div className="input-um">
+                    <br />
+                    <h4 id="meuH3" htmlFor="dataUltManu" className="font-bold block mb-2">Data e hora agendada </h4>
+                    <br />
+                    <div className="flex-auto">
+                    <Calendar value={this.state.dataAgendada} onChange={(e) => this.setState({ dataAgendada: e.target.value })}showTime hourFormat="24" />
+                    </div>
+                    </div>
                 </div> 
             
             <div className="bts">
@@ -222,7 +230,7 @@ export default class AgendarZona extends React.Component {
               </div>
 
               <div className="bt">
-                <a href="/zonaMM">
+                <a href="/devices">
                   <Button label="CANCELAR"></Button>
                 </a>
               </div>

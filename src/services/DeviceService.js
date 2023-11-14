@@ -8,7 +8,7 @@ export default class DeviceService extends ApiService {
     return this.post('',obj);
   }
   update(id,obj){
-      return this.patch(`/${id}`, obj);
+      return this.put(`/${id}`, obj);
   }
 
   delete(id){

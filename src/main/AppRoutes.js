@@ -18,6 +18,7 @@ import ListZonas from "../screens/listZonas/ListZonas";
 import CreateZona from "../screens/createzonas/CreateZona";
 import AgendarZona from "../screens/createAgendamento/AgendarZona";
 import ListAgendamento from "../screens/listAgendamento/ListAgendamento";
+import AgendarDispositivo from "../screens/createAgendamentoDevice/AgendarDispositivo";
 
 function AppRouts(){
     return(
@@ -30,6 +31,7 @@ function AppRouts(){
                 <Route element={<UpdateUser/>} path="/updateUser/:id"></Route>
                 <Route element={<CreateDevice/>} path="/createDevice"></Route>
                 <Route element={<ListDevice/>} path="/devices"></Route>
+                <Route element={<AgendarDispositivo/>} path="/agendarDispositivo"></Route>
                 <Route element={<CreateInsumo/>} path="/criarInsumos"></Route>
                 <Route element={<UpdateInsumo/>} path="/updateInsumo/:id"></Route>
                 <Route element={<ListInsumos/>} path="/insumos"></Route>

@@ -20,10 +20,11 @@ import UpdateInsumo from "./screens/updateInsumo/UpdateInsumo";
 import EntradaSaidaInsumos from "./screens/entradaSaidaInsumos/EntradaSaidaInsumos";
 import CreateZona from "./screens/createzonas/CreateZona";
 import ListZonas from "./screens/listZonas/ListZonas";
-import CreateAgendamento from "./screens/createAgendamento/AgendarZona";
+import CreateAgendamento from "./screens/createAgendamentozona/AgendarZona";
 import ListAgendamento from "./screens/listAgendamento/ListAgendamento";
 import ListTutores from "./screens/listTutor/ListTutores";
 import ListManager from "./screens/listManager/ListManager";
+import AgendarDispositivo from "./screens/createAgendamentoDevice/AgendarDispositivo";
 
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
         <Route element={<UpdateUser />} path="/updateUser/:id"/>
         <Route element={<CreateDevice />} path="/createDevice"/>
         <Route element={<ListDevice/>} path="/devices"/>
+        <Route element={<AgendarDispositivo/>} path="/agendarDispositivo"></Route>
         <Route element={<CreateInsumos/>} path="/criarInsumos"/>
         <Route element={<ListInsumos/>} path="/insumos" />
         <Route element={<UpdateInsumo/>} path="/updateInsumo/:id"/>
