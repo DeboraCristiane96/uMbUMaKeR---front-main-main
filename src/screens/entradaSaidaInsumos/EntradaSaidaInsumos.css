@@ -1,0 +1,83 @@
+
+.total{
+    display: flex;
+    flex-direction: row-reverse;
+    position: relative;
+    top: 50px;
+    
+}
+
+.icon02{
+    font-size: 3vh;
+    margin-top: -1.4rem;
+    margin-left: 1rem;
+    color: #14770b;
+
+}
+
+.dias{
+    color: #14770b;
+    margin-top: -1rem;
+    font-size: 2vh;
+    margin-left: 3rem;
+    font-size: 2vh;
+}
+
+.filtroData{
+    display: flex;
+}
+
+.quadroEntradaSaida{
+    display: flex;
+    
+}
+
+.esquerda{
+    margin-right: 25rem;
+    width: 45%;
+}
+
+.entradasLb{
+    margin-right: 3rem; 
+}
+
+.quadroEntradas{
+    margin-top: 1rem;
+    border: 1px solid #14770b;
+    
+}
+
+.direita{
+    width: 45%;
+    flex-direction: row-reverse;
+}
+.saidasLb{
+    margin-right: 4rem; 
+}
+.quadroSaidas{
+    margin-top: 1rem;
+    border: 1px solid #14770b;
+}
+/*
+Sobrecrever esse metodo esta mechendo com
+botões de outras telas X-D
+
+.p-button.p-button-warning{
+    background: rgb(249, 250, 249);
+    margin-left: 1rem;
+    margin-right: 0rem;
+}
+*/
+
+.p-inputswitch{
+    margin-left: 1rem;
+}
+
+.p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
+    background: rgb(245, 247, 246);
+    border: 1px solid hsl(115, 83%, 25%); 
+}
+
+.p-inputswitch.p-inputswitch-checked .p-inputswitch-slider:before {
+    background: #08300f;
+}

@@ -1,8 +1,8 @@
 import ApiService from "../services/ApiService";
 
-export default class InsumoService extends ApiService {
+export default class EntradaEstoqueService extends ApiService {
     constructor() {
-        super('/api/umbumaker/insumos')
+        super('/api/umbumaker/entradaestoque')
     }
 
     create(obj) {

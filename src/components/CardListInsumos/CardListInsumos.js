@@ -62,7 +62,7 @@ export default (props) => {
             </Button>
               
             <div>
-                <a href="/updateInsumo">
+                <a href="/EntradaSaidaInsumo">
                   <Button className="bt" aria-label="atualizar" severity="warning" raised title="Mostra Entrada e Saida"> 
                     <FontAwesomeIcon icon={faRotate} style={{color: "#20511f"}} />
                   </Button>

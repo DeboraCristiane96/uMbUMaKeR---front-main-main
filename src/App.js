@@ -17,6 +17,7 @@ import ListDevice from "./screens/listDevices/ListDevice";
 import CreateInsumos from "./screens/createInsumo/CreateInsumos";
 import ListInsumos from "./screens/listInsumos/ListInsumos";
 import UpdateInsumo from "./screens/updateInsumo/UpdateInsumo";
+import EntradaSaidaInsumos from "./screens/entradaSaidaInsumos/EntradaSaidaInsumos";
 import CreateZona from "./screens/createzonas/CreateZona";
 import ListZonas from "./screens/listZonas/ListZonas";
 import CreateAgendamento from "./screens/createAgendamento/AgendarZona";
@@ -41,6 +42,7 @@ function App() {
         <Route element={<CreateInsumos/>} path="/criarInsumos"/>
         <Route element={<ListInsumos/>} path="/insumos" />
         <Route element={<UpdateInsumo/>} path="/updateInsumo/:id"/>
+        <Route element={<EntradaSaidaInsumos/>} path="/EntradaSaidaInsumo"></Route>
         <Route element={<CreateZona/>} path="/criarZona"/>
         <Route element={<ListZonas/>} path="/zonas"></Route>
         <Route element={<CreateAgendamento/>} path="/agendarZona"></Route>
