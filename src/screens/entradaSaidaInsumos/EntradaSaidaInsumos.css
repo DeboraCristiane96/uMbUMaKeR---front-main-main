@@ -34,7 +34,7 @@
 
 .esquerda{
     margin-right: 25rem;
-    width: 30%;
+    
 }
 /*
 */
@@ -50,7 +50,7 @@
 }
 
 .direita{
-    width: 30%;
+    
     flex-direction: row-reverse;
 }
 .saidasLb{
