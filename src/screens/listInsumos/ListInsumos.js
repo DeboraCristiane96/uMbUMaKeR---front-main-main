@@ -18,6 +18,7 @@ import CardListInsumos from "../../components/CardListInsumos/CardListInsumos";
 
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { InputText } from "primereact/inputtext";
 
 
 export default class ListInsumos extends React.Component {
@@ -25,10 +26,9 @@ export default class ListInsumos extends React.Component {
     items: [{ label: "Insumos", url: "/insumos" }],
     home: { icon: "pi pi-home ", url: "/" },
 
-    insumoId:"",
     insumos: [
       {
-        id: "",
+        codigo:0,
         nome: "",
         quantidadeTotal:"",
         quantidadeMinimaEstoque:"",
@@ -44,8 +44,9 @@ export default class ListInsumos extends React.Component {
     insumoFiltro: [
       {
        
-        id: "",
+        codigo: "",
         nome: "",
+        statusEstoque:"",
         quantidadeTotal:"",
         quantidadeMinimaEstoque:"",
         quantidadeDiasAlertaVencimento:"",
@@ -68,7 +69,9 @@ export default class ListInsumos extends React.Component {
       { label: "ABAIXO MINÍMO", value: "ABAIXO MINÍMO" },
       { label: "ZERADO", value: "ZERADO" },
     ],
-    status:"",
+    statusEstoqueFiltro:"",
+
+    insumoFiltroAuxiliar:[{}]
 
 
   };
@@ -77,21 +80,22 @@ export default class ListInsumos extends React.Component {
     super();
     this.service = new InsumoService();
   }
-  
+ 
+
   async componentDidMount() {
     await this.service.findAll("")
       .then((response) => {
-        const insumo = response.data;
-        this.setState({ insumo });
+        const insumos = response.data;
+        this.setState({ insumos });
         console.log(response);
       })
+      
       .catch((error) => {
         console.log("erro!");
         console.log(error.response);
       });
   }
   filtro = () =>{
-    console.log("Entrou no Filtro")
     let lista = []
     this.state.insumos.forEach(element => {
         if(element.nome === this.state.nomeParaFiltro){
@@ -102,51 +106,40 @@ export default class ListInsumos extends React.Component {
     console.log("teste",this.state.insumos)
 }
 
+limparFiltro = () =>{
+    this.setState({nomeParaFiltro:''})
+}
 
-
-filtroStatus = () =>{
+filtroStatus = async () =>{
   let lista = []
   this.state.insumos.forEach(element => {
-      if(element.status === this.state.statusParaFiltro){
+      if(element.statusEstoque === this.state.statusParaFiltro){
           lista.push(element);
       }
   });
+  console.log("teste",this.state.insumos)
   this.setState({insumos:lista})
-  console.log("teste",this.state.insumoFiltro)
+ 
 }
-
-
-
 
   delay = (ms) => {
     return new Promise((resolve) => setTimeout(resolve, ms));
   };
 
-  delete = (insumoId) => {
-    this.service
-      .delete(insumoId)
-      .then(async (response) => {
-        this.state.toast.show({
-          severity: "success",
-          summary: "Sucesso",
-          detail: "Cadastro Excluido Com Sucesso",
-        });
-        await this.delay(2000);
-        window.location.reload();
-      })
-      .catch((error) => {
-        this.state.toast.show({
-          severity: "error",
-          summary: "Erro",
-          detail: "Erro ao Excluir",
-        });
-      });
-  };
-
-  editar = (insumoId) => {
-    window.location.href = `/updateInsumo/${insumoId}`;
-  };
-
+  delete = (codigo) =>{
+    this.service.delete(codigo)
+        .then(async (response) =>{
+            this.state.toast.show({ severity: 'success', summary: 'Sucesso', detail: 'Cadastro Excluido Com Sucesso' });
+            await this.delay(2000);
+           window.location.reload();
+        }).catch(error =>{
+            this.state.toast.show({ severity: 'error', summary: 'Erro', detail: 'Erro ao Excluir o Cadastro' });
+        })
+} 
+editar = (codigo) => {
+  window.location.href = `/updateInsumo/${codigo}`;    
+  
+}
   accept = () => {
     this.state.toast.show({
       severity: "info",
@@ -154,7 +147,7 @@ filtroStatus = () =>{
       detail: "Cadastro Excluido",
       life: 3000,
     });
-    this.delete(this.state.insumos.insumoId);
+    this.delete(this.state.codigo);
   };
 
   reject = () => {
@@ -166,12 +159,8 @@ filtroStatus = () =>{
     });
   };
 
-  confirm = async (insumoId) => {
-    this.setState({ insumoId: insumoId });
-    // eslint-disable-next-line no-unused-vars
-    const a = document.getElementsByClassName(
-      "p-button p-component p-confirm-dialog-reject p-button-text"
-    );
+  confirm = async (codigo) => {
+    this.setState({codigo: codigo})
     confirmDialog({
       message: "Você Realmente quer Deletar esse Cadastro ?",
       icon: "pi pi-info-circle",
@@ -201,46 +190,38 @@ filtroStatus = () =>{
               <BreadCrumb model={this.state.items} home={this.state.home} />
               <br />
               <div className="filtragem">
-                <span className="p-input-icon-left">
-                  <i className="pi pi-search " />
-                  <Dropdown
-                  value={this.state.nomeParaFiltro}
-                  options={this.state.nomeSelect}
-                  onChange={(e) => {
-                    this.setState({ nomeParaFiltro: e.value });
-                    
-                  }}
-                  placeholder="NOME"
-                />
-                </span>
+                    <span className="p-input-icon-left">
+                      <i  className="pi pi-search " />
+                        <InputText placeholder="PROCURAR"
+                          value= {this.state.nomeParaFiltro} 
+                           onChange={(e) => {this.setState({nomeParaFiltro: e.target.value }) }} />
+                            </span>
                  <Button className="bt-filtro" label="Filtrar" 
                             onClick={this.filtro}
                             title="Filtrar" severity="warning" raised />
+                 <Button className="bt-filtro" label="Limpar Filtro" 
+                            onClick={this.limparFiltro}
+                            title="Listar Todos" severity="warning" raised />
               </div>
                   
               <div className="input-status">
-                <span className="p-input-icon-left">
-                  <i  className="pi pi-search " />  
-                    <Dropdown
-                      value={this.state.status}
-                      options={this.state.statusSelect}
-                      onChange={(e) => {
-                        this.setState({ status: e.value });
-                        
-                      }}
+                            <span className="p-input-icon-left">
+                                <i  className="pi pi-search " />
+                                <Dropdown placeholder="STATUS"
+                                value= {this.state.status} 
+                                options={this.state.statusSelect}
+                                onChange={(e) => {this.setState({status: e.target.value }) }} />
+                            </span>
 
-                      placeholder="STATUS DO INSUMO"
-                    />
-                  </span>
-                 <Button className="bt-filtro" label="Filtrar" 
+                            <Button className="bt-filtro" label="Filtrar" 
                             onClick={this.filtroStatus}
                             title="Filtrar" severity="warning" raised />
-            
-              </div>
-            
+                           
+                        </div>
+
 
               <div className="divCreat">
-                <a href="/createInsumos">
+                <a href="/criarInsumos">
                   <Button className="btCreat" severity="warning" raised>
                     <FontAwesomeIcon
                       icon={faPlus}
@@ -249,7 +230,7 @@ filtroStatus = () =>{
                   </Button>
                 </a>
               </div>
-              <div className="menu-zonas">
+              <div className="menu-zonas1">
                 <Button
                   onClick={() => 0}
                   className="p-button-outlined mb-5"
@@ -266,7 +247,7 @@ filtroStatus = () =>{
                   label="FD-CNC"
                 />
                 <Button
-                  onClick={() => 0}
+                  onClick={(this.test)}
                   className="p-button-outlined mb-5"
                   label="FD-3D"
                 />

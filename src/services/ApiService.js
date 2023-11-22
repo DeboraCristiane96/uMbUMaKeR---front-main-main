@@ -1,12 +1,11 @@
 import axios from "axios";
 
-
 export default class ApiService {
     constructor(endpoint){
 
         this.endpoint = endpoint;
         this.httpCliente = axios.create({
-            baseURL:'http://localhost:8090'
+            baseURL:'http://localhost:8080'
         });
     }
     post(url, params){
@@ -27,6 +26,11 @@ export default class ApiService {
     get(url, id){
         url = this.buildUrl(url);
         return this.httpCliente.get(url, id);
+    }
+
+    getWithFilter(url) {
+        url = this.builderUrl(url);
+        return this.httpClient.get(url);
     }
 
     buildUrl(url){

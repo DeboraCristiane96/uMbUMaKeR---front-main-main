@@ -3,7 +3,7 @@ import "./GrupoCheckBox.css";
 import { Checkbox } from "primereact/checkbox";
 
 export default function GrupoChekBox() {
-    const [filamentos, setfilamentos] = useState([]);
+    const [filamentos, setfilamentos] = useState([this.filamentos]);
 
     const onFilamentosChange = (e) => {
         let _filamentos = [...filamentos];

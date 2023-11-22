@@ -1,41 +1,79 @@
-.card{
+.card01{
     margin-top: 2rem;
-    margin-bottom: 2vw;
     border-color: #0c9213;
 }
 
-.left{
-    display: flex;
+.nomeZona{
+    color: #0a0a09;
+    margin-left: 1rem;
+    font-weight: bold;
+    font-size: 3vh;
+
 }
-.lb{
+
+.icon01{
+    margin-top: -1.5rem;
+    font-size: 2vh;
+    margin-left: 25rem;
+    font-size: 2vh;
+}
+.qntTotal{
     color: #0b7726;
-    margin-top: -0.7rem;
     font-size: 3vh;
     font-weight: bold;
     margin-left: 20rem;
 }
-
-.nome{
-    color: black;
-    font-weight: bold;
+.porcento{
+    margin-top: 1rem;
+    font-size: 2vh;
+    margin-left: 22rem;
+    font-size: 2vh;
+}
+.icon02{
     font-size: 3vh;
+    margin-top: -1.4rem;
+    margin-left: 1rem;
+    color: #da0b0b;
+
 }
-.p02{
-    margin-top: 2.5rem;
-    margin-left: -1rem;
+.dias{
+    color: #da0b0b;
+    margin-top: -1rem;
     font-size: 2vh;
+    margin-left: 3rem;
+    font-size: 2vh;
+}
+.lbWht{
+    color: #0b7726;
+    font-size: 3vh;
     font-weight: bold;
-    color: #bd1414;
 }
 
-.p03{
-    margin-top: 1.6rem;
-    margin-left: -8rem;
-    font-size: 2vh;
+.lbQr{
+    color: #0b7726;
+    font-size: 3vh;
     font-weight: bold;
-    color: #184118;
 }
-.icon{
-    margin-top: -0.7rem;
-    margin-left: 20rem;
+
+
+.card-butons{
+    display: flex;
+    flex-direction: row-reverse;
+    margin-top: 0px;
+}
+
+.card-butons .bt {
+    margin-right: 10px; 
+    background-color: white;
+}
+.bt{
+    margin-right: 10px;
+}
+.divCreat .btCreat{
+    background-color: white;
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin-right: 4vh;
+    margin-top: 2.5vh;
 }

@@ -3,7 +3,6 @@
 }
 .input-texts input {    
     margin-top: 2vh;
-    width: 25vw;
     height: 6vh;
 }
 
@@ -17,30 +16,30 @@
     margin-top: 2vh;
     height: 6vh;
 }
-.flexalign-items-center .input-um{
-    margin-right: 2vw;
-}
+
 .input-texts .input-um{
     margin-right: 2vw;
 }
 
-.input-texts{
-    width: 15vw;
-}
+ 
 .input-texts .input-dois{
-    width: 15vw;
     margin-right: 2vw;
 }
+
+
 .bts{
     flex-direction: row-reverse;
-   
 }
-.bts .bt{
-    flex-direction: row-reverse;
+.btS{
+    margin-right: 1vw;
+    margin-top: 20rem;
+    
+}
 
-}
 .error{
     color: red;
     flex-direction: column;
     margin-top: 50px;
 }
+
+

@@ -323,7 +323,7 @@ export default class CreateUser extends React.Component {
             <div className="bts">
               <div className="bt">
                 <Button
-                  label="Salvar"
+                  label="SALVAR"
                   severity="warning"
                   raised
                   onClick={this.validar}

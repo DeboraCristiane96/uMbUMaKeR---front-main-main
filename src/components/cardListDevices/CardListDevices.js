@@ -1,10 +1,11 @@
 /* eslint-disable no-undef */
-import React from "react";
+import React , { useState } from "react";
 import { Card } from "primereact/card";
 import { Button } from "primereact/button";
 
 import { Image } from 'primereact/image';
 
+import { Dialog } from 'primereact/dialog';
         
 import "./CardListDevices.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,39 +13,84 @@ import {
   faTrashAlt,
   faPenToSquare,
   faChevronRight,
+  faCalendarDay
 } from "@fortawesome/free-solid-svg-icons";
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (props) => {
-  const rows = props.devices.map((device) => {
+
+  const [visible, setVisible] = useState(false);
+
+  const rows = props.devices.map((devices) => {
+
+    console.log(devices.nome)
     return (
-      <div className="card">
+      <div className="cardDevice">
         <Card>
           <div className="left">
             <div className="divImg">
-              <Image src="/imgsTest/impressora3d.png" alt="Image" width="80" height="60" />
+              <Image src={devices.Image} alt="Image" width="80" height="60" />
             </div>
+        
             <div className="divModelo">
-              <p>{device.modelo}</p>
-            </div>
-            <div className="divTipo">
-              <p>{device.tipo}</p>
+              <p>{devices.modelo}</p>
             </div>
           </div>
+         
           <div className="card-butons">
-            <Button
-              className="bt"
-              onClick={(e) => props.detalhes(device.deviceId)}
-              style={{ color: "#0b6429" }}
+
+          <div className="card-butons">
+          
+                <a href="/agendarDispositivo">
+                  <Button className="bt" severity="warning" raised>
+                    <FontAwesomeIcon
+                      icon={faCalendarDay}
+                      style={{ color: "#0b6429" }}
+                    />
+                  </Button>
+                </a>
+            <Button  className="bt"
+              style={{ color: '#0c9213' }}
               title="Detalhes"
               severity="warning"
-              aria-label="Detalhes"
-            >
-              <FontAwesomeIcon icon={faChevronRight} />
-            </Button>
-
+              aria-label="Detalhes" onClick={() => setVisible(true)} ><FontAwesomeIcon icon={faChevronRight} /> </Button>
+              <Dialog header={devices.modelo} visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
+                <p className="m-0">
+                    Última Manutenção
+                    {devices.ultimaMnautencao}
+                    <br/> <br/> 
+                    Temperatura Máxima
+                    <br/>
+                    {devices.temperaturaMaxima}
+                    <br/> <br/> 
+                    <div className="eixos">
+                      Eixo X 
+                      <br/> 
+                      {devices.eixoX}
+                    </div>
+                    <br/> 
+                    <div className="eixos">
+                      Eixo Y 
+                      <br/> 
+                      {devices.eixoX}
+                    </div>
+                    <br/> 
+                    <div className="eixos">
+                      Eixo Z 
+                      <br/>
+                      {devices.eixoX}
+                    </div>
+                         
+                    <br/> 
+                    Tipo de Dispositivo
+                    <br/>
+                    {devices.tipo}
+                </p>
+              </Dialog>
+            </div>
+          
             <Button
               className="bt"
-              onClick={(e) => props.editar(device.deviceId)}
+              onClick={(e) => props.editar(devices.id)}
               title="Editar"
               severity="warning"
               aria-label="Editar"
@@ -57,7 +103,7 @@ export default (props) => {
 
             <Button
               className="bt"
-              onClick={(e) => props.delete(device.deviceId)}
+              onClick={(e) => props.delete(devices.deviceId)}
               style={{ color: "#0b6429" }}
               title="Deletar"
               severity="warning"

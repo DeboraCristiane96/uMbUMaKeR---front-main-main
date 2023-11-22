@@ -15,7 +15,7 @@ export default function MenuLeft() {
         {
           label: "DASHBOARDS",
           command: () => {
-            window.location.hash = "/fileupload";
+            window.location.href=  "/dashboardZonas";
           },
         },
         {

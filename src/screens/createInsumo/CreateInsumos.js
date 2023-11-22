@@ -26,17 +26,17 @@ export default class CreateInsumo extends React.Component {
         { label: "Insumos", url: "/insumos" },
         { label: "Cadastrar" },
       ],
+      
       home: { icon: "pi pi-home ", url: "/" },
+    
 
       insumos: [
         {
-          insumoId: "",
+          codigo:"",
           nome: "",
           quantidadeTotal:"",
           quantidadeMinimaEstoque:"",
-          quantidadeDiasAlertaVencimento:"",
-          armario:null,
-          nicho:null
+          quantidadeDiasAlertaVencimento:""
         },
       ],
 
@@ -57,21 +57,56 @@ export default class CreateInsumo extends React.Component {
       super();
       this.service = new InsumoService();
     }
-
+    async teste(){
+      await this.service.findAll("")
+      .then((response) => {
+        const insumo = response.data;
+        this.setState({ insumo });
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log("erro!");
+        console.log(error.response);
+      });
+    }
+    
   delay = (ms) => {
     return new Promise((resolve) => setTimeout(resolve, ms));
   };
+  definirStatusEstoque(quantidadeTotal, quantidadeMinimaEstoque) {
+    if (quantidadeTotal >= quantidadeMinimaEstoque) {
+        return "REGULAR";
+    } else if (quantidadeTotal < quantidadeMinimaEstoque && quantidadeMinimaEstoque > 0) {
+        return "ABAIXO MINIMO";
+    } else if (quantidadeTotal === 0) {
+        return "ZERADO";
+    } else {
+        return "Quantidade atual inválida"; // Caso deseje lidar com valores negativos
+    }
+}
 
+calcularDiasParaVencimento(dataVencimento) {
+  const dataAtual = new Date();
+  const vencimento = new Date(dataVencimento);
+
+  if (vencimento < dataAtual) {
+      return "Produto vencido";
+  }
+
+  const diferencaEmMiliSegundos = vencimento - dataAtual;
+  const diferencaEmDias = Math.ceil(diferencaEmMiliSegundos / (1000 * 60 * 60 * 24));
+
+  return diferencaEmDias;
+}
   salvar = async () => {
     await this.service
       .create({
         nome: this.state.nome,
+        statusEstoque: this.definirStatusEstoque(this.state.quantidadeTotal,this.state.quantidadeMinimaEstoque),
         quantidadeTotal: this.state.quantidadeTotal,
-        quantidadeMinimaEstoque:this.state.quantidadeMinimaEstoque,
-        quantidadeDiasAlertaVencimento:this.state.quantidadeDiasAlertaVencimento,
+        quantidadeMinimaEstoque: this.state.quantidadeMinimaEstoque,
+        quantidadeDiasAlertaVencimento: this.state.quantidadeDiasAlertaVencimento,
         unidadeMedida: this.state.unidadeMedida,
-        armario:this.state.armario,
-        nicho:this.state.nicho,
        
       })
       .then(async (response) => {
@@ -89,6 +124,7 @@ export default class CreateInsumo extends React.Component {
           summary: "Erro",
           detail: "Erro ao Salvar",
         });
+       
         console.log(error);
       });
   };
@@ -112,8 +148,8 @@ export default class CreateInsumo extends React.Component {
     });
   };
 
-  confirm = async (insumoId) => {
-    this.setState({ insumoId: insumoId });
+  confirm = async (codigo) => {
+    this.setState({ codigo: codigo });
     // eslint-disable-next-line no-unused-vars
     const a = document.getElementsByClassName(
       "p-button p-component p-confirm-dialog-reject p-button-text"
@@ -173,7 +209,6 @@ export default class CreateInsumo extends React.Component {
           <div>
             <div className="input-texts">
               <div className="input-um">
-                <label htmlFor="nome">Nome</label>
                 <InputText
                   id="nome"
                   className="borderColorEdit"
@@ -181,7 +216,7 @@ export default class CreateInsumo extends React.Component {
                   value={this.state.nome}
                   onChange={(e) => {
                     this.setState({ nome: e.target.value });
-                  }}
+                  }}placeholder="NOME DO INSUMO"
                 />
                 {this.state.error && (
                   <span style={{ color: "red" }}>{this.state.error}</span>
@@ -202,61 +237,37 @@ export default class CreateInsumo extends React.Component {
             <br/>
             <div className="input-texts">
               <div className="input-um">
-                <label htmlFor="qntTotal">Quantidade Total</label>
+                <label htmlFor="qntTotal"></label>
                 <InputNumber value={this.state.quantidadeTotal} onValueChange={(e) => 
-                this.setState({quantidadeTotal: e.target.value})} mode="decimal" showButtons min={0} max={10000} />
+                this.setState({quantidadeTotal: e.target.value})}placeholder="QUANTIDADE DE INSUMO" mode="decimal" showButtons min={0} max={10000} />
               </div>
             </div>
             </div>
-
+            <br/>    
             <div className="input-texts">
             <div className="input-um">
-              <label htmlFor="qntTotal">Quantidade miníma do estoque</label>
               <InputNumber value={this.state.quantidadeMinimaEstoque} onValueChange={(e) => 
-                this.setState({quantidadeMinimaEstoque: e.target.value})} mode="decimal" showButtons min={0} max={10000} />
+                this.setState({quantidadeMinimaEstoque: e.target.value})}placeholder="QUANTIDADE MINIMA DO ESTOQUE" mode="decimal" showButtons min={0} max={10000} />
                 </div>
             </div>
-
+            <br/> 
             <div className="input-texts">
-                <div className="input-um">
-                  <label htmlFor="qntTotal">Armário</label>
-                  <InputText
-                    id="armario"
-                    className="borderColorEdit"
-                    type="text"
-                    value={this.state.armario}
-                    onChange={(e) => {
-                      this.setState({ armario: e.target.value });
-                    }}
-                  />
-                </div>
+              <div>
+                <InputNumber value={this.state.quantidadeDiasAlertaVencimento} onValueChange={(e) => 
+                  this.setState({quantidadeDiasAlertaVencimento: e.target.value})}placeholder="ALERTA DE VENCIMENTO" mode="decimal" showButtons min={0} max={10000} />
+               </div>
             </div>
 
-            <div className="input-texts">
-            
-              <div className="input-um">
-              <label htmlFor="nicho">Nicho</label>
-                  <InputText
-                    id="nicho"
-                    className="borderColorEdit"
-                    type="text"
-                    value={this.state.nicho}
-                    onChange={(e) => {
-                      this.setState({ nicho: e.target.value });
-                    }}
-                  />
-              </div>
-            </div>
             <div className="bts">
-              <div className="bt">
+              <div className="btS">
                 <Button
-                  label="Salvar"
+                  label="SALVAR"
                   severity="warning"
                   raised
                   onClick={this.validar}
                 />
               </div>
-              <div className="bt">
+              <div className="btS">
                 <a href="/insumos">
                   <Button label="CANCELAR"></Button>
                 </a>

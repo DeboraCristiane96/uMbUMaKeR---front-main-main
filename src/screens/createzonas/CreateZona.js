@@ -1,7 +1,5 @@
 /* eslint-disable react/no-direct-mutation-state */
-
 import React from "react"
-
 import { Toast } from "primereact/toast";
 import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 
@@ -13,7 +11,7 @@ import { Button } from "primereact/button";
 import ZonaService from "../../services/ZonaService";
 import MenuLeft from "../../components/Menu/MenuLeft";
 
-import "./CreateZonas.css";
+import "./CreateZona.css";
 
 export default class CreateZona extends React.Component {
 
@@ -22,10 +20,10 @@ export default class CreateZona extends React.Component {
 
         home: { icon: "pi pi-home ", url: "/" },
 
-       zona:[{
-        zonaId:"",
+       zonas:[{
+        codigo:"",
         nome:"",
-        qntPessoas: ""
+        qtdPessoas: ""
        }],
        
        toast: "",
@@ -48,7 +46,7 @@ export default class CreateZona extends React.Component {
         await this.service
           .create({
             nome: this.state.nome,
-            qntPessoas:this.state.qntPessoas,
+            qtdPessoas:this.state.qtdPessoas,
           })
           .then(async (response) => {
             this.state.toast.show({
@@ -147,12 +145,9 @@ export default class CreateZona extends React.Component {
                       ></BreadCrumb>
                     </div>
                   </div>
-                  <br/>
-                  <br/>
                   <div>
                     <div className="input-texts">
                       <div className="input-um">
-                        <label htmlFor="nome">Nome</label>
                         <InputText
                           id="nome"
                           className="borderColorEdit"
@@ -160,7 +155,7 @@ export default class CreateZona extends React.Component {
                           value={this.state.nome}
                           onChange={(e) => {
                             this.setState({ nome: e.target.value });
-                          }}
+                          }}placeholder="NOME DA ZONA"
                         />
                         {this.state.error && (
                           <span style={{ color: "red" }}>{this.state.error}</span>
@@ -171,9 +166,9 @@ export default class CreateZona extends React.Component {
                     <br/>
                     <div className="input-texts">
                     <div className="input-um">
-                        <label htmlFor="qntTotal">Quantidade de Pessoas</label>
-                        <InputNumber value={this.state.qntPessoas} onValueChange={(e) => 
-                        this.setState({qntPessoas: e.target.value})} mode="decimal" showButtons min={0} max={10000} />
+                        <label htmlFor="qntTotal"></label>
+                        <InputNumber value={this.state.qtdPessoas} onValueChange={(e) => 
+                        this.setState({qtdPessoas: e.target.value})}placeholder="QUANTIDADE DE PESSOAS" mode="decimal" showButtons min={0} max={10000} />
                     </div>
                     </div>
             

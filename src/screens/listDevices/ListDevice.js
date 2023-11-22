@@ -14,23 +14,28 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CardListDevices from "../../components/cardListDevices/CardListDevices";
 import DeviceService from "../../services/DeviceService";
+import { Dialog } from 'primereact/dialog';
 
 export default class ListDevice extends React.Component {
   
   state = {
     items: [{ label: "Dispositivos", url: "/devices" }],
     home: { icon: "pi pi-home ", url: "/" },
+
     deviceId: "",
+
     devices: [{
-        id:"",
-        dataM: "",
-        codigo: "",
-        modelo: "",
-        tempMax: "",
-        tipo: "",
-        eixoX: "",
-        eixoY: "",
-        eixoZ: "",
+
+      id:"",
+      ultimaManutencao: "",
+      modelo: "",
+      temperaturaMaxima: "",
+      eixoX: "",
+      eixoY: "",
+      eixoZ: "",
+      tipoDispositivo: "",
+      filamentosSelecionados: [],
+      visible:false
       },
     ],
     token: "",
@@ -41,30 +46,34 @@ export default class ListDevice extends React.Component {
     super();
     this.service = new DeviceService();
   }
+ 
 
-  async componentDidMount() {
-    await this.service.findAll("")
-      .then((response) => {
-        const divice = response.data;
-
-        this.setState({ divice });
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log("errrrrror");
-        console.log(error.response);
-      });
+    async componentDidMount() {
+      await this.service.findAll("")
+          .then(response => {
+              const devices = response.data;
+              
+              this.setState({ devices });
+              console.log(response);
+          }
+          ).catch(error => {
+              console.log('falhou!');
+              console.log(error.response);
+          }
+      );
   }
 
   setActiveIndex = () => {};
-  detalhes = async () => {
-    confirmDialog({
-      message: "Detalhes do Dispositivo!",
-      icon: "pi pi-info-circle",
-      acceptClassName: "p-button-danger",
 
-      reject: this.reject,
-    });
+  detalhes = async () => {
+    <div className="card flex justify-content-center">
+    <Dialog header="Header"  style={{ width: '50vw' }} onHide={() => this.state.visible(true)}>
+        <p className="m-0">
+           ulla pariatur. 
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+    </Dialog>
+</div>
     await this.delay(10);
   };
 
@@ -73,8 +82,7 @@ export default class ListDevice extends React.Component {
   };
 
   delete = (deviceId) => {
-    this.service
-      .delete(deviceId)
+    this.service.delete(deviceId)
       .then(async (response) => {
         this.state.toast.show({
           severity: "success",
@@ -185,9 +193,7 @@ export default class ListDevice extends React.Component {
                 />
                 <hr />
               </div>
-
               <br />
-
               <br />
             </div>
           </div>

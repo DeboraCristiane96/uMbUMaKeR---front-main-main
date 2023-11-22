@@ -1,42 +1,41 @@
+/* eslint-disable no-undef */
 /* eslint-disable react/no-direct-mutation-state */
-import React from "react";
+import React,{ useState }from "react";
 
 import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 
 import { Toast } from "primereact/toast";
 
-import GrupoChekBox from "../../components/checkBox/GrupoChekBox" ;
-
 import { Dropdown } from "primereact/dropdown";
-
+import { Checkbox } from "primereact/checkbox";
 import { BreadCrumb } from "primereact/breadcrumb";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import MenuLeft from "../../components/Menu/MenuLeft";
 import DeviceService from "../../services/DeviceService";
 
-
+// eslint-disable-next-line react-hooks/rules-of-hooks
 
 export default class CreateDevice extends React.Component {
   state = {
     items: [{ label: "Dispositivos", url: "/devices" }, { label: "Cadastrar" }],
 
     home: { icon: "pi pi-home ", url: "/" },
-
+    
+    deviceid:"",
+    filamentosArray:[],
     devices: [
       {
         
-        deviceid:"",
-        img:"",
-        dataUltManu: "",
         codigo: "",
+        img:"",
+        ultimaManutencao: "",
         modelo: "",
-        tempMax: "",
+        temperaturaMaxima: "",
         eixoX: "",
         eixoY: "",
         eixoZ: "",
-        tipoDispositivo: "",
-        filamentosSelecionados: [],
+        filamentos:[],
       },
     ],
 
@@ -47,6 +46,7 @@ export default class CreateDevice extends React.Component {
       { label: "DLP", value: "DLP" },
       { label: "CANETA 3D", value: "CANETA 3D" },
     ],
+    tipo: "",
     
     toast: "",
 
@@ -64,15 +64,15 @@ export default class CreateDevice extends React.Component {
     super();
     this.service = new DeviceService();
   }
-
+  onFilamentosChange = (e) => {
+    let _filamentos = [this.filamentos];
   
-
-  addImg = ()=>{
-      
-     
-    
-    console.log("add img");
-
+    if (e.checked)
+        _filamentos.push(e.value);
+    else
+        _filamentos.splice(_filamentos.indexOf(e.value), 1);
+  
+    this.filamentos = _filamentos;
   }
 
   delay = (ms) => {
@@ -83,15 +83,15 @@ export default class CreateDevice extends React.Component {
     this.service
       .create({
         img: this.state.img,
-        dataUltManu: this.state.dataDeManu,
+        ultimaMnautencao: this.state.ultimaMnautencao,
         codigo: this.state.codigo,
         modelo: this.state.modelo,
-        tempMax: this.state.tempMax,
+        temperaturaMaxima: this.state.temperaturaMaxima,
         eixoX: this.state.eixoX,
         eixoY: this.state.eixoY,
         eixoZ: this.state.eixoZ,
         filamentosSelecionados: this.state.filamentosSelecionado,
-        tipoDispositivo: this.state.tipoSelecionado,
+        tipo: this.state.tipo,
       })
       .then(async (response) => {
         this.state.toast.show({
@@ -248,25 +248,22 @@ export default class CreateDevice extends React.Component {
           </div>
           {/* Começas os Campos  */}
          
-          <div className="input-dois">
-            <br />
-            <label htmlFor="dataUltManu">Ultima Manutenção</label>
-            <br />
-            {/* verificar como esta sendo o valor de data  */}
+          <div className="input-um">
+            <br /><br />
+            <label htmlFor="dataUltManu">DATA DA ULTIMA MANUTENÇÃO</label>
+            <br /><br />
             <InputText
               id="dataUltManu"
               className="borderColorEdit input-cidade"
               type="date"
-              value={this.state.dataUltManu}
+              value={this.state.ultimaManutencao}
               onChange={(e) => {
-                this.setState({ dataUltManu: e.target.value });
+                this.setState({ ultimaManutencao: e.target.value });
               }}
             />
           </div>
           <div className="input-texts">
             <div className="input-um">
-              <label htmlFor="modelo">Modelo</label>
-
               <InputText
                 id="modelo"
                 className="borderColorEdit"
@@ -274,7 +271,7 @@ export default class CreateDevice extends React.Component {
                 value={this.state.modelo}
                 onChange={(e) => {
                   this.setState({ modelo: e.target.value });
-                }}
+                }}placeholder="MODELO"
               />
 
               {/* usado para mostrar a msg de erro, caso tenha */}
@@ -286,16 +283,15 @@ export default class CreateDevice extends React.Component {
 
           <div className="input-texts">
             <div className="input-um">
-              <label htmlFor="temp">Temperatura Máxima</label>
-
               <InputText
                 id="temp"
                 className="borderColorEdit"
                 type="text"
-                value={this.state.tempMax}
+                value={this.state.temperaturaMaxima}
                 onChange={(e) => {
-                  this.setState({ tempMax: e.target.value });
-                }}
+                  this.setState({ temperaturaMaxima: e.target.value });
+                }}placeholder="TEMPERATURA MÀXIMA"
+              
               />
 
               {/* usado para mostrar a msg de erro, caso tenha */}
@@ -304,69 +300,106 @@ export default class CreateDevice extends React.Component {
               )}
             </div>
           </div>
-          <br />
 
           <div className="input-texts">
-            <div className="input-um">
+                  <InputText
+                        id="eX"
+                        type="text"
+                        value={this.state.eixoX}
+                        onChange={(e) => {
+                          this.setState({ eixoX: e.target.value });
+                        }}
+                        placeholder="EIXO X"
+                      />
+        
+                      {/* usado para mostrar a msg de erro, caso tenha */}
+                      {this.state.errorEX && (
+                        <span style={{ color: "red" }}>{this.state.errorEX}</span>
+                      )}
+                </div>      
+        
+            <div className="input-texts">
+                        <InputText
+                      id="eY"
+                      className="borderColorEdit"
+                      type="text"
+                      value={this.state.eixoY}
+                      onChange={(e) => {
+                        this.setState({ eixoY: e.target.value });
+                      }}
+                      placeholder="EIXO Y"
+                    />
 
-            <label htmlFor="eX">Eixo X </label>
-              <InputText
-                id="eX"
-                className="borderColorEdit"
-                type="text"
-                value={this.state.eixoX}
-                onChange={(e) => {
-                  this.setState({ eixoX: e.target.value });
-                }}
-              />
+                    {/* usado para mostrar a msg de erro, caso tenha */}
+                    {this.state.errorEY && (
+                      <span style={{ color: "red" }}>{this.state.errorEY}</span>
+                    )}
 
-              {/* usado para mostrar a msg de erro, caso tenha */}
-              {this.state.errorEX && (
-                <span style={{ color: "red" }}>{this.state.errorEX}</span>
-              )}
-            <label htmlFor="eY">Eixo Y </label>
-              <InputText
-                id="eY"
-                className="borderColorEdit"
-                type="text"
-                value={this.state.eixoY}
-                onChange={(e) => {
-                  this.setState({ eixoY: e.target.value });
-                }}
-              />
+              </div>
 
-              {/* usado para mostrar a msg de erro, caso tenha */}
-              {this.state.errorEY && (
-                <span style={{ color: "red" }}>{this.state.errorEY}</span>
-              )}
-
-              <label htmlFor="eZ">Eixo Z </label>
-                <InputText
-                  id="eZ"
-                  className="borderColorEdit"
-                  type="text"
-                  value={this.state.eixoZ}
-                  onChange={(e) => {
-                    this.setState({ eixoZ: e.target.value });
-                  }}
-                />
-                {/* usado para mostrar a msg de erro, caso tenha */}
-                {this.state.errorEZ && (
-                  <span style={{ color: "red" }}>{this.state.errorEZ}</span>
-                )}
-            </div>
-            </div>
+              <div className="input-texts">
+                      <InputText
+                        id="eZ"
+                        className="borderColorEdit"
+                        type="text"
+                        value={this.state.eixoZ}
+                        onChange={(e) => {
+                          this.setState({ eixoZ: e.target.value });
+                        }}
+                        placeholder="EIXO Z"
+                      />
+                      {/* usado para mostrar a msg de erro, caso tenha */}
+                      {this.state.errorEZ && (
+                        <span style={{ color: "red" }}>{this.state.errorEZ}</span>
+                      )}
+              </div>
+          
           <br />  
           <div>
-            <GrupoChekBox/>
           </div>
-          <br />
+          <div className="conteinner">
+            <div className="input-um">
+                <label>Filamentos Suportados</label> 
+            </div>
+            <br/>
+            <div className="input-texts">
+                <div className="input-um">
+                    <Checkbox inputId="filamento1" name="suporte" value="PLA" onChange={this.onFilamentosChange('PLA')} />
+                    <label htmlFor="filamento1" className="ml-2">PLA</label>
+                </div>
+                <div className="input-um">
+                    <Checkbox inputId="filamento2" name="suporte" value="ABS" onChange={this.onFilamentosChange('ABS')} />
+                    <label htmlFor="filamento2" className="ml-2">ABS</label>
+                </div>
+                <div className="input-um">
+                    <Checkbox inputId="filamento3" name="suporte" value="PET" onChange={this.onFilamentosChange('PET')} />
+                    <label htmlFor="filamento3" className="ml-2">PET</label>
+                </div>
+               
+            </div>
+           
+            <div className="input-texts"> 
+                <div className="input-um">
+                    <Checkbox inputId="filamento5" name="suporte" value="TPU" onChange={this.onFilamentosChange('TPU')} />
+                    <label htmlFor="filamento5" className="ml-2">TPU</label>
+                </div>
+                <div className="input-um">
+                    <Checkbox inputId="filamento4" name="suporte" value="HIP" onChange={this.onFilamentosChange('HIP')} />
+                    <label htmlFor="filamento4" className="ml-2">HIP</label>
+                </div>
+                <div className="input-um">
+                    <Checkbox inputId="filamento6" name="suporte" value="ASA" onChange={this.onFilamentosChange('ASA')} />
+                    <label htmlFor="filamento6" className="ml-2">ASA</label>
+                </div>
+
+            </div>
+        </div>
           <div className="input-texts">
             <Dropdown
               id="seletor-tipo"
-              value={this.state.tipoDispositivo}
+              value={this.state.tipo}
               options={this.state.tipos}
-              onChange={(e) => this.setState({ tipoDispositivo: e.value })}
+              onChange={(e) => this.setState({ tipo: e.value })}
               placeholder="TIPO"
             />
             {/* usado para mostrar a msg de erro, caso tenha */}
@@ -386,7 +419,6 @@ export default class CreateDevice extends React.Component {
               onClick={this.validar}
             />
           </div>
-
           <div className="bt">
             <a href="/devices">
               <Button label="CANCELAR"></Button>
@@ -395,5 +427,5 @@ export default class CreateDevice extends React.Component {
         </div>
       </>
     );
-  }
+  };
 }

@@ -2,7 +2,7 @@ import ApiService from "../services/ApiService";
 
 export default class ZonaService extends ApiService{
     constructor(){
-        super('/api/umbumaker/zonas')
+        super('/api/umbumaker/zonaTrabalho')
     }
     
     create(obj){
@@ -14,7 +14,7 @@ export default class ZonaService extends ApiService{
     }
 
     delete(id){
-        return this.delete(`/${id}`);
+        return super.delete(`/${id}`);
     }
     
     findById(id){
