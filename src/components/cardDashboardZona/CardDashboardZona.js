@@ -24,7 +24,7 @@ export default (props) => {
               <p>{agenda.nome}</p>
             </div>
            <div className="lbStatus">
-              <p>{zona.status}</p>
+              <p>Status</p>
             </div>
           <div className="card-butons">
           <Button
