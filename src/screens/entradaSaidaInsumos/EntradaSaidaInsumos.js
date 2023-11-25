@@ -1,12 +1,9 @@
-import React, { useState } from "react"
-
+import React from "react"
 import { Toast } from "primereact/toast";
 import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { faTrashCanArrowUp } from "@fortawesome/free-solid-svg-icons";
-import { InputText } from "primereact/inputtext";
-import { InputNumber } from 'primereact/inputnumber';
 import "./EntradaSaidaInsumos.css";
 import { BreadCrumb } from "primereact/breadcrumb";
 import { Button } from "primereact/button";
@@ -225,52 +222,56 @@ export default class EntradaSaidaInsumos extends React.Component {
                         </div>
                         <div className="quadroEntradaSaida" htmlFor="quadroEntradaSaida">
                             <div className="esquerda" htmlFor="esquerda">
-                                <label htmlFor="entradasLb" className="entradasLb">ENTRADAS </label>
-                                <Button
-                                    className="bt"
-                                    htmlFor="bt"
-                                    onClick={(e) => ("1")}
-                                    title="Editar"
-                                    severity="warning"
-                                    aria-label="Editar">
-                                    <FontAwesomeIcon
-                                        icon={faPenToSquare}
-                                        style={{ color: "#0b6429" }} />
-                                </Button>
+                                <div className="divTituloQuadro">
+                                    <label htmlFor="entradasLb" className="entradasLb">ENTRADAS </label>
+                                    <div className="entredaBt">
+                                        <Button
+                                            className="editarBt"
+                                            htmlFor="editarBt"
+                                            onClick={(e) => ("1")}
+                                            title="Editar"
+                                            severity="warning"
+                                            aria-label="Editar">
+                                            <FontAwesomeIcon
+                                                icon={faPenToSquare}
+                                                style={{ color: "#0b6429" }} />
+                                        </Button>
 
-                                <InputSwitch checked={this.state.checked}
-                                    onChange={(e) => this.setState(e.value)} />
+                                        <InputSwitch checked={this.state.checked}
+                                            onChange={(e) => this.setState(e.value)} />
 
-                                <Button
-                                    className="bt"
-                                    onClick={(e) => delete ("1")}
-                                    htmlFor="bt"
-                                    title="Deletar"
-                                    severity="warning"
-                                    aria-label="Deletar"
-                                >
-                                    <FontAwesomeIcon icon={faTrashAlt}
-                                        style={{ color: "#0b6429" }} />
-                                </Button>
+                                        <Button
+                                            className="deletarBt"
+                                            onClick={(e) => delete ("1")}
+                                            htmlFor="deletarBt"
+                                            title="Deletar"
+                                            severity="warning"
+                                            aria-label="Deletar"
+                                        >
+                                            <FontAwesomeIcon icon={faTrashAlt}
+                                                style={{ color: "#0b6429" }} />
+                                        </Button>
+                                    </div>
+                                </div>
                                 <div className="quadroEntradas" htmlFor="quadroEntradas">
                                     <CardListarEntradas
                                         entradasEstoque={this.state.entradasEstoque} />
                                 </div>
-
                             </div>
                             <div className="direita" htmlFor="direita">
-                                <label htmlFor="saidasLb" className="saidasLb">SAÍDAS </label>
-                                <Button
-                                    className="bt"
-                                    onClick={(e) => delete ("1")}
-                                    style={{ color: "#0b6429" }}
-                                    title="Deletar"
-                                    severity="warning"
-                                    aria-label="Deletar"
-                                >
-                                    <FontAwesomeIcon icon={faTrashAlt} />
-                                </Button>
-
+                                <div className="divTituloQuadro">
+                                    <label htmlFor="saidasLb" className="saidasLb">SAÍDAS </label>
+                                    <Button
+                                        className="deletarBt"
+                                        onClick={(e) => delete ("1")}
+                                        style={{ color: "#0b6429" }}
+                                        title="Deletar"
+                                        severity="warning"
+                                        aria-label="Deletar"
+                                    >
+                                        <FontAwesomeIcon icon={faTrashAlt} />
+                                    </Button>
+                                </div>
                                 <div className="quadroSaidas" htmlFor="quadroSaidas">
                                     <CardListarSaidas
                                         saidasEstoque={this.state.saidasEstoque} />

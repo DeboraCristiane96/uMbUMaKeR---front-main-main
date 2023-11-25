@@ -10,16 +10,16 @@ export default (props) => {
       <div className="card01">
         <Card>
           <div className="left">
-              <div className="nome">
-                <p> Zona A {agenda.nome}</p>
-              </div>
-              <div className="hInicial">
-                  <p>10:00{agenda.horaInicial}</p>
-              </div>
-              <div className="hTermino">
-                  <p>11:00{agenda.horaTermino}</p>
-              </div>
+            <div className="nome">
+              <p> Zona A {agenda.nome}</p>
             </div>
+            <div className="hInicial">
+              <p>10:00{agenda.horaInicial}</p>
+            </div>
+            <div className="hTermino">
+              <p>11:00{agenda.horaTermino}</p>
+            </div>
+          </div>
         </Card>
       </div>
     );

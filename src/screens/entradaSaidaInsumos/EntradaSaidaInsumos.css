@@ -29,35 +29,48 @@
 
 .quadroEntradaSaida{
     display: flex;
-    
+    justify-content: space-between;
 }
 
 .esquerda{
-    margin-right: 25rem;
-    
+      
 }
-/*
-*/
-
+.divTituloQuadro{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
 .entradasLb{
     margin-right: 3rem; 
+    font-size: 1.50rem;
 }
-
 .quadroEntradas{
-    margin-top: 1rem;
+    margin-top: 10px;
     border: 1px solid #14770b;
+}
+
+.entredaBt{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
     
 }
 
+.editarBt{
+    margin-right: 0.5rem;  
+}
+.deletarBt{
+    margin-left: 0.5rem;
+}
 .direita{
-    
     flex-direction: row-reverse;
 }
 .saidasLb{
-    margin-right: 4rem; 
+    margin-right: 13rem; 
+    font-size: 1.50rem;
 }
 .quadroSaidas{
-    margin-top: 1rem;
+    margin-top: 10px;
     border: 1px solid #14770b;
 }
 /*
@@ -72,12 +85,14 @@ botões de outras telas X-D
 */
 
 .p-inputswitch{
-    margin-left: 1rem;
+    border: 1px solid hsl(115, 83%, 25%);
+    
 }
 
 .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
     background: rgb(245, 247, 246);
-    border: 1px solid hsl(115, 83%, 25%); 
+    border: 1px solid hsl(115, 83%, 25%);
+
 }
 
 .p-inputswitch.p-inputswitch-checked .p-inputswitch-slider:before {

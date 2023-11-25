@@ -2,10 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Card } from "primereact/card";
 import "./CardListarEntradas.css";
 import 'primeicons/primeicons.css';
-import { Button } from 'primereact/button';
-import { DataView } from 'primereact/dataview';
-import { Rating } from 'primereact/rating';
-import { Tag } from 'primereact/tag';
 
 
 
@@ -21,19 +17,23 @@ export default (props) => {
 
     const rows = props.entradasEstoque.map((entradasEstoque) => {
         return (
-            <div className="item"  >
-                <Card>
+            <Card>
+                <div className="item"  >
                     <div className="colum1">
                         <div className="dataEntrada" >
-                            {entradasEstoque.dataEntrada}</div>
-                        <i className="pi-clock"></i>
-                        <div className="dataValidade">{entradasEstoque.dataValidade}</div>
+                            <span className="pi pi-arrow-down" style={{ fontSize: '1.50rem', color: 'green' }}></span>
+                             2023/03/01
+                            {" "+entradasEstoque.dataEntrada}</div>
+                        <div className="dataValidade">
+                            <i className="pi pi-chevron-circle-right" style={{ fontSize: '1.50rem', color: 'green' }}></i>
+                             2023/08/01
+                            {" "+entradasEstoque.dataValidade}</div>
                     </div>
                     <div className="colum2">
-                        <div className="quantidade">{entradasEstoque.quantidade}</div>
+                        <div className="quantidade">7{entradasEstoque.quantidade}Kg</div>
                     </div>
-                </Card>
-            </div>
+                </div>
+            </Card>
         );
     });
 

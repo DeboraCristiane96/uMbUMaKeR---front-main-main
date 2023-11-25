@@ -1,0 +1,13 @@
+.item {
+    display: flex;
+    justify-content: space-between;
+}
+
+.colum1{
+    font-size: 1.50rem;
+    margin-left: 1rem; 
+}
+.colum2{
+    font-size: 2rem; 
+    color: #14770b;
+}

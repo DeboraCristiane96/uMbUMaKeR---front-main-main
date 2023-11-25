@@ -3,6 +3,15 @@
     padding: 0;
 }
 
+.header{
+    display: flex;
+}
+
+.i{
+    margin-right: 2vw;
+    margin-bottom: 2vw;
+}
+
 .container{
     margin-left: 22vw;
     margin-top: 4rem;
