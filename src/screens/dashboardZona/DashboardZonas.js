@@ -4,18 +4,17 @@ import React from "react";
 import { Dialog } from 'primereact/dialog';
 import { Button } from "primereact/button";
 import MenuLeft from "../../components/Menu/MenuLeft";
-
-import ZonaService from "../../services/ZonaService";
-import DeviceService from "../../services/DeviceService";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { faUsers } from "@fortawesome/free-solid-svg-icons";
+import { Dropdown } from "primereact/dropdown";
+
+import Seletor from "../../components/selectModulo/Seletor"
+import ZonaService from "../../services/ZonaService";
+import AgendaZona from "../../services/Zona/AgendaZona";
 import CardDashboardZonas from "../../components/cardDashboardZona/CardDashboardZona";
 
-import { Dropdown } from "primereact/dropdown";
-import AgendaZona from "../../services/Zona/AgendaZona";
-
+//Utilizar o redirecionamento de Dashboard
 export default class DashboardZonas extends React.Component {
 
   state = {
@@ -42,12 +41,12 @@ export default class DashboardZonas extends React.Component {
       },
     ],
     agenda: [{
-      codigo:0,
-      nome:"",
+      codigo: 0,
+      nome: "",
       horaInicial: "",
       horaTermino: "",
       diaSemana: "",
-      },
+    },
     ],
     toast: "",
   };
@@ -70,25 +69,25 @@ export default class DashboardZonas extends React.Component {
         console.log(error.response);
       });
   }
-
+  //verifica qual modulo foi selecionado
   filtroModulo = async () => {
     let lista = []
     this.state.modulo.forEach(element => {
-      if (element.statusEstoque === this.state.agendamentosFiltro) {
+      if (element.status === this.state.agendamentosFiltro) {
         lista.push(element);
       }
     });
     console.log("teste", this.state.zonas)
-    this.setState({ insumos: lista })
 
   }
   delay = (ms) => {
     return new Promise((resolve) => setTimeout(resolve, ms));
   };
+
+  //
   validarTipo = () => {
     if (this.state.modulo === 'DISPOSITIVOS') {
-      this.service = new DeviceService();
-      this.listDispositivo();
+      //redilecionar para DashboardDispositivo
     } else {
       this.service = new ZonaService();
       this.listZonas();
@@ -103,16 +102,6 @@ export default class DashboardZonas extends React.Component {
       }).catch(error => {
       });
   }
-
-  listDispositivo = async () => {
-    await this.service.findAll("")
-      .then(response => {
-        const zonas = response.data;
-        this.setState({ zonas });
-      }).catch(error => {
-      });
-  }
-
 
   filtro = () => {
     let lista = []
@@ -133,8 +122,6 @@ export default class DashboardZonas extends React.Component {
       <div>
         <FontAwesomeIcon className="icone" icon={faUsers} />
         <p>: {agenda.nome}</p>
-        
-
       </div>
     </Dialog>
   }
@@ -146,11 +133,28 @@ export default class DashboardZonas extends React.Component {
         <div className="container">
           <div className="header">
             <div className="i">
+              <Seletor></Seletor>
+              <Dropdown
+                label="MÓDULO"
+                value={this.state.modulo}
+                options={this.state.moduloSelect}
+                onChange={e => {
+                  this.setState({ modulo: e.value });
+                }}
+                placeholder=''
+              />
+              
+              <Button className="bt-filtro" label="Filtrar"
+                onClick={this.validarTipo}
+                title="Filtrar" />
+            </div>
+            <div className="i">
               <Dropdown
                 value={this.state.agendamentos}
                 options={this.state.agendamentosSelect}
                 onChange={e => {
-                  this.setState({ modulo: e.value });
+
+                  this.setState({ agendamentos: e.value });
                 }}
                 placeholder='TODOS'
               />
@@ -159,22 +163,7 @@ export default class DashboardZonas extends React.Component {
                 title="Filtrar" />
 
             </div>
-            <div className="i">
-              <Dropdown
-                value={this.state.modulo}
-                options={this.state.moduloSelect}
-                onChange={e => {
-                  this.setState({ agendamentos: e.value });
-                }}
-                placeholder='MÓDULO'
-              />
-              <Button className="bt-filtro" label="Filtrar"
-                onClick={this.validarTipo}
-                title="Filtrar" />
-            </div>
-            <br />
-            <hr />
-            <br />
+
           </div>
 
           <div className="zonas">

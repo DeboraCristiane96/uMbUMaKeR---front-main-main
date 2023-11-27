@@ -16,6 +16,11 @@ import CardDashboardZonas from "../../components/cardDashboardZona/CardDashboard
 import { Dropdown } from "primereact/dropdown";
 import AgendaZona from "../../services/Zona/AgendaZona";
 
+/**
+ * Utilizar o Seletor de modulo:
+ * criar uma logica para sair do dashboard padrao,
+ * e redirecionar para a dashboard indicada na opção!!!
+ */
 export default class Home extends React.Component {
 
   state = {
@@ -143,6 +148,19 @@ export default class Home extends React.Component {
         <MenuLeft />
         <div className="container">
           <div className="header">
+          <div className="i">
+              <Dropdown
+                value={this.state.modulo}
+                options={this.state.moduloSelect}
+                onChange={e => {
+                  this.setState({ agendamentos: e.value });
+                }}
+                placeholder='MÓDULO'
+              />
+              <Button className="bt-filtro" label="Filtrar"
+                onClick={this.validarTipo}
+                title="Filtrar" />
+            </div>
             <div className="i">
               <Dropdown
                 value={this.state.agendamentos}
@@ -157,19 +175,7 @@ export default class Home extends React.Component {
                 title="Filtrar" />
 
             </div>
-            <div className="i">
-              <Dropdown
-                value={this.state.modulo}
-                options={this.state.moduloSelect}
-                onChange={e => {
-                  this.setState({ agendamentos: e.value });
-                }}
-                placeholder='MÓDULO'
-              />
-              <Button className="bt-filtro" label="Filtrar"
-                onClick={this.validarTipo}
-                title="Filtrar" />
-            </div>
+            
            
           </div>
 
