@@ -3,11 +3,13 @@ import React from "react";
 
 import { Dialog } from 'primereact/dialog';
 import { Button } from "primereact/button";
+import { TabMenu } from 'primereact/tabmenu';
 import MenuLeft from "../../components/Menu/MenuLeft";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { faUsers } from "@fortawesome/free-solid-svg-icons";
 import { Dropdown } from "primereact/dropdown";
+import BasicDemo  from "../../components/Menu/MenuSecundario/TabMenu";
 import ZonaService from "../../services/ZonaService";
 import AgendaZona from "../../services/Zona/AgendaZona";
 import CardDashboardZonas from "../../components/cardDashboardZona/CardDashboardZona";
@@ -85,14 +87,14 @@ export default class DashboardZonas extends React.Component {
   //ok
   validarTipo = () => {
     if (this.state.modulo === 'DISPOSITIVOS') {
-     // window.location.href = `/dashboardDispositivos`
-    } else if(this.state.modulo === 'INSUMOS'){
+      // window.location.href = `/dashboardDispositivos`
+    } else if (this.state.modulo === 'INSUMOS') {
       //window.location.href = `/dashboardInsumos`
-    } else{
+    } else {
       window.location.href = `/dashboardZonas`
     }
   }
- //retornar botoes das zonas
+  //retornar botoes das zonas
   listZonas = async () => {
     await this.service.findAll("")
       .then(response => {
@@ -158,6 +160,29 @@ export default class DashboardZonas extends React.Component {
                 title="Filtrar" />
 
             </div>
+          </div>
+          <BasicDemo/>
+          <div className="menu-zonas1">
+            <Button
+              onClick={() => 0}
+              className="p-button-outlined mb-5"
+              label="M"
+            />
+            <Button
+              onClick={() => 0}
+              className="p-button-outlined mb-5"
+              label="RA"
+            />
+            <Button
+              onClick={() => 0}
+              className="p-button-outlined mb-5"
+              label="FD-CNC"
+            />
+            <Button
+              onClick={(this.test)}
+              className="p-button-outlined mb-5"
+              label="FD-3D"
+            />
           </div>
           <div className="zonas">
             <CardDashboardZonas
