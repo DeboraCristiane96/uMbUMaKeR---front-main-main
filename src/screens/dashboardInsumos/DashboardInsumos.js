@@ -6,10 +6,13 @@ import { Button } from "primereact/button";
 import React, { useState, useEffect } from 'react';
 import { Chart } from 'primereact/chart';
 
-export default function MultiAxisDemo() {
-    const [chartData, setChartData] = useState({});
-    const [chartOptions, setChartOptions] = useState({});
 
+export default class DashboardInsumos extends React.Component {
+
+/*
+ * 
+const [chartData, setChartData] = useState({});
+const [chartOptions, setChartOptions] = useState({});
     useEffect(() => {
         const documentStyle = getComputedStyle(document.documentElement);
         const textColor = documentStyle.getPropertyValue('--text-color');
@@ -127,41 +130,44 @@ export default function MultiAxisDemo() {
         setChartData(data);
         setChartOptions(options);
     }, []);
-
-    return (
-        <><MenuLeft />
-            <div className="menu-zonas">
-                <Button
-                    onClick={() => 0}
-                    className="p-button-outlined mb-5"
-                    label="M"
-                />
-                <Button
-                    onClick={() => 0}
-                    className="p-button-outlined mb-5"
-                    label="RA"
-                />
-                <Button
-                    onClick={() => 0}
-                    className="p-button-outlined mb-5"
-                    label="FD-CNC"
-                />
-                <Button
-                    onClick={() => 0}
-                    className="p-button-outlined mb-5"
-                    label="FD-3D"
-                />
-                <hr />
+    
+return (
+    <><MenuLeft />
+        <div className="menu-zonas">
+            <Button
+                onClick={() => 0}
+                className="p-button-outlined mb-5"
+                label="M"
+            />
+            <Button
+                onClick={() => 0}
+                className="p-button-outlined mb-5"
+                label="RA"
+            />
+            <Button
+                onClick={() => 0}
+                className="p-button-outlined mb-5"
+                label="FD-CNC"
+            />
+            <Button
+                onClick={() => 0}
+                className="p-button-outlined mb-5"
+                label="FD-3D"
+            />
+            <hr />
+        </div>
+        <br />
+        <div className='container'>
+            <div className="mostragem1">
+                <h2>Saída de Filamentos</h2>
+                <Chart id='grafico1' type="line" data={chartData} options={chartOptions} className="w-full md:w-30rem" />
             </div>
+        </div>
+    </>
+)
+*/ 
 
-            <br />
-
-            <div className='container'>
-                <div className="mostragem1">
-                    <h2>Saída de Filamentos</h2>
-                    <Chart id='grafico1' type="line" data={chartData} options={chartOptions} className="w-full md:w-30rem" />
-                </div>
-            </div>
-        </>
-    )
 }
+
+
+

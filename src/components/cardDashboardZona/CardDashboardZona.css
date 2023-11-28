@@ -1,5 +1,16 @@
+
+
+.quadro{
+    display: flex;
+    justify-content:space-between;
+}
+
+.left{
+    flex-direction: column;
+}
+
+
 .cardBoard{
-    
     padding: 10px;
     border-color: #0c9213;
     border: 1px;

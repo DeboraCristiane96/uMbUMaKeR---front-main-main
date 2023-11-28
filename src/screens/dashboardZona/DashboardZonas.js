@@ -8,8 +8,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { faUsers } from "@fortawesome/free-solid-svg-icons";
 import { Dropdown } from "primereact/dropdown";
-
-import Seletor from "../../components/selectModulo/Seletor"
 import ZonaService from "../../services/ZonaService";
 import AgendaZona from "../../services/Zona/AgendaZona";
 import CardDashboardZonas from "../../components/cardDashboardZona/CardDashboardZona";
@@ -53,7 +51,7 @@ export default class DashboardZonas extends React.Component {
 
   constructor() {
     super();
-    //this.service = new ZonaService();
+    this.service = new ZonaService();
     this.service = new AgendaZona();
   }
 
@@ -69,7 +67,7 @@ export default class DashboardZonas extends React.Component {
         console.log(error.response);
       });
   }
-  //verifica qual modulo foi selecionado
+  //verifica qual modulo foi selecionado || não esta sendo usado
   filtroModulo = async () => {
     let lista = []
     this.state.modulo.forEach(element => {
@@ -84,16 +82,17 @@ export default class DashboardZonas extends React.Component {
     return new Promise((resolve) => setTimeout(resolve, ms));
   };
 
-  //
+  //ok
   validarTipo = () => {
     if (this.state.modulo === 'DISPOSITIVOS') {
-      //redilecionar para DashboardDispositivo
-    } else {
-      this.service = new ZonaService();
-      this.listZonas();
+     // window.location.href = `/dashboardDispositivos`
+    } else if(this.state.modulo === 'INSUMOS'){
+      //window.location.href = `/dashboardInsumos`
+    } else{
+      window.location.href = `/dashboardZonas`
     }
   }
-
+ //retornar botoes das zonas
   listZonas = async () => {
     await this.service.findAll("")
       .then(response => {
@@ -102,7 +101,7 @@ export default class DashboardZonas extends React.Component {
       }).catch(error => {
       });
   }
-
+  //nao esta sendo usado 
   filtro = () => {
     let lista = []
     this.state.modulo.forEach(element => {
@@ -133,27 +132,23 @@ export default class DashboardZonas extends React.Component {
         <div className="container">
           <div className="header">
             <div className="i">
-              <Seletor></Seletor>
               <Dropdown
-                label="MÓDULO"
                 value={this.state.modulo}
                 options={this.state.moduloSelect}
                 onChange={e => {
                   this.setState({ modulo: e.value });
                 }}
-                placeholder=''
+                placeholder='ZONAS'
               />
-              
-              <Button className="bt-filtro" label="Filtrar"
+              <Button className="bt-filtro" label="Selecionar Modulo"
                 onClick={this.validarTipo}
-                title="Filtrar" />
+                title="Selecionar Modulo" />
             </div>
             <div className="i">
               <Dropdown
                 value={this.state.agendamentos}
                 options={this.state.agendamentosSelect}
                 onChange={e => {
-
                   this.setState({ agendamentos: e.value });
                 }}
                 placeholder='TODOS'
@@ -163,9 +158,7 @@ export default class DashboardZonas extends React.Component {
                 title="Filtrar" />
 
             </div>
-
           </div>
-
           <div className="zonas">
             <CardDashboardZonas
               agenda={this.state.agenda}

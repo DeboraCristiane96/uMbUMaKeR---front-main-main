@@ -26,6 +26,8 @@ import ListTutores from "./screens/listTutor/ListTutores";
 import ListManager from "./screens/listManager/ListManager";
 import AgendarDispositivo from "./screens/createAgendamentoDevice/AgendarDispositivo";
 import DashboardZonas from "./screens/dashboardZona/DashboardZonas";
+import DashboardInsumos from "./screens/dashboardInsumos/DashboardInsumos";
+import DashboardDispositivos from "./screens/dashboardDispositivos/DashboardDispositivos";
 
 
 function App() {
@@ -35,6 +37,8 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/home" element={<Home />} />
         <Route element={<DashboardZonas/>} path="/dashboardZonas" />
+        <Route element={<DashboardInsumos/>} path="/dashboardInsumos" />
+        <Route element={<DashboardDispositivos/>} path="/dashboardDispositivos" />
         <Route element={<ListUsers />} path="/associates" />
         <Route element={<ListTutores />} path="/tutores" />
         <Route element={<ListManager />} path="/gestores" />
