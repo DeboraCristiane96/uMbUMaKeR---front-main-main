@@ -181,7 +181,7 @@ async componentDidMount() {
                     <div>
                         <Button className="bt-filtro" label="Filtrar" 
                             onClick={this.validarTipo}
-                            title="Filtrar" severity="warning" raised />
+                            title="Filtrar" />
                     </div>
                 </div>
                         <div className="filtragem">
@@ -194,18 +194,16 @@ async componentDidMount() {
 
                             <Button className="bt-filtro" label="Filtrar" 
                             onClick={this.filtro}
-                            title="Filtrar" severity="warning" raised />
+                            title="Filtrar" />
 
                             <Button className="bt-filtro" label="Limpar Filtro" 
                             onClick={this.limparFiltro}
-                            title="Listar Todos" severity="warning" raised />
+                            title="Listar Todos"/>
                         </div>
 
                         <div className="divCreat">
                             <a href="/createUser">
-                            <Button className="btCreat" 
-                            severity="warning" 
-                            raised>
+                            <Button className="btCreat">
                             <FontAwesomeIcon icon={faPlus}
                           style={{color: "#0b6429",}} /></Button>
                             </a>

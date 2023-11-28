@@ -1,0 +1,15 @@
+.cardLocal{
+    display: flex;
+    padding: 10px;
+    height: 10px;;
+}
+.armario{
+    margin-left: 25px;
+}
+.nicho{
+    margin-top: -6vh;
+    margin-left: 35vh;
+}
+#code{
+    margin-left: 4vh;
+}

@@ -36,7 +36,6 @@ export default (props) => {
               onClick={(e) => props.delete(zonas.codigo)}
               style={{ color: "#0b6429" }}
               title="Deletar"
-              severity="warning"
               aria-label="Deletar"
             > 
               <FontAwesomeIcon icon={faTrashAlt} />
@@ -46,7 +45,6 @@ export default (props) => {
               className="bt"
               style={{ color: '#0c9213' }}
               title="Editar"
-              severity="warning"
               aria-label="Editar" onClick={() => setVisible(true)} ><FontAwesomeIcon icon={faPenToSquare} /> </Button>
               <Dialog header={zonas.nome} visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
                 <Card>
@@ -60,7 +58,6 @@ export default (props) => {
               className="bt"
               style={{ color: '#0c9213' }}
               title="Dispositivos"
-              severity="warning"
               aria-label="Dispositivos" onClick={() => setVisible(true)} ><FontAwesomeIcon icon={faCubes} /> </Button>
               <Dialog header={zonas.nome} visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
                 <Card>
@@ -74,7 +71,6 @@ export default (props) => {
                 className="bt"
                 style={{ color: '#0c9213' }}
                 title="Agendamento"
-                severity="warning"
                 aria-label="Agendamento" ><FontAwesomeIcon icon={faCalendarDay} /> </Button>
               </a>
           </div>

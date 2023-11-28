@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Select } from 'primereact/treeselect';
-import "antd/dist/antd.css";
+import { TreeSelect } from 'primereact/treeselect';
+//import "antd/dist/antd.css";
   
-const { TreeNode } = Select;
+const { TreeNode } = TreeSelect;
   
 export default function Seletor() {
   
@@ -15,7 +15,7 @@ export default function Seletor() {
     }}>
       <h4>ReactJS Ant-Design TreeSelect Component</h4>
       <>
-        <Select
+        <TreeSelect
           placeholder="Select from the Tree"
           allowClear
           showSearch
@@ -31,8 +31,8 @@ export default function Seletor() {
             <TreeNode value="ChildLeaf4" title="ChildLeaf4" />
             <TreeNode value="ChildLeaf5" title="ChildLeaf5" />
           </TreeNode>
-        </Select>
+        </TreeSelect>
       </>
-    </div>
-  );
+    </div>
+  );
 }
