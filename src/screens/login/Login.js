@@ -13,7 +13,7 @@ export default function Login() {
                     <img src="logo.png" alt="Logo-UmBuMaKeR" />
                 </div>
                 <a href="http://localhost:3000/home" >
-                     <Button className="bt-login" severity="warning"  label="Login Google">
+                     <Button className="bt-login" label="Login Google">
                      </Button>               
                 </a>
             </div>

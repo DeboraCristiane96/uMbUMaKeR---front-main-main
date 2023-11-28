@@ -14,9 +14,7 @@ import { Button } from 'primereact/button';
 import MenuLeft from "../../components/Menu/MenuLeft"
 
 import ContaAcessoService from "../../services/ContaAcessoService";
-import AssociateService from "../../services/AssociateService";
-import TutorService from "../../services/TutorService";
-import ManagerService from "../../services/ManagerService";
+
 import CardListUsers from "../../components/cardListUsers/CardListUsers";
 
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -256,11 +254,11 @@ export default class ListUsers extends React.Component {
 
                                 <Button className="bt-filtro" label="Filtrar"
                                     onClick={this.filtro}
-                                    title="Filtrar" severity="warning" raised />
+                                    title="Filtrar" />
 
                                 <Button className="bt-filtro" label="Limpar Filtro"
                                     onClick={this.limparFiltro}
-                                    title="Listar Todos" severity="warning" raised />
+                                    title="Listar Todos"/>
                             </div>
                             <div className="input-status">
                                 <Dropdown
@@ -273,14 +271,12 @@ export default class ListUsers extends React.Component {
                                 />
                                 <Button className="bt-filtro" label="Filtrar"
                                     onClick={this.filtroTipo}
-                                    title="Filtrar" severity="warning" raised />
+                                    title="Filtrar"/>
                             </div>
 
                             <div className="divCreat">
                                 <a href="/createUser">
-                                    <Button className="btCreat"
-                                        severity="warning"
-                                        raised>
+                                    <Button className="btCreat">
                                         <FontAwesomeIcon icon={faPlus}
                                             style={{ color: "#0b6429", }} /></Button>
                                 </a>

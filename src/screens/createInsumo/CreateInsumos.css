@@ -42,3 +42,10 @@
     display: flex;
     margin-right: 2vw;
 }
+
+#cor {
+    display: flex;
+    width: 15vw;
+    color: darkgreen;
+    margin-top: 2vw;
+  }

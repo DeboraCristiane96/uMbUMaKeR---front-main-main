@@ -160,7 +160,7 @@ export default class ListDevice extends React.Component {
               <br />
               <div className="divCreat">
                 <a href="/createDevice">
-                  <Button className="btCreat" severity="warning" raised>
+                  <Button className="btCreat">
                     <FontAwesomeIcon
                       icon={faPlus}
                       style={{ color: "#0b6429" }}

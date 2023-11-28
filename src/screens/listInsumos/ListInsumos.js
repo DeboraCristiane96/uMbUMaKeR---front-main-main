@@ -172,6 +172,7 @@ editar = (codigo) => {
     await this.delay(10);
   };
 
+
   render() {
     return (
       <>
@@ -198,10 +199,10 @@ editar = (codigo) => {
                             </span>
                  <Button className="bt-filtro" label="Filtrar" 
                             onClick={this.filtro}
-                            title="Filtrar" severity="warning" raised />
+                            title="Filtrar" />
                  <Button className="bt-filtro" label="Limpar Filtro" 
                             onClick={this.limparFiltro}
-                            title="Listar Todos" severity="warning" raised />
+                            title="Listar Todos" />
               </div>
                   
               <div className="input-status">
@@ -215,14 +216,14 @@ editar = (codigo) => {
 
                             <Button className="bt-filtro" label="Filtrar" 
                             onClick={this.filtroStatus}
-                            title="Filtrar" severity="warning" raised />
+                            title="Filtrar" />
                            
                         </div>
 
 
               <div className="divCreat">
                 <a href="/criarInsumos">
-                  <Button className="btCreat" severity="warning" raised>
+                  <Button className="btCreat">
                     <FontAwesomeIcon
                       icon={faPlus}
                       style={{ color: "#0b6429" }}
@@ -265,6 +266,7 @@ editar = (codigo) => {
               insumos={this.state.insumos}
               delete={this.confirm}
               editar={this.editar}
+              
             />
           </div>
         </div>

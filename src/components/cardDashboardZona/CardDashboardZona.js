@@ -33,8 +33,7 @@ export default (props) => {
                 onClick={(e) => props.Dialog(zona)}
                 style={{ color: "#0b6429" }}
                 title="Deletar"
-                severity="warning"
-                aria-label="Deletar"
+                  aria-label="Deletar"
               >
                 <FontAwesomeIcon icon={faChevronRight} />
               </Button>

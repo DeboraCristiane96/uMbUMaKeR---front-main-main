@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCanArrowUp } from "@fortawesome/free-solid-svg-icons";
 import { faCaretSquareUp } from "@fortawesome/free-solid-svg-icons";
 import { faRotate} from "@fortawesome/free-solid-svg-icons";
-import { faTrashAlt, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { faTrashAlt, faPenToSquare, faBoxesStacked } from "@fortawesome/free-solid-svg-icons";
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (props) => {
@@ -43,7 +43,6 @@ export default (props) => {
               onClick={(e) => props.delete(insumos.codigo)}
               style={{ color: "#0b6429" }}
               title="Deletar"
-              severity="warning"
               aria-label="Deletar"
             > 
               <FontAwesomeIcon icon={faTrashAlt} />
@@ -53,17 +52,24 @@ export default (props) => {
               className="bt"
               onClick={(e) => props.editar(insumos.codigo)}
               title="Editar"
-              severity="warning"
               aria-label="Editar">
               <FontAwesomeIcon
                 icon={faPenToSquare}
                 style={{ color: "#0b6429" }}/>
               
             </Button>
+            <div>
+             <a href="/localStorage">
+             <Button className="bt" aria-label="atualizar"  title="Mostra Entrada e Saida"> 
+              <FontAwesomeIcon icon={faBoxesStacked} style={{color: "#306f2f",}} />
+              </Button>
+              </a>
+            </div>
+           
               
             <div>
                 <a href="/EntradaSaidaInsumo">
-                  <Button className="bt" aria-label="atualizar" severity="warning" raised title="Mostra Entrada e Saida"> 
+                  <Button className="bt" aria-label="atualizar" title="Mostra Entrada e Saida"> 
                     <FontAwesomeIcon icon={faRotate} style={{color: "#20511f"}} />
                   </Button>
                 </a>

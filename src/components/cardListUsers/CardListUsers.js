@@ -40,7 +40,6 @@ function CardListUser (props) {
               className="bt"
               onClick={(e) => props.editar(contaAcesso.idContaAcesso)}
               title="Editar"
-              severity="warning"
               aria-label="Editar"
             >
               <FontAwesomeIcon
@@ -54,7 +53,6 @@ function CardListUser (props) {
               onClick={(e) => props.delete(contaAcesso.idContaAcesso)}
               style={{ color: "#0b6429" }}
               title="Deletar"
-              severity="warning"
               aria-label="Deletar"
             >
               <FontAwesomeIcon icon={faTrashAlt} />

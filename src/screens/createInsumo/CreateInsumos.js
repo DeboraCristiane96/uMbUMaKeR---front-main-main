@@ -209,6 +209,7 @@ calcularDiasParaVencimento(dataVencimento) {
           <div>
             <div className="input-texts">
               <div className="input-um">
+              <h3 id="cor" >Nome</h3>
                 <InputText
                   id="nome"
                   className="borderColorEdit"
@@ -223,8 +224,7 @@ calcularDiasParaVencimento(dataVencimento) {
                 )}
               </div>
             </div>
-
-            <br />
+            <h3 id="cor" >Unidade de Medida</h3>
             <div className="input-texts">
               <Dropdown
                 value={this.state.unidadeMedida}
@@ -234,25 +234,27 @@ calcularDiasParaVencimento(dataVencimento) {
                 }}
                 placeholder="UNIDADE DE MEDIDA"/>
             </div>
-            <br/>
+     
             <div className="input-texts">
               <div className="input-um">
-                <label htmlFor="qntTotal"></label>
-                <InputNumber value={this.state.quantidadeTotal} onValueChange={(e) => 
-                this.setState({quantidadeTotal: e.target.value})}placeholder="QUANTIDADE DE INSUMO" mode="decimal" showButtons min={0} max={10000} />
+              <h3 id="cor" >Quantidade Total</h3>
+              <InputNumber value={this.state.quantidadeTotal} onValueChange={(e) => 
+              this.setState({quantidadeTotal: e.target.value})}placeholder="QUANTIDADE DE INSUMO" mode="decimal" showButtons min={0} max={10000} />
               </div>
             </div>
             </div>
-            <br/>    
+            
             <div className="input-texts">
             <div className="input-um">
+            <h3 id="cor" >Mínimo de Estoque</h3>
               <InputNumber value={this.state.quantidadeMinimaEstoque} onValueChange={(e) => 
-                this.setState({quantidadeMinimaEstoque: e.target.value})}placeholder="QUANTIDADE MINIMA DO ESTOQUE" mode="decimal" showButtons min={0} max={10000} />
+                this.setState({quantidadeMinimaEstoque: e.target.value})}placeholder="QUANTIDADE MINIMA DE ESTOQUE" mode="decimal" showButtons min={0} max={10000} />
                 </div>
             </div>
-            <br/> 
+            
             <div className="input-texts">
               <div>
+              <h3 id="cor" >Alerta de Vencimento</h3>
                 <InputNumber value={this.state.quantidadeDiasAlertaVencimento} onValueChange={(e) => 
                   this.setState({quantidadeDiasAlertaVencimento: e.target.value})}placeholder="ALERTA DE VENCIMENTO" mode="decimal" showButtons min={0} max={10000} />
                </div>
@@ -262,8 +264,6 @@ calcularDiasParaVencimento(dataVencimento) {
               <div className="btS">
                 <Button
                   label="SALVAR"
-                  severity="warning"
-                  raised
                   onClick={this.validar}
                 />
               </div>

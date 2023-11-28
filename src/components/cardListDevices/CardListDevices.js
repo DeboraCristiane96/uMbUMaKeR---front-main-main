@@ -41,7 +41,7 @@ export default (props) => {
           <div className="card-butons">
           
                 <a href="/agendarDispositivo">
-                  <Button className="bt" severity="warning" raised>
+                  <Button className="bt">
                     <FontAwesomeIcon
                       icon={faCalendarDay}
                       style={{ color: "#0b6429" }}
@@ -51,7 +51,6 @@ export default (props) => {
             <Button  className="bt"
               style={{ color: '#0c9213' }}
               title="Detalhes"
-              severity="warning"
               aria-label="Detalhes" onClick={() => setVisible(true)} ><FontAwesomeIcon icon={faChevronRight} /> </Button>
               <Dialog header={devices.modelo} visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)}>
                 <p className="m-0">
@@ -92,7 +91,6 @@ export default (props) => {
               className="bt"
               onClick={(e) => props.editar(devices.id)}
               title="Editar"
-              severity="warning"
               aria-label="Editar"
             >
               <FontAwesomeIcon
@@ -106,7 +104,6 @@ export default (props) => {
               onClick={(e) => props.delete(devices.deviceId)}
               style={{ color: "#0b6429" }}
               title="Deletar"
-              severity="warning"
               aria-label="Deletar"
             >
               <FontAwesomeIcon icon={faTrashAlt} style={{ color: "#1d8729" }} />

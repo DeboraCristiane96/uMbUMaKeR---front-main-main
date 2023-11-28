@@ -28,7 +28,8 @@ import AgendarDispositivo from "./screens/createAgendamentoDevice/AgendarDisposi
 import DashboardZonas from "./screens/dashboardZona/DashboardZonas";
 import DashboardInsumos from "./screens/dashboardInsumos/DashboardInsumos";
 import DashboardDispositivos from "./screens/dashboardDispositivos/DashboardDispositivos";
-
+import LocalStorage from "./screens/localStorage/LocalStorage";
+import CreateLocalStorage from "./screens/createLocalStorage/CreateLocalStorage";
 
 function App() {
   return (
@@ -49,6 +50,8 @@ function App() {
         <Route element={<AgendarDispositivo/>} path="/agendarDispositivo"></Route>
         <Route element={<CreateInsumos/>} path="/criarInsumos"/>
         <Route element={<ListInsumos/>} path="/insumos" />
+        <Route element={<LocalStorage/>} path="/localStorage" />
+        <Route element={<CreateLocalStorage/>} path="/createlocalStorage" />
         <Route element={<UpdateInsumo/>} path="/updateInsumo/:id"/>
         <Route element={<EntradaSaidaInsumos/>} path="/EntradaSaidaInsumo"></Route>
         <Route element={<CreateZona/>} path="/criarZona"/>
