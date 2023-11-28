@@ -64,9 +64,7 @@ export default (props) => {
               <FontAwesomeIcon icon={faBoxesStacked} style={{color: "#306f2f",}} />
               </Button>
               </a>
-            </div>
-           
-              
+            </div>  
             <div>
                 <a href="/EntradaSaidaInsumo">
                   <Button className="bt" aria-label="atualizar" title="Mostra Entrada e Saida"> 

@@ -133,6 +133,36 @@ const [chartOptions, setChartOptions] = useState({});
     
 return (
     <><MenuLeft />
+        <div className="container">
+          <div className="header">
+            <div className="i">
+              <Dropdown
+                value={this.state.modulo}
+                options={this.state.moduloSelect}
+                onChange={e => {
+                  this.setState({ modulo: e.value });
+                }}
+                placeholder='ZONAS'
+              />
+              <Button className="bt-filtro" label="Selecionar Modulo"
+                onClick={this.validarTipo}
+                title="Selecionar Modulo" />
+            </div>
+            <div className="i">
+              <Dropdown
+                value={this.state.agendamentos}
+                options={this.state.agendamentosSelect}
+                onChange={e => {
+                  this.setState({ agendamentos: e.value });
+                }}
+                placeholder='TODOS'
+              />
+              <Button className="bt-filtro" label="Filtrar"
+                onClick={this.validarTipo}
+                title="Filtrar" />
+
+            </div>
+          </div>
         <div className="menu-zonas">
             <Button
                 onClick={() => 0}

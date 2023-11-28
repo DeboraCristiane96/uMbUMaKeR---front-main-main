@@ -8,12 +8,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { faUsers } from "@fortawesome/free-solid-svg-icons";
 import { Dropdown } from "primereact/dropdown";
-import { TreeSelect } from 'primereact/treeselect';
-import Opcoes from '../../components/selectModulo/Opcoes';
-import ZonaService from "../../services/ZonaService";
-import AgendaZona from "../../services/Zona/AgendaZona";
-import CardDashboardZonas from "../../components/cardDashboardZona/CardDashboardZona";
-
+import DispositivosService from "../../services/DeviceService";
+import AgendaDispositivos from "../../services/AgendaDispositivoService";
+import CardDashboardDispositivo from "../../components/cardDashboardDispositivo/CardDashboardDispositivo";
 //Utilizar o redirecionamento de Dashboard
 export default class DashboardDispositivos extends React.Component {
 
@@ -32,20 +29,27 @@ export default class DashboardDispositivos extends React.Component {
     ],
     agendamentos: "",
     agendamentosFiltro: "",
-    zonas: [
+    dispositivos: [
       {
         codigo: 0,
-        nome: "",
-        status: false,
-        qtdPessoas: ""
+        modelo: "",
+        ultimaManutencao: null,
+        temperaturaMaxima: "",
+        eixoX: 0,
+        eixoY: 0,
+        eixoZ: 0,
+        tipoDispositivo: [],
+        tipoFilamentoSuportado: [],
       },
     ],
     agenda: [{
       codigo: 0,
-      nome: "",
-      horaInicial: "",
-      horaTermino: "",
-      diaSemana: "",
+      dataSolicitacao: null,
+      email: "",
+      dataAgendamento: null,
+      descricao: "",
+      politicaDeAceite: "",
+      StatusObjeto: [],
     },
     ],
     toast: "",
@@ -53,10 +57,12 @@ export default class DashboardDispositivos extends React.Component {
 
   constructor() {
     super();
-    //this.service = new ZonaService();
-    this.service = new AgendaZona();
+    this.serviceDispositivos = new DispositivosService();
+    this.serviceAgenda = new AgendaDispositivos();
   }
 
+  //este metodo vai utilizar o serviceDispositivos
+  // e chamarar o metodo que lista os agendamentos de cada dispositivos
   async componentDidMount() {
     await this.service.findAll("")
       .then((response) => {
@@ -83,23 +89,22 @@ export default class DashboardDispositivos extends React.Component {
   delay = (ms) => {
     return new Promise((resolve) => setTimeout(resolve, ms));
   };
-
-  //
+  //ok
   validarTipo = () => {
-    if (this.state.modulo === 'DISPOSITIVOS') {
-     // window.location.href = `/dashboardDispositivos`
-    } else if(this.state.modulo === 'INSUMOS'){
-      //window.location.href = `/dashboardInsumos`
-    } else{
+    if (this.state.modulo === 'ZONAS') {
       window.location.href = `/dashboardZonas`
+    } else if (this.state.modulo === 'INSUMOS') {
+      //window.location.href = `/dashboardInsumos`
+    } else {
+      window.location.href = `/dashboardDispositivos`
     }
   }
-
-  listZonas = async () => {
-    await this.service.findAll("")
+//este metodo deve listar os agendamentos de um dipositivo
+  listarAgenda = async () => {
+    await this.serviceAgenda.findAll("")
       .then(response => {
-        const zonas = response.data;
-        this.setState({ zonas });
+        const agenda = response.data;
+        this.setState({ agenda });
       }).catch(error => {
       });
   }
@@ -115,7 +120,7 @@ export default class DashboardDispositivos extends React.Component {
     console.log("teste", this.state.modulo)
   }
 
-  dialogZonas(agenda) {
+  dialogDispositivo(agenda) {
     <Dialog
       visible={true}
       header="Detalhes do Agenda"
@@ -140,7 +145,7 @@ export default class DashboardDispositivos extends React.Component {
                 onChange={e => {
                   this.setState({ modulo: e.value });
                 }}
-                placeholder='ZONAS'
+                placeholder='DISPOSITIVOS'
               />
               <Button className="bt-filtro" label="Selecionar Modulo"
                 onClick={this.validarTipo}
@@ -161,14 +166,31 @@ export default class DashboardDispositivos extends React.Component {
                 title="Filtrar" />
 
             </div>
-
+          </div>
+          <div className="menu-zonas1">
+            <Button
+              onClick={() => 0}
+              className="p-button-outlined mb-5"
+              label="GTMAX 3D CORE A3V2"
+            />
+            <Button
+              onClick={() => 0}
+              className="p-button-outlined mb-5"
+              label="TREVO TORNADO"
+            />
+            <Button
+              onClick={() => 0}
+              className="p-button-outlined mb-5"
+              label="CREALITY RESIN"
+            />
           </div>
 
-          <div className="zonas">
-            <CardDashboardZonas
+          <div className="dispositivos">
+          <CardDashboardDispositivo
               agenda={this.state.agenda}
-              dialogZonas={this.cardDetalhes}
+              dialogDispositivo={this.cardDetalhes}
             />
+           
           </div>
 
         </div>

@@ -12,9 +12,7 @@ export default function BasicDemo() {
     return (
         <div className="card">
             <TabMenu model={items} />
-            <TabMenu model={items} 
-            activeIndex={activeIndex} 
-            onTabChange={(e) => setActiveIndex(e.index)} />
+           
         </div>
     )
 }

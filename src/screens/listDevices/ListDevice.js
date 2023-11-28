@@ -17,7 +17,7 @@ import DeviceService from "../../services/DeviceService";
 import { Dialog } from 'primereact/dialog';
 
 export default class ListDevice extends React.Component {
-  
+
   state = {
     items: [{ label: "Dispositivos", url: "/devices" }],
     home: { icon: "pi pi-home ", url: "/" },
@@ -26,7 +26,7 @@ export default class ListDevice extends React.Component {
 
     devices: [{
 
-      id:"",
+      id: "",
       ultimaManutencao: "",
       modelo: "",
       temperaturaMaxima: "",
@@ -35,8 +35,8 @@ export default class ListDevice extends React.Component {
       eixoZ: "",
       tipoDispositivo: "",
       filamentosSelecionados: [],
-      visible:false
-      },
+      visible: false
+    },
     ],
     token: "",
     toast: "",
@@ -46,34 +46,32 @@ export default class ListDevice extends React.Component {
     super();
     this.service = new DeviceService();
   }
- 
 
-    async componentDidMount() {
-      await this.service.findAll("")
-          .then(response => {
-              const devices = response.data;
-              
-              this.setState({ devices });
-              console.log(response);
-          }
-          ).catch(error => {
-              console.log('falhou!');
-              console.log(error.response);
-          }
-      );
+
+  async componentDidMount() {
+    await this.service.findAll("")
+      .then(response => {
+        const devices = response.data;
+        this.setState({ devices });
+        console.log(response);
+      }
+      ).catch(error => {
+        console.log('falhou!');
+        console.log(error.response);
+      });
   }
 
-  setActiveIndex = () => {};
+  setActiveIndex = () => { };
 
   detalhes = async () => {
     <div className="card flex justify-content-center">
-    <Dialog header="Header"  style={{ width: '50vw' }} onHide={() => this.state.visible(true)}>
+      <Dialog header="Header" style={{ width: '50vw' }} onHide={() => this.state.visible(true)}>
         <p className="m-0">
-           ulla pariatur. 
-            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          ulla pariatur.
+          Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         </p>
-    </Dialog>
-</div>
+      </Dialog>
+    </div>
     await this.delay(10);
   };
 
@@ -153,7 +151,6 @@ export default class ListDevice extends React.Component {
             acceptLabel="Sim"
             rejectLabel="Não"
           />
-
           <div className="header">
             <div>
               <BreadCrumb model={this.state.items} home={this.state.home} />
@@ -168,9 +165,7 @@ export default class ListDevice extends React.Component {
                   </Button>
                 </a>
               </div>
-              <br />
-              <br />
-              <div>
+              <div className="menu-zonas1">
                 <Button
                   onClick={() => 0}
                   className="p-button-outlined mb-5"
@@ -187,25 +182,21 @@ export default class ListDevice extends React.Component {
                   label="FD-CNC"
                 />
                 <Button
-                  onClick={() => 0}
+                  onClick={(this.test)}
                   className="p-button-outlined mb-5"
                   label="FD-3D"
                 />
-                <hr />
               </div>
-              <br />
-              <br />
             </div>
           </div>
-
-          <div className="devices">
-            <CardListDevices
-              devices={this.state.devices}
-              delete={this.confirm}
-              editar={this.editar}
-              detalhes={this.detalhes}
-            />
-          </div>
+        </div>
+        <div className="devices">
+          <CardListDevices
+            devices={this.state.devices}
+            delete={this.confirm}
+            editar={this.editar}
+            detalhes={this.detalhes}
+          />
         </div>
       </>
     );

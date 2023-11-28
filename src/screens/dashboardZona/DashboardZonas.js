@@ -87,7 +87,7 @@ export default class DashboardZonas extends React.Component {
   //ok
   validarTipo = () => {
     if (this.state.modulo === 'DISPOSITIVOS') {
-      // window.location.href = `/dashboardDispositivos`
+      window.location.href = `/dashboardDispositivos`
     } else if (this.state.modulo === 'INSUMOS') {
       //window.location.href = `/dashboardInsumos`
     } else {
@@ -161,7 +161,6 @@ export default class DashboardZonas extends React.Component {
 
             </div>
           </div>
-          <BasicDemo/>
           <div className="menu-zonas1">
             <Button
               onClick={() => 0}

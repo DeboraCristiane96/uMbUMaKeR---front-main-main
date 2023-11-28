@@ -1,0 +1,28 @@
+
+
+.quadro{
+    display: flex;
+    justify-content:space-between;
+}
+
+.left{
+    flex-direction: column;
+}
+
+.lbPessoa{
+    margin-top: 1rem;
+    margin-left: 0rem;
+    color: #0c9213;
+}
+
+.btDetalhes{
+    display: flex;
+    flex-direction: column;
+    align-items:  center;
+}
+
+.cardBoard{
+    padding: 10px;
+    border-color: #0c9213;
+    border: 1px;
+}
