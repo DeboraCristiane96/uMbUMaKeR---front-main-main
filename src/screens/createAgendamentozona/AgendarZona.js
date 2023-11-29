@@ -179,29 +179,24 @@ export default class AgendarZona extends React.Component {
                     </div>
                     
                     <div className="input-um">
-                        <h4 id="h4">Data e hora de início</h4>
+                        <h4 id="h4">Data de início</h4>
                         <br />
-                        <div className="flex-auto">
-                            <Calendar value={this.state.dataInicio} onChange={(e) => this.setState({ dataInicio: e.target.value })}showTime hourFormat="24" />
-                        </div>
+                        <Calendar value={this.state.dataInicio}
+                        onChange={(e) => this.setState({ dataInicio: e.target.value })} />
                     </div>
-
-                   
                     <div className="input-dois">
-                        <h4 id="h4">Data e hora do termino</h4>
+                        <h4 id="h4">Data de termino</h4>
                         <br />
                         <div className="input-um">
-                        <div className="flex-auto">
-                            <Calendar value={this.state.dataTermino} onChange={(e) => this.setState({ dataTermino: e.target.value })}showTime hourFormat="24" />
+                          <Calendar value={this.state.dataSolicitacao}
+                            onChange={(e) => this.setState({ dataSolicitacao: e.target.value })} />
                         </div>
-                    </div>
                     </div>
                     
                    <span className="p-float-label">
                    <h4 id="h4">Descrição</h4>
                    <br />
                         <InputTextarea id="username"  rows={5} cols={100} />
-                        
                     </span>
                    
 
