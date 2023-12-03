@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Card } from "primereact/card";
 import "./CardListarEntradas.css";
 import 'primeicons/primeicons.css';
@@ -8,6 +8,7 @@ import 'primeicons/primeicons.css';
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (props) => {
 
+    // eslint-disable-next-line no-unused-vars
     const getSeverity = (props) => {
         if (props.EntradasEstoque.dataValidade < props.EntradasEstoque.dataEntrada) {
             return 'success';

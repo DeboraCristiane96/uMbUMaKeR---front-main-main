@@ -13,16 +13,21 @@ export default (props) => {
     return (
       <div className="cardLocal">
         <Card>
-          <div className="armario">
-              <h2>Armário</h2>
-              <p id="code">{local.codigoArmario}</p>
-          </div>
-          <div className="nicho">
-              <h2>Nicho</h2>
-              <p id="code">{local.codigoNicho}</p>
-          </div>
+        <table className="table">
+        <thead>
+            <tr className="tr">
+                <th className="th"> ARMÁRIO</th>
+                <th className="th"> NICHO</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr className="tr">
+                <td className="td">{local.codigoArmario}</td>
+                <td className="td">{local.codigoNicho}</td>
+            </tr>
+        </tbody>
+    </table>
           <div className="card-butons">
-
           <Button
               className="bt"
               onClick={(e) => props.delete(local.codigo)}
@@ -34,6 +39,7 @@ export default (props) => {
             </Button>
           </div>
         </Card>
+        
       </div>
     );
   });

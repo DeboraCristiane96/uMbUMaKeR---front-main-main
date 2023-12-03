@@ -154,14 +154,14 @@ export default class ListAgendamento extends React.Component {
                 </span>
                  <Button className="bt-filtro" label="Filtrar" 
                             onClick={this.filtro}
-                            title="Filtrar" severity="warning" raised />
+                            title="Filtrar" />
               </div>
                   
               
             </div>
               <div className="divCreat">
                 <a href="/agendarZona">
-                  <Button className="btCreat" severity="warning" raised>
+                  <Button className="btCreat">
                     <FontAwesomeIcon
                       icon={faCalendarDay}
                       style={{ color: "#0b6429" }}
@@ -170,7 +170,7 @@ export default class ListAgendamento extends React.Component {
                 </a>
               </div>
               <br />
-              <br />
+              <br/>
               <div>
                 <Button
                   onClick={() => 0}

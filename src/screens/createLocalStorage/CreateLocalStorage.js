@@ -28,8 +28,8 @@ export default class CreateLocalStorage extends React.Component {
       local: [
         {
           codigo:0,
-          codigoArmario:0,
-          codigoNicho:0
+          codigoArmario:"",
+          codigoNicho:"",
         },
       ],
       toast: "",
@@ -163,15 +163,16 @@ export default class CreateLocalStorage extends React.Component {
             <div className="input-texts">
               <div className="input-um">
               <h3 id="cor">Armário</h3>
-                <InputText
-                  id="codeA"
-                  className="borderColorEdit"
-
-                  value={this.state.codigoArmario}
-                  onChange={(e) => {
-                    this.setState({ codigoArmario: e.target.value });
-                  }}placeholder="ARMÁRIO"
-                />
+              <InputText
+                id="codeA"
+                className="borderColorEdit"
+                type="text"
+                value={this.state.codigoArmario}
+                onChange={(e) => {
+                  this.setState({ codigoArmario: e.target.value });
+                }}
+                placeholder="ARMÁRIO"
+              />
                 {this.state.error && (
                   <span style={{ color: "red" }}>{this.state.error}</span>
                 )}
@@ -182,6 +183,7 @@ export default class CreateLocalStorage extends React.Component {
                 <InputText
                   id="codeN"
                   className="borderColorEdit"
+                  type="text"
                   value={this.state.codigoNicho}
                   onChange={(e) => {
                     this.setState({ codigoNicho: e.target.value });
@@ -200,7 +202,7 @@ export default class CreateLocalStorage extends React.Component {
               <div className="btS">
                 <Button
                   label="SALVAR"
-                  onClick={this.validar}
+                  onClick={this.salvar}
                 />
               </div>
               <div className="btS">

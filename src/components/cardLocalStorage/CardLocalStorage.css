@@ -2,14 +2,24 @@
     display: flex;
     padding: 10px;
     height: 10px;;
+    border: rgb(30, 156, 26);
 }
-.armario{
-    margin-left: 25px;
+
+
+.table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+    background-color: white;
 }
-.nicho{
-    margin-top: -6vh;
-    margin-left: 35vh;
+
+.th, .td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1.5px solid rgb(30, 156, 26);;
 }
-#code{
-    margin-left: 4vh;
+
+.card-butons {
+    margin-top: -9.3rem;
+    margin-left: 25rem;
 }

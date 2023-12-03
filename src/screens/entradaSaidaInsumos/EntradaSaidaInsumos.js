@@ -1,3 +1,4 @@
+/* eslint-disable react/no-direct-mutation-state */
 import React from "react"
 import { Toast } from "primereact/toast";
 import { ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
@@ -230,7 +231,7 @@ export default class EntradaSaidaInsumos extends React.Component {
                                             htmlFor="editarBt"
                                             onClick={(e) => ("1")}
                                             title="Editar"
-                                            severity="warning"
+                                 
                                             aria-label="Editar">
                                             <FontAwesomeIcon
                                                 icon={faPenToSquare}
@@ -245,7 +246,7 @@ export default class EntradaSaidaInsumos extends React.Component {
                                             onClick={(e) => delete ("1")}
                                             htmlFor="deletarBt"
                                             title="Deletar"
-                                            severity="warning"
+                                   
                                             aria-label="Deletar"
                                         >
                                             <FontAwesomeIcon icon={faTrashAlt}
@@ -266,7 +267,7 @@ export default class EntradaSaidaInsumos extends React.Component {
                                         onClick={(e) => delete ("1")}
                                         style={{ color: "#0b6429" }}
                                         title="Deletar"
-                                        severity="warning"
+                                
                                         aria-label="Deletar"
                                     >
                                         <FontAwesomeIcon icon={faTrashAlt} />
@@ -284,8 +285,6 @@ export default class EntradaSaidaInsumos extends React.Component {
                             <div className="bt">
                                 <Button
                                     label="Salvar"
-                                    severity="warning"
-                                    raised
                                     onClick={this.validar}
                                 />
                             </div>
