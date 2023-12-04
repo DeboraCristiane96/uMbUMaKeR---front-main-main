@@ -22,31 +22,31 @@ import { InputText } from "primereact/inputtext";
 import ZonaService from "../../services/ZonaService";
 
 export default class ListZonas extends React.Component {
-  
+
   state = {
     items: [{ label: "Zonas", url: "/zonas" }],
     home: { icon: "pi pi-home ", url: "/" },
 
     zonas: [
       {
-        codigo:0,
+        codigo: 0,
         nome: "",
         status: false,
-        qtdPessoas:""
+        qtdPessoas: ""
       },
     ],
     token: "",
     toast: "",
-    
-    statusParaFiltro:"",
+
+    statusParaFiltro: "",
 
     zonasFiltro: [
       {
-       
+
         codigo: "",
         nome: "",
-        status:false,
-        qtdPessoas:""
+        status: false,
+        qtdPessoas: ""
       },
     ],
 
@@ -58,7 +58,7 @@ export default class ListZonas extends React.Component {
       { label: " NAO AGENDADO", value: false },
     ],
 
-    zonasFiltroAuxiliar:[{}]
+    zonasFiltroAuxiliar: [{}]
 
 
   };
@@ -67,7 +67,7 @@ export default class ListZonas extends React.Component {
     super();
     this.service = new ZonaService();
   }
- 
+
 
   async componentDidMount() {
     await this.service.findAll("")
@@ -76,57 +76,57 @@ export default class ListZonas extends React.Component {
         this.setState({ zonas });
         console.log(response);
       })
-      
+
       .catch((error) => {
         console.log("erro!");
         console.log(error.response);
       });
   }
-  filtro = () =>{
+  filtro = () => {
     let lista = []
     this.state.zonas.forEach(element => {
-        if(element.nome === this.state.nomeParaFiltro){
-            lista.push(element);
-        }
-    });
-    this.setState({zonas:lista})
-    console.log("teste",this.state.zonas)
-}
-
-limparFiltro = () =>{
-    this.setState({nomeParaFiltro:''})
-}
-
-filtroStatus = async () =>{
-  let lista = []
-  this.state.zonas.forEach(element => {
-      if(element.status === this.state.statusParaFiltro){
-          lista.push(element);
+      if (element.nome === this.state.nomeParaFiltro) {
+        lista.push(element);
       }
-  });
-  console.log("teste",this.state.zonas)
-  this.setState({zonas:lista})
- 
-}
+    });
+    this.setState({ zonas: lista })
+    console.log("teste", this.state.zonas)
+  }
+
+  limparFiltro = () => {
+    this.setState({ nomeParaFiltro: '' })
+  }
+
+  filtroStatus = async () => {
+    let lista = []
+    this.state.zonas.forEach(element => {
+      if (element.status === this.state.statusParaFiltro) {
+        lista.push(element);
+      }
+    });
+    console.log("teste", this.state.zonas)
+    this.setState({ zonas: lista })
+
+  }
 
   delay = (ms) => {
     return new Promise((resolve) => setTimeout(resolve, ms));
   };
 
-  delete = (codigo) =>{
+  delete = (codigo) => {
     this.service.delete(codigo)
-        .then(async (response) =>{
-            this.state.toast.show({ severity: 'success', summary: 'Sucesso', detail: 'Cadastro Excluido Com Sucesso' });
-            await this.delay(2000);
-           window.location.reload();
-        }).catch(error =>{
-            this.state.toast.show({ severity: 'error', summary: 'Erro', detail: 'Erro ao Excluir o Cadastro' });
-        })
-} 
-editar = (codigo) => {
-  window.location.href = `/updateZona/${codigo}`;    
-  
-}
+      .then(async (response) => {
+        this.state.toast.show({ severity: 'success', summary: 'Sucesso', detail: 'Cadastro Excluido Com Sucesso' });
+        await this.delay(2000);
+        window.location.reload();
+      }).catch(error => {
+        this.state.toast.show({ severity: 'error', summary: 'Erro', detail: 'Erro ao Excluir o Cadastro' });
+      })
+  }
+  editar = (codigo) => {
+    window.location.href = `/updateZona/${codigo}`;
+
+  }
   accept = () => {
     this.state.toast.show({
       severity: "info",
@@ -147,7 +147,7 @@ editar = (codigo) => {
   };
 
   confirm = async (codigo) => {
-    this.setState({codigo: codigo})
+    this.setState({ codigo: codigo })
     confirmDialog({
       message: "Você Realmente quer Deletar esse Cadastro ?",
       icon: "pi pi-info-circle",
@@ -177,34 +177,34 @@ editar = (codigo) => {
               <BreadCrumb model={this.state.items} home={this.state.home} />
               <br />
               <div className="filtragem">
-                            <span className="p-input-icon-left">
-                                <i  className="pi pi-search " />
-                                <InputText placeholder="PROCURAR"
-                                value= {this.state.nomeParaFiltro} 
-                                onChange={(e) => {this.setState({nomeParaFiltro: e.target.value }) }} />
-                            </span>
-                          <Button className="bt-filtro" label="Filtrar" 
-                            onClick={this.filtro}
-                            title="Filtrar" />
-                          <Button className="bt-filtro" label="Limpar Filtro" 
-                            onClick={this.limparFiltro}
-                            title="Listar Todos"/>
-                        </div>
-                  
-                        <div className= "input-status">
-                            <span className="p-input-icon-left">
-                                <i  className="pi pi-search " />
-                                <Dropdown placeholder="STATUS"
-                                value= {this.state.status} 
-                                options={this.state.statusSelect}
-                                onChange={(e) => {this.setState({status: e.target.value }) }} />
-                            </span>
+                <span className="p-input-icon-left">
+                  <i className="pi pi-search " />
+                  <InputText placeholder="PROCURAR"
+                    value={this.state.nomeParaFiltro}
+                    onChange={(e) => { this.setState({ nomeParaFiltro: e.target.value }) }} />
+                </span>
+                <Button className="bt-filtro" label="Filtrar"
+                  onClick={this.filtro}
+                  title="Filtrar" />
+                <Button className="bt-filtro" label="Limpar Filtro"
+                  onClick={this.limparFiltro}
+                  title="Listar Todos" />
+              </div>
 
-                            <Button className="bt-filtro" label="Filtrar" 
-                            onClick={this.filtroStatus}
-                            title="Filtrar"/>
-                           
-                        </div>
+              <div className="input-status">
+                <span className="p-input-icon-left">
+                  <i className="pi pi-search " />
+                  <Dropdown placeholder="STATUS"
+                    value={this.state.status}
+                    options={this.state.statusSelect}
+                    onChange={(e) => { this.setState({ status: e.target.value }) }} />
+                </span>
+
+                <Button className="bt-filtro" label="Filtrar"
+                  onClick={this.filtroStatus}
+                  title="Filtrar" />
+
+              </div>
 
 
               <div className="divCreat">
@@ -240,10 +240,6 @@ editar = (codigo) => {
                 />
                 <hr />
               </div>
-
-              <br />
-
-              <br />
             </div>
           </div>
 

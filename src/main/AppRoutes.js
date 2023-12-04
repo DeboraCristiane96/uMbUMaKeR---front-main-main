@@ -49,7 +49,6 @@ function AppRouts(){
                 <Route element={<EntradaSaidaInsumos/>} path="/EntradaSaidaInsumo"></Route>
                 <Route element={<ListZonas/>} path="/zonas"></Route>
                 <Route element={<CreateZona/>} path="/criarZona"></Route>
-                <Route element={<ListZonas/>}path="/zonas"></Route>
                 <Route element={<AgendarZona/>} path="/agendarZona"></Route>
                 <Route element={<ListAgendamento/>} path="/listAgendamento"></Route>
            </Routes>

@@ -89,7 +89,7 @@ export default class DashboardZonas extends React.Component {
     if (this.state.modulo === 'DISPOSITIVOS') {
       window.location.href = `/dashboardDispositivos`
     } else if (this.state.modulo === 'INSUMOS') {
-      //window.location.href = `/dashboardInsumos`
+      window.location.href = `/dashboardInsumos`
     } else {
       window.location.href = `/dashboardZonas`
     }

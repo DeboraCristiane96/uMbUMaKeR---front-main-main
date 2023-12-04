@@ -40,3 +40,13 @@
     margin-right: 2vw;
 }
 
+.retanguloBase{
+    display: flex;
+}
+
+.linhasDatas{
+    display: flex;
+}
+.linhasHoras{
+    display: flex;
+}

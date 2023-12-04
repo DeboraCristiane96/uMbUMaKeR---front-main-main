@@ -5,199 +5,186 @@ import MenuLeft from '../../components/Menu/MenuLeft';
 import { Button } from "primereact/button";
 import React, { useState, useEffect } from 'react';
 import { Chart } from 'primereact/chart';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Dialog } from 'primereact/dialog';
+import { faUsers } from "@fortawesome/free-solid-svg-icons";
+import { Dropdown } from "primereact/dropdown";
+
+import InsumoService from "../../services/InsumoService";
+import EntradaEstoqueService from "../../services/EntradaEstoqueService";
+import SaidaEstoqueService from "../../services/SaidaEstoqueService";
+import Grafico from "../../components/graficos/Grafico";
 
 
 export default class DashboardInsumos extends React.Component {
-
-/*
- * 
-const [chartData, setChartData] = useState({});
-const [chartOptions, setChartOptions] = useState({});
-    useEffect(() => {
-        const documentStyle = getComputedStyle(document.documentElement);
-        const textColor = documentStyle.getPropertyValue('--text-color');
-        const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
-        const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
-        const data = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            datasets: [
-                {
-                    label: 'PLA',
-                    fill: false,
-                    borderColor: documentStyle.getPropertyValue('--blue-500'),
-                    yAxisID: 'yPla',
-                    tension: 0.4,
-                    data: [28, 18, 10, 10, 16, 27, 10]
-                },
-                {
-                    label: 'ABS',
-                    fill: false,
-                    borderColor: documentStyle.getPropertyValue('--green-500'),
-                    yAxisID: 'yAbs',
-                    tension: 0.4,
-                    data: [18, 8, 4, 1, 8, 2, 9]
-
-                },
-
-                {
-                    label: 'PETG',
-                    fill: false,
-                    borderColor: documentStyle.getPropertyValue('--black-500'),
-                    yAxisID: 'yPetg',
-                    tension: 0.4,
-                    data: [2, 8, 4, 9, 8, 7, 10]
-                },
-                {
-                    label: 'HIPS',
-                    fill: false,
-                    borderColor: documentStyle.getPropertyValue('--gray-500'),
-                    yAxisID: 'yHips',
-                    tension: 0.4,
-                    data: [8, 8, 4, 9, 6, 8, 9]
-                },
-            ]
-        };
-        const options = {
-            stacked: false,
-            maintainAspectRatio: false,
-            aspectRatio: 0.6,
-            plugins: {
-                legend: {
-                    labels: {
-                        color: textColor
-                    }
-                }
+    state = {
+        moduloSelect: [
+          { label: 'DISPOSITIVOS', value: 'DISPOSITIVOS' },
+          { label: 'INSUMOS', value: 'INSUMOS' },
+          { label: 'ZONAS', value: 'ZONAS' }
+        ],
+        modulo: "",
+        moduloFiltro: "",
+        insumos: [
+            {
+              codigo:0,
+              nome: "",
+              quantidadeTotal:"",
+              quantidadeMinimaEstoque:"",
+              quantidadeDiasAlertaVencimento:"",
+              unidadeMedida:"",
             },
-            scales: {
-                x: {
-                    ticks: {
-                        color: textColorSecondary
-                    },
-                    grid: {
-                        color: surfaceBorder
-                    }
-                },
-                yPla: {
-                    type: 'linear',
-                    display: true,
-                    position: 'left',
-                    ticks: {
-                        color: textColorSecondary
-                    },
-                    grid: {
-                        color: surfaceBorder
-                    }
-                },
-                yAbs: {
-                    type: 'linear',
-                    display: true,
-                    position: 'right',
-                    ticks: {
-                        color: textColorSecondary
-                    },
-                    grid: {
-                        drawOnChartArea: false,
-                        color: surfaceBorder
-                    }
-                },
-                yPetg: {
-                    type: 'linear',
-                    display: true,
-                    position: 'right',
-                    ticks: {
-                        color: textColorSecondary
-                    },
-                    grid: {
-                        drawOnChartArea: false,
-                        color: surfaceBorder
-                    }
-                },
-                yHips: {
-                    type: 'linear',
-                    display: true,
-                    position: 'right',
-                    ticks: {
-                        color: textColorSecondary
-                    },
-                    grid: {
-                        drawOnChartArea: false,
-                        color: surfaceBorder
-                    }
-                }
-            }
-        };
+        ],
+        entradasEstoque: [{
+            codigo: "",
+            dataEntrada: "",
+            dataValidade: "",
+            quantidade: ""
 
-        setChartData(data);
-        setChartOptions(options);
-    }, []);
+        }],
+        saidasEstoque: [{
+            codigo: "",
+            dataSaida: "",
+            quantidade: ""
+        }],
+        //dados da Zonas
+        toast: "",
+      };
     
-return (
-    <><MenuLeft />
-        <div className="container">
-          <div className="header">
-            <div className="i">
-              <Dropdown
-                value={this.state.modulo}
-                options={this.state.moduloSelect}
-                onChange={e => {
-                  this.setState({ modulo: e.value });
-                }}
-                placeholder='ZONAS'
-              />
-              <Button className="bt-filtro" label="Selecionar Modulo"
-                onClick={this.validarTipo}
-                title="Selecionar Modulo" />
-            </div>
-            <div className="i">
-              <Dropdown
-                value={this.state.agendamentos}
-                options={this.state.agendamentosSelect}
-                onChange={e => {
-                  this.setState({ agendamentos: e.value });
-                }}
-                placeholder='TODOS'
-              />
-              <Button className="bt-filtro" label="Filtrar"
-                onClick={this.validarTipo}
-                title="Filtrar" />
-
-            </div>
+      constructor() {
+        super();
+        this.InsumoService = new InsumoService();
+        //entradaEstoque
+        //saidaEstoque
+      }
+    
+      async componentDidMount() {
+        //Entradas de estoques
+        //Saidas de estoques
+      }
+      //verifica qual modulo foi selecionado || não esta sendo usado
+      filtroModulo = async () => {
+        let lista = []
+        this.state.modulo.forEach(element => {
+          if (element.status === this.state.agendamentosFiltro) {
+            lista.push(element);
+          }
+        });
+        console.log("teste", this.state.zonas)
+    
+      }
+      delay = (ms) => {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+      };
+    
+      //ok
+      validarTipo = () => {
+        if (this.state.modulo === 'DISPOSITIVOS') {
+            window.location.href = `/dashboardDispositivos`
+        } else if (this.state.modulo === 'ZONAS') {
+            window.location.href = `/dashboardZonas`
+        } else {
+            window.location.href = `/dashboardInsumos`
+        }
+      }
+      //retornar botoes das zonas
+      listZonas = async () => {
+        await this.service.findAll("")
+          .then(response => {
+            const zonas = response.data;
+            this.setState({ zonas });
+          }).catch(error => {
+          });
+      }
+      //nao esta sendo usado 
+      filtro = () => {
+        let lista = []
+        this.state.modulo.forEach(element => {
+          if (element.modulo.nome === this.state.nomeParaFiltro) {
+            lista.push(element);
+          }
+        });
+        this.setState({ modulo: lista })
+        console.log("teste", this.state.modulo)
+      }
+    
+      dialogZonas(agenda) {
+        <Dialog
+          visible={true}
+          header="Detalhes do Agenda"
+        >
+          <div>
+            <FontAwesomeIcon className="icone" icon={faUsers} />
+            <p>: {agenda.nome}</p>
           </div>
-        <div className="menu-zonas">
-            <Button
-                onClick={() => 0}
-                className="p-button-outlined mb-5"
-                label="M"
-            />
-            <Button
-                onClick={() => 0}
-                className="p-button-outlined mb-5"
-                label="RA"
-            />
-            <Button
-                onClick={() => 0}
-                className="p-button-outlined mb-5"
-                label="FD-CNC"
-            />
-            <Button
-                onClick={() => 0}
-                className="p-button-outlined mb-5"
-                label="FD-3D"
-            />
-            <hr />
-        </div>
-        <br />
-        <div className='container'>
-            <div className="mostragem1">
-                <h2>Saída de Filamentos</h2>
-                <Chart id='grafico1' type="line" data={chartData} options={chartOptions} className="w-full md:w-30rem" />
+        </Dialog>
+      }
+    
+      render() {
+        return (
+          <>
+            <MenuLeft />
+            <div className="container">
+              <div className="header">
+                <div className="i">
+                  <Dropdown
+                    value={this.state.modulo}
+                    options={this.state.moduloSelect}
+                    onChange={e => {
+                      this.setState({ modulo: e.value });
+                    }}
+                    placeholder='INSUMOS'
+                  />
+                  <Button className="bt-filtro" label="Selecionar Modulo"
+                    onClick={this.validarTipo}
+                    title="Selecionar Modulo" />
+                </div>
+                <div className="i">
+                  <Dropdown
+                    value={this.state.agendamentos}
+                    options={this.state.agendamentosSelect}
+                    onChange={e => {
+                      this.setState({ agendamentos: e.value });
+                    }}
+                    placeholder='TODOS'
+                  />
+                  <Button className="bt-filtro" label="Filtrar"
+                    onClick={this.validarTipo}
+                    title="Filtrar" />
+    
+                </div>
+              </div>
+              <div className="menu-zonas1">
+                <Button
+                  onClick={() => 0}
+                  className="p-button-outlined mb-5"
+                  label="M"
+                />
+                <Button
+                  onClick={() => 0}
+                  className="p-button-outlined mb-5"
+                  label="RA"
+                />
+                <Button
+                  onClick={() => 0}
+                  className="p-button-outlined mb-5"
+                  label="FD-CNC"
+                />
+                <Button
+                  onClick={(this.test)}
+                  className="p-button-outlined mb-5"
+                  label="FD-3D"
+                />
+              </div>
+              <div className="insumos">
+                <Grafico></Grafico>
+              </div>
+    
             </div>
-        </div>
-    </>
-)
-*/ 
-
-}
+          </>
+        );
+      }
+    }
 
 
 
