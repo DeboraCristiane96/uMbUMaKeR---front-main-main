@@ -33,9 +33,8 @@ export default (props) => {
               <p>{insumos.quantidadeDiasAlertaVencimento} Dias</p>
             </div>
             <div className="icon02">
-              <FontAwesomeIcon  icon={faTrashCanArrowUp} />
+              <FontAwesomeIcon icon={faTrashCanArrowUp} />
             </div>
-
           <div className="card-butons">
 
           <Button
@@ -60,7 +59,7 @@ export default (props) => {
             </Button>
             <div>
              <a href="/localStorage">
-             <Button className="bt" aria-label="atualizar"  title="Mostra Entrada e Saida"> 
+             <Button className="bt" aria-label="atualizar"  title="Amários e Nichos"> 
               <FontAwesomeIcon icon={faBoxesStacked} style={{color: "#306f2f",}} />
               </Button>
               </a>

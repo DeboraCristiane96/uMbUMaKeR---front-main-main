@@ -1,5 +1,5 @@
 .cardLocal{
-    display: flex;
+    display: inline;
     padding: 10px;
     height: 10px;;
     border: rgb(30, 156, 26);
@@ -20,6 +20,6 @@
 }
 
 .card-butons {
-    margin-top: -9.3rem;
+    margin-top: -10.6rem;
     margin-left: 25rem;
 }

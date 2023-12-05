@@ -11,13 +11,13 @@ export default (props) => {
         <Card>
           <div className="left">
             <div className="nome">
-              <p> Zona A {agenda.nome}</p>
+              <p>{agenda.nome}</p>
             </div>
             <div className="hTermino">
-              <p>12:00{agenda.horaTermino}</p>
+              <p>{agenda.horaTermino}</p>
             </div>
             <div className="hInicial">
-              <p>10:00{agenda.horaInicial}</p>
+              <p>{agenda.horaInicial}</p>
             </div>
            
           </div>

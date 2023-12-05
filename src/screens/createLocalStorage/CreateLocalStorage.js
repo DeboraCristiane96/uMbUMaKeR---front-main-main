@@ -104,7 +104,7 @@ export default class CreateLocalStorage extends React.Component {
     confirmDialog({
       message: "Deseja realizar esse Cadastro ?",
       icon: "pi pi-info-circle",
-      acceptClassName: "p-button-danger",
+      acceptClassName: "p-button-success",
 
       accept: this.accept,
       reject: this.reject,
@@ -165,13 +165,8 @@ export default class CreateLocalStorage extends React.Component {
               <h3 id="cor">Armário</h3>
               <InputText
                 id="codeA"
-                className="borderColorEdit"
-                type="text"
-                value={this.state.codigoArmario}
-                onChange={(e) => {
-                  this.setState({ codigoArmario: e.target.value });
-                }}
-                placeholder="ARMÁRIO"
+                className="borderColorEdit" 
+                type="text" value={this.state.codigoArmario} onChange={(e) => this.setState({ codigoArmario: e.target.value})}
               />
                 {this.state.error && (
                   <span style={{ color: "red" }}>{this.state.error}</span>
@@ -183,11 +178,7 @@ export default class CreateLocalStorage extends React.Component {
                 <InputText
                   id="codeN"
                   className="borderColorEdit"
-                  type="text"
-                  value={this.state.codigoNicho}
-                  onChange={(e) => {
-                    this.setState({ codigoNicho: e.target.value });
-                  }}placeholder="NICHO"
+                  type="text" value={this.state.codigoNicho} onChange={(e) => this.setState({ codigoNicho: e.target.value})}
                 />
                 {this.state.error && (
                   <span style={{ color: "red" }}>{this.state.error}</span>
@@ -202,7 +193,7 @@ export default class CreateLocalStorage extends React.Component {
               <div className="btS">
                 <Button
                   label="SALVAR"
-                  onClick={this.salvar}
+                  onClick={this.validar}
                 />
               </div>
               <div className="btS">

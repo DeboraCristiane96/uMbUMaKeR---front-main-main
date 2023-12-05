@@ -9,12 +9,12 @@ import { InputText } from "primereact/inputtext";
 
 import { BreadCrumb } from "primereact/breadcrumb";
 import { Button } from "primereact/button";
-import ZonaService from "../../services/ZonaService";
+
 import MenuLeft from "../../components/Menu/MenuLeft";
 
 import { InputSwitch } from "primereact/inputswitch";
 import { Calendar } from 'primereact/calendar';
-import { PrimeIcons } from 'primereact/api';
+
 
 import { InputTextarea } from 'primereact/inputtextarea';
 
@@ -22,11 +22,11 @@ import { InputTextarea } from 'primereact/inputtextarea';
 export default class AgendarZona extends React.Component {
 
   state = {
-    items: [{ label: "Agendamento", url: "/zonaMM" }],
+    items: [{ label: "Agendamento", url: "/listAgendamento" }],
 
     home: { icon: "pi pi-home ", url: "/" },
 
-    zona: [{
+    agenda: [{
       zonaId: "",
       nome: "",
       qntPessoas: "",
@@ -42,7 +42,7 @@ export default class AgendarZona extends React.Component {
   //add service do agendamento de zona
   constructor() {
     super();
-    this.service = new ZonaService();
+    this.service = new AgendarZona();
   }
 
   onFilamentosChange = (e) => {
@@ -114,7 +114,7 @@ export default class AgendarZona extends React.Component {
     confirmDialog({
       message: "Deseja realizar esse Agendamento ?",
       icon: "pi pi-info-circle",
-      acceptClassName: "p-button-danger",
+      acceptClassName: "p-button-success",
 
       accept: this.accept,
       reject: this.reject,
@@ -329,7 +329,7 @@ export default class AgendarZona extends React.Component {
               />
             </div>
             <div className="bt">
-              <a href="/zonaMM">
+              <a href="/listAgendamento">
                 <Button label="CANCELAR"></Button>
               </a>
             </div>

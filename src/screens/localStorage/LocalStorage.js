@@ -2,7 +2,7 @@
 
 import React from "react";
 import { Toast } from "primereact/toast";
-import {confirmDialog } from "primereact/confirmdialog";
+import {ConfirmDialog, confirmDialog } from "primereact/confirmdialog";
 import MenuLeft from "../../components/Menu/MenuLeft";
 import CardLocalStorage from "../../components/cardLocalStorage/CardLocalStorage";
 import LocalStorageService from "../../services/LocalStorageService";
@@ -18,8 +18,8 @@ export default class LocalStorage extends React.Component {
       local: [
         {
         codigo:0,
-        codigoArmario:0,
-        codigoNicho:0
+        codigoArmario:"",
+        codigoNicho:""
       },
     ]
     };
@@ -46,45 +46,22 @@ export default class LocalStorage extends React.Component {
     return new Promise((resolve) => setTimeout(resolve, ms));
   };
 
-  delete = (codigoArmario) =>{
-    this.service.delete(codigoArmario)
+  delete = (codigo) =>{
+    this.service.delete(codigo)
         .then(async (response) =>{
-            this.state.toast.show({ severity: 'success', summary: 'Sucesso', detail: 'Excluido Com Sucesso' });
+            this.state.toast.show({ severity: 'success', summary: 'Sucesso', detail: 'Cadastro Excluido Com Sucesso' });
             await this.delay(2000);
            window.location.reload();
         }).catch(error =>{
             this.state.toast.show({ severity: 'error', summary: 'Erro', detail: 'Erro ao Excluir o Cadastro' });
         })
 } 
-editar = (codigo) => {
-  window.location.href = `/updateLocal/${codigo}`;    
-  
-}
-  accept = () => {
-    this.state.toast.show({
-      severity: "info",
-      summary: "Confirmado",
-      detail: "Cadastro Excluido",
-      life: 3000,
-    });
-    this.delete(this.state.codigo);
-  };
-
-  reject = () => {
-    this.state.toast.show({
-      severity: "warn",
-      summary: "Regeitado",
-      detail: " Não Deletado",
-      life: 3000,
-    });
-  };
-
-  confirm = async (codigoArmario) => {
-    this.setState({codigoArmario: codigoArmario})
+  confirm = async (codigo) => {
+    this.setState({codigo: codigo})
     confirmDialog({
       message: "Você Realmente quer Deletar esse Cadastro ?",
       icon: "pi pi-info-circle",
-      acceptClassName: "p-button-danger",
+      acceptClassName: "p-button-success",
 
       accept: this.accept,
       reject: this.reject,
@@ -92,13 +69,14 @@ editar = (codigo) => {
     await this.delay(10);
   };
 
+
     render() {
         return (
             <> 
             <MenuLeft />
             <div className="container">
             <Toast ref={(el) => (this.state.toast = el)} />
-            <confirmDialog
+            <ConfirmDialog
                 acceptClassName="p-button-success"
                 rejectClassName="p-button-danger"
                 acceptLabel="Sim"
@@ -119,11 +97,10 @@ editar = (codigo) => {
                 </a>
               </div>
                 <div className="local">
-                <CardLocalStorage
-                local={this.state.local}
-                delete={this.confirm}
-                editar={this.editar}
-                />
+                  <CardLocalStorage
+                  local={this.state.local}
+                  delete={this.confirm}
+                  />
           </div>
           </div>
       </>

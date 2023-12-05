@@ -12,9 +12,10 @@ import MenuLeft from "../../components/Menu/MenuLeft";
 import { Dropdown } from "primereact/dropdown";
 import { faCalendarDay} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ZonaService from "../../services/ZonaService";
+
 import "./ListAgendamento.css";
 import CardListAgendamento from "../../components/cardListAgendamentos/CardListAgendamento";
+import AgendaZona from "../../services/Zona/AgendaZona";
 export default class ListAgendamento extends React.Component {
   
   state = {
@@ -35,14 +36,14 @@ export default class ListAgendamento extends React.Component {
 
   constructor() {
     super();
-    this.service = new ZonaService();
+    this.service = new AgendaZona();
   }
 
   async componentDidMount() {
     await this.service.findAll("")
       .then((response) => {
-        const zonas = response.data;
-        this.setState({ zonas });
+        const agenda = response.data;
+        this.setState({agenda });
         
         console.log(response);
       })

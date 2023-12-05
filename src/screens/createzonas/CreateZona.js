@@ -176,8 +176,7 @@ export default class CreateZona extends React.Component {
               <div className="bt">
                 <Button
                   label="Salvar"
-                  severity="warning"
-                  raised
+                 
                   onClick={this.validar}
                 />
               </div>

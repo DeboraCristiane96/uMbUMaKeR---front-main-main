@@ -11,22 +11,25 @@ import { faTrashAlt} from "@fortawesome/free-solid-svg-icons";
 export default (props) => {
   const rows = props.local.map((local) => {
     return (
-      <div className="cardLocal">
+      <div>
         <Card>
-        <table className="table">
-        <thead>
-            <tr className="tr">
-                <th className="th"> ARMÁRIO</th>
-                <th className="th"> NICHO</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr className="tr">
-                <td className="td">{local.codigoArmario}</td>
-                <td className="td">{local.codigoNicho}</td>
-            </tr>
-        </tbody>
-    </table>
+            <div className="cardLocal">
+              <table className="table">
+              <thead>
+                  <tr className="tr">
+                      <th className="th">ARMÁRIO</th>
+                      <th className="th">NICHO</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr className="tr">
+                      <td className="td">{local.codigoArmario}</td>
+                      <td className="td">{local.codigoNicho}</td>
+                  </tr>
+              </tbody>
+          </table>
+        </div>
+        
           <div className="card-butons">
           <Button
               className="bt"
