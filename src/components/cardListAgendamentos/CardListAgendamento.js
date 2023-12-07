@@ -5,20 +5,20 @@ import { Card } from "primereact/card";
 import "./CardListAgendamento.css";
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (props) => {
-  const rows = props.agenda.map((agenda) => {
+  const rows = props.agendamantoZona.map((agendamantoZona) => {
     return (
       <div className="card01">
         <Card>
           <div className="left">
+          <div className="hInicial">
+              <p>{agendamantoZona.horaInicial}</p> -
+              <p>{agendamantoZona.horaFinal}</p>
+            </div>
             <div className="nome">
-              <p> Zona A {agenda.nome}</p>
+              <p>{agendamantoZona.descricao}</p>
             </div>
-            <div className="hTermino">
-              <p>12:00{agenda.horaTermino}</p>
-            </div>
-            <div className="hInicial">
-              <p>10:00{agenda.horaInicial}</p>
-            </div>
+            
+            
            
           </div>
         </Card>

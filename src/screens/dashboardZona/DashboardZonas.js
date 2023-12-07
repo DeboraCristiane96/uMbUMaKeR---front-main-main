@@ -11,7 +11,7 @@ import { faUsers } from "@fortawesome/free-solid-svg-icons";
 import { Dropdown } from "primereact/dropdown";
 import BasicDemo  from "../../components/Menu/MenuSecundario/TabMenu";
 import ZonaService from "../../services/ZonaService";
-import AgendaZona from "../../services/Zona/AgendaZona";
+import AgendaZonaService from "../../services/Zona/AgendaZonaService";
 import CardDashboardZonas from "../../components/cardDashboardZona/CardDashboardZona";
 
 //Utilizar o redirecionamento de Dashboard
@@ -40,29 +40,34 @@ export default class DashboardZonas extends React.Component {
         qtdPessoas: ""
       },
     ],
-    agenda: [{
-      codigo: 0,
-      nome: "",
+    agendamantoZona: [{
+      dataSolicitacao: "",
+      dataAgendamento: "",
+      tempoReservado: "",
       horaInicial: "",
-      horaTermino: "",
-      diaSemana: "",
-    },
-    ],
+      horaFinal: "",
+      dataDeTermino: "",
+      descricao: "",
+      politicaDeAceite: false,
+      diasDaSemana: [],
+      zonas: [],
+      tutores: []
+    }],
     toast: "",
   };
 
   constructor() {
     super();
     this.service = new ZonaService();
-    this.service = new AgendaZona();
+    this.agendamentoZonaService = new AgendaZonaService();
   }
 
   async componentDidMount() {
-    await this.service.findAll("")
+    await this.agendamentoZonaService.findAll("")
       .then((response) => {
-        const agenda = response.data;
-        this.setState({ agenda });
-        console.log(response);
+        const agendamantoZona = response.data;
+        this.setState({ agendamantoZona });
+        console.log(agendamantoZona);
       })
       .catch((error) => {
         console.log("erro!");
@@ -185,7 +190,7 @@ export default class DashboardZonas extends React.Component {
           </div>
           <div className="zonas">
             <CardDashboardZonas
-              agenda={this.state.agenda}
+              agendamantoZona={this.state.agendamantoZona}
               dialogZonas={this.cardDetalhes}
             />
           </div>

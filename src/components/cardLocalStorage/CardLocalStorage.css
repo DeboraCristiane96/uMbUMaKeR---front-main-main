@@ -1,7 +1,6 @@
 .cardLocal{
     display: flex;
-    padding: 10px;
-    height: 10px;;
+    
     border: rgb(30, 156, 26);
 }
 
@@ -14,12 +13,13 @@
 }
 
 .th, .td {
-    padding: 15px;
     text-align: left;
     border-bottom: 1.5px solid rgb(30, 156, 26);;
 }
-
+/*
+padding: 15px;
 .card-butons {
-    margin-top: -9.3rem;
-    margin-left: 25rem;
+    margin-top: 6rem;
+    margin-left: 2rem;
 }
+**/

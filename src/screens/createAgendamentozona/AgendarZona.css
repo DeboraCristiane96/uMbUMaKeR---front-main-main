@@ -1,6 +1,7 @@
 .input{
     margin-top: -1rem;
     margin-left: 16rem;
+    color: darkgreen;
 }
 
 .input-texts{
@@ -38,6 +39,7 @@
 .input-texts .input-dois{
     width: 15vw;
     margin-right: 2vw;
+
 }
 
 .retanguloBase{
@@ -49,4 +51,13 @@
 }
 .linhasHoras{
     display: flex;
+}
+
+.retanguloDireita{
+    margin-left: 9vw;
+}
+
+.dia{
+    color: darkgreen;
+    margin-left: 0.5vw; 
 }

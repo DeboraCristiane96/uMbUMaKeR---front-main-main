@@ -14,7 +14,7 @@ import { faUsers } from "@fortawesome/free-solid-svg-icons";
 import CardDashboardZonas from "../../components/cardDashboardZona/CardDashboardZona";
 
 import { Dropdown } from "primereact/dropdown";
-import AgendaZona from "../../services/Zona/AgendaZona";
+import AgendaZonaService from "../../services/Zona/AgendaZonaService";
 
 /**
  * Utilizar o Seletor de modulo:
@@ -60,7 +60,7 @@ export default class Home extends React.Component {
   constructor() {
     super();
     //this.service = new ZonaService();
-    this.service = new AgendaZona();
+    this.service = new AgendaZonaService();
   }
 
   async componentDidMount() {

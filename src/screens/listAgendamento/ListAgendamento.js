@@ -12,6 +12,7 @@ import MenuLeft from "../../components/Menu/MenuLeft";
 import { Dropdown } from "primereact/dropdown";
 import { faCalendarDay} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import AgendaZonaService from "../../services/Zona/AgendaZonaService";
 import ZonaService from "../../services/ZonaService";
 import "./ListAgendamento.css";
 import CardListAgendamento from "../../components/cardListAgendamentos/CardListAgendamento";
@@ -21,28 +22,33 @@ export default class ListAgendamento extends React.Component {
     items: [{ label: "Agendamentos", url: "/zonas" }],
     home: { icon: "pi pi-home ", url: "/" },
 
-    agenda: [{
-      codigo:0,
-      nome:"",
+    agendamantoZona: [{
+      dataSolicitacao: "",
+      dataAgendamento: "",
+      tempoReservado: "",
       horaInicial: "",
-      horaTermino: "",
-      diaSemana: "",
-      },
-    ],
+      horaFinal: "",
+      dataDeTermino: "",
+      descricao: "",
+      politicaDeAceite: false,
+      diasDaSemana: [],
+      zonas: [],
+      tutores: []
+    }],
     token: "",
     toast: "",
   };
 
   constructor() {
     super();
-    this.service = new ZonaService();
+    this.service = new AgendaZonaService();
   }
 
   async componentDidMount() {
     await this.service.findAll("")
       .then((response) => {
-        const zonas = response.data;
-        this.setState({ zonas });
+        const agendamantoZona = response.data;
+        this.setState({ agendamantoZona });
         
         console.log(response);
       })
@@ -206,7 +212,7 @@ export default class ListAgendamento extends React.Component {
 
           <div className="zonas">
             <CardListAgendamento
-              agenda={this.state.agenda}
+              agendamantoZona={this.state.agendamantoZona}
               delete = {this.confirm}
               editar = {this.editar}
             />

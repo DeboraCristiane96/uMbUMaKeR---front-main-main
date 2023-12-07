@@ -60,7 +60,7 @@ export default (props) => {
             </Button>
             <div>
              <a href="/localStorage">
-             <Button className="bt" aria-label="atualizar"  title="Mostra Entrada e Saida"> 
+             <Button className="bt" aria-label="atualizar"  title="Amários e Nichos"> 
               <FontAwesomeIcon icon={faBoxesStacked} style={{color: "#306f2f",}} />
               </Button>
               </a>

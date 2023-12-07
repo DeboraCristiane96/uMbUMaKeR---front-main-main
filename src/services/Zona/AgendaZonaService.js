@@ -1,8 +1,8 @@
 import ApiService from "../ApiService";
 
-export default class AgendaZona extends ApiService{
+export default class AgendaZonaService extends ApiService{
     constructor(){
-        super('/api/umbumaker/agendaZona')
+        super('/api/umbumaker/agendamentozona')
     }
     
     create(obj){

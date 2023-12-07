@@ -9,11 +9,13 @@ import { InputText } from "primereact/inputtext";
 
 import { BreadCrumb } from "primereact/breadcrumb";
 import { Button } from "primereact/button";
-import ZonaService from "../../services/ZonaService";
+import AgendaZonaService from "../../services/Zona/AgendaZonaService";
 import MenuLeft from "../../components/Menu/MenuLeft";
 
 import { InputSwitch } from "primereact/inputswitch";
 import { Calendar } from 'primereact/calendar';
+import { Checkbox } from "primereact/checkbox";
+
 import { PrimeIcons } from 'primereact/api';
 
 import { InputTextarea } from 'primereact/inputtextarea';
@@ -22,36 +24,50 @@ import { InputTextarea } from 'primereact/inputtextarea';
 export default class AgendarZona extends React.Component {
 
   state = {
-    items: [{ label: "Agendamento", url: "/zonaMM" }],
+    items: [{ label: "Agendamento", url: "/agendarZona" }],
 
     home: { icon: "pi pi-home ", url: "/" },
 
-    zona: [{
-      zonaId: "",
-      nome: "",
-      qntPessoas: "",
-      checked: true,
-      dataInicio: "",
-      dataTermino: ""
+    agendamantoZona: [{
+      dataSolicitacao: "",
+      dataAgendamento: "",
+      tempoReservado: "",
+      horaInicial: "",
+      horaFinal: "",
+      dataDeTermino: "",
+      descricao: "",
+      politicaDeAceite: false,
+      diasDaSemana: [],
+      zonas: [],
+      tutores: []
     }],
+    diasSelect: [
+      { name: "SEGUNDA",  key: "SEGUNDA" },
+      { name: "TERCA",  key: "TERCA" },
+      { name: "QUARTA",  key: "QUARTA" },
+      { name: "QUINTA",  key: "QUINTA" },
+      { name: "SEXTA",  key: "SEXTA" },
+    ],
+    dias: [],
+    diasFiltro: "",
 
     toast: "",
     msgDeErro: "",
     error: ""
   }
-  //add service do agendamento de zona
+  
   constructor() {
     super();
-    this.service = new ZonaService();
+    this.service = new AgendaZonaService();
   }
+  //verificar como funciona esse metodo
+  onDiasChange = (e) => {
+    let _diasSelect = [this.diasSelect];
+    if (e.checked) _diasSelect.push(e.value);
+    else _diasSelect.splice(_diasSelect.indexOf(e.value), 1);
+      
 
-  onFilamentosChange = (e) => {
-    let _filamentos = [this.filamentos];
-
-    if (e.checked) _filamentos.push(e.value);
-    else _filamentos.splice(_filamentos.indexOf(e.value), 1);
-
-    this.filamentos = _filamentos;
+    this.setState.dias = _diasSelect;
   };
 
   delay = (ms) => {
@@ -61,10 +77,17 @@ export default class AgendarZona extends React.Component {
   salvar = async () => {
     await this.service
       .create({
-        checked: this.state.checked,
-        dataInicio: this.state.dataInicio,
-        dataTermino: this.state.dataTermino,
-        qntPessoas: this.state.qntPessoas,
+        dataSolicitacao: this.state.dataSolicitacao,
+        dataAgendamento: this.state.dataAgendamento,
+        tempoReservado: this.state.tempoReservado,
+        horaInicial: this.state.horaInicial,
+        horaFinal: this.state.horaFinal,
+        dataDeTermino: this.state.dataDeTermino,
+        descricao: this.state.descricao,
+        politicaDeAceite: this.state.politicaDeAceite,
+        diasDaSemana: this.state.diasDaSemana,
+        zonas: this.state.zonas,
+        tutores: this.state.tutores
       })
       .then(async (response) => {
         this.state.toast.show({
@@ -73,6 +96,7 @@ export default class AgendarZona extends React.Component {
           detail: "Salvo Com Sucesso",
         });
         await this.delay(2000);
+        console.log(response);
         window.location.href = `/zonas`;
       })
       .catch((error) => {
@@ -104,7 +128,7 @@ export default class AgendarZona extends React.Component {
       life: 3000,
     });
   };
-
+  //esta pegando o id de zona
   confirm = async (zonaId) => {
     this.setState({ zonaId: zonaId });
     // eslint-disable-next-line no-unused-vars
@@ -177,7 +201,7 @@ export default class AgendarZona extends React.Component {
           </div>
           <div className="retanguloBase">
             <div className="retanguloEsquerda">
-              <div className="input-texts" style={{ color: '#14770b', display:"inline" }}>
+              <div className="input-texts" style={{ color: '#14770b', display: "inline" }}>
                 <h4 id="h4">Título do agendamento</h4>
                 <div className="input-um">
                   <InputText
@@ -198,16 +222,16 @@ export default class AgendarZona extends React.Component {
                 <div className="input-um">
                   <h4 id="h4">Data de início</h4>
                   <br />
-                  <i className="pi pi-calendar" style={{ fontSize: '2.1rem', color: '#14770b', margin:'0.5rem' }}></i>
-                  <Calendar value={this.state.dataInicio}
-                    onChange={(e) => this.setState({ dataInicio: e.target.value })} />
+                  <i className="pi pi-calendar" style={{ fontSize: '2.1rem', color: '#14770b', margin: '0.5rem' }}></i>
+                  <Calendar value={this.state.dataAgendamento}
+                    onChange={(e) => this.setState({ dataAgendamento: e.target.value })} />
                 </div>
                 <div className="input-dois">
                   <h4 id="h4">Data de termino</h4>
                   <br />
-                  <i className="pi pi-calendar" style={{ fontSize: '2.1rem', color: '#14770b', margin:'0.5rem' }}></i>
-                  <Calendar value={this.state.dataSolicitacao}
-                    onChange={(e) => this.setState({ dataSolicitacao: e.target.value })} />
+                  <i className="pi pi-calendar" style={{ fontSize: '2.1rem', color: '#14770b', margin: '0.5rem' }}></i>
+                  <Calendar value={this.state.dataDeTermino}
+                    onChange={(e) => this.setState({ dataDeTermino: e.target.value })} />
 
                 </div>
               </div>
@@ -215,35 +239,34 @@ export default class AgendarZona extends React.Component {
                 <div className="input-um">
                   <h4 id="h4">Hora de início</h4>
                   <br />
-                  <i className="pi pi-clock" style={{ fontSize: '2.1rem', color: '#14770b', margin:'0.5rem' }}></i>
-                  <Calendar value={this.state.dataInicio}
-                    onChange={(e) => this.setState({ dataInicio: e.target.value })}  timeOnly/>
+                  <i className="pi pi-clock" style={{ fontSize: '2.1rem', color: '#14770b', margin: '0.5rem' }}></i>
+                  <Calendar value={this.state.horaInicial}
+                    onChange={(e) => this.setState({ horaInicial: e.target.value })} timeOnly />
                 </div>
                 <div className="input-dois">
                   <h4 id="h4">Hora de termino</h4>
                   <br />
                   <div className="input-um">
-                    <i className="pi pi-clock" style={{ fontSize: '2.1rem', color: '#14770b', margin:'0.5rem' }}></i>
-                    <Calendar value={this.state.dataSolicitacao}
-                      onChange={(e) => this.setState({ dataSolicitacao: e.target.value })} timeOnly/>
+                    <i className="pi pi-clock" style={{ fontSize: '2.1rem', color: '#14770b', margin: '0.5rem' }}></i>
+                    <Calendar value={this.state.horaFinal}
+                      onChange={(e) => this.setState({ horaFinal: e.target.value })} timeOnly />
                   </div>
                 </div>
               </div>
               <span className="p-float-label">
                 <h4 id="h4">Descrição</h4>
                 <br />
-                <InputTextarea id="username" rows={5} cols={60} />
+                <InputTextarea value={this.state.descricao} onChange={(e) => this.setState({descricao: e.target.value })} id="username" rows={5} cols={65} />
               </span>
-              <div className="input-text" _>
+              <div className="input-text">
                 <br />
-                <InputSwitch checked={this.state.checked} onChange={(e) => this.setState({ checked: e.target.value })} />
+                <InputSwitch checked={this.state.politicaDeAceite} onChange={(e) => this.setState({ politicaDeAceite: e.target.value })} />
                 <h4 id="h4A">Políticas de aceite</h4>
 
               </div>
             </div>
             <div className="retanguloDireita">
               <h4 id="h4">Dias da Semana</h4>
-
               <div className="input-check">
                 <div className="input-dois">
                   <input
@@ -251,9 +274,9 @@ export default class AgendarZona extends React.Component {
                     inputId="Segunda-Feira"
                     name="diaSemana"
                     value="Segunda-Feira"
-                    onChange={this.onFilamentosChange("Segunda-Feira")}
+                    onChange={this.onDiasChange("Segunda-Feira")}
                   />
-                  <label htmlFor="Segunda-Feira" className="ml-2">
+                  <label htmlFor="Segunda-Feira" className="dia">
                     Segunda-Feira
                   </label>
                 </div>
@@ -263,9 +286,9 @@ export default class AgendarZona extends React.Component {
                     inputId="Terca-Feira"
                     name="diaSemana"
                     value="Terca-Feira"
-                    onChange={this.onFilamentosChange("Terca-Feira")}
+                    onChange={this.onDiasChange("Terca-Feira")}
                   />
-                  <label htmlFor="Terca-Feira" className="ml-2">
+                  <label htmlFor="Terca-Feira" className="dia">
                     Terça-Feira
                   </label>
                 </div>
@@ -275,9 +298,9 @@ export default class AgendarZona extends React.Component {
                     inputId="Quarta-Feira"
                     name="diaSemana"
                     value="Quarta-Feira"
-                    onChange={this.onFilamentosChange("Quarta-Feira")}
+                    onChange={this.onDiasChange("Quarta-Feira")}
                   />
-                  <label htmlFor="Quarta-Feira" className="ml-2">
+                  <label htmlFor="Quarta-Feira" className="dia">
                     Quarta-Feira
                   </label>
                 </div>
@@ -287,9 +310,9 @@ export default class AgendarZona extends React.Component {
                     inputId="Quinta-Feira"
                     name="diaSemana"
                     value="Quinta-Feira"
-                    onChange={this.onFilamentosChange("Quinta-Feira")}
+                    onChange={this.onDiasChange("Quinta-Feira")}
                   />
-                  <label htmlFor="Quinta-Feira" className="ml-2">
+                  <label htmlFor="Quinta-Feira" className="dia">
                     Quinta-Feira
                   </label>
                 </div>
@@ -299,25 +322,12 @@ export default class AgendarZona extends React.Component {
                     inputId="Sexta-Feira"
                     name="diaSemana"
                     value="Sexta-Feira"
-                    onChange={this.onFilamentosChange("Sexta-Feira")}
+                    onChange={this.onDiasChange("Sexta-Feira")}
                   />
-                  <label htmlFor="Sexta-Feira" className="ml-2">
+                  <label htmlFor="Sexta-Feira" className="dia">
                     Sexta-Feira
                   </label>
                 </div>
-                <div className="input-dois">
-                  <input
-                    type="checkbox"
-                    inputId="Sabado"
-                    name="diaSemana"
-                    value="Sabado"
-                    onChange={this.onFilamentosChange("Sabado")}
-                  />
-                  <label htmlFor="Sabado" className="ml-2">
-                    Sábado
-                  </label>
-                </div>
-
               </div>
             </div>
           </div>
@@ -329,7 +339,7 @@ export default class AgendarZona extends React.Component {
               />
             </div>
             <div className="bt">
-              <a href="/zonaMM">
+              <a href="/zonas">
                 <Button label="CANCELAR"></Button>
               </a>
             </div>

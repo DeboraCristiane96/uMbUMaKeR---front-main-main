@@ -10,23 +10,23 @@ import { faChevronRight, faUser } from "@fortawesome/free-solid-svg-icons";
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (props) => {
 
-  const rows = props.agenda.map((agenda) => {
+  const rows = props.agendamantoZona.map((agendamantoZona) => {
     return (
       <div className="cardBoard">
         <Card>
           <div className="quadro">
             <div className="left">
-              <div className="lbNome">nome do agendamento
-                <p>{agenda.nome}</p>
+              <div className="lbNome">
+                <p>{agendamantoZona.descricao}</p>
               </div>
               <div className="lbPessoa">
                 <span className="pi pi-user"
                   style={{ fontSize: '1.50rem', color: 'green', margin:'1rem' }}></span>
                 nome da pessoa
-                <p>{agenda.nome}</p>
+                <p>{agendamantoZona.nome}</p>
               </div>
-              <div className="lbNome"> inico - termino
-                <p>{agenda.nome}</p>
+              <div className="lbHorario">
+                <p>{agendamantoZona.horaInicial}</p> - <p>{agendamantoZona.horaFinal}</p>
               </div>
             </div>
             <div className="btDetalhes">
