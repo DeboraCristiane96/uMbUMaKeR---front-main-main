@@ -138,7 +138,7 @@ export default class AgendarZona extends React.Component {
     confirmDialog({
       message: "Deseja realizar esse Agendamento ?",
       icon: "pi pi-info-circle",
-      acceptClassName: "p-button-danger",
+      acceptClassName: "p-button-success",
 
       accept: this.accept,
       reject: this.reject,

@@ -33,9 +33,8 @@ export default (props) => {
               <p>{insumos.quantidadeDiasAlertaVencimento} Dias</p>
             </div>
             <div className="icon02">
-              <FontAwesomeIcon  icon={faTrashCanArrowUp} />
+              <FontAwesomeIcon icon={faTrashCanArrowUp} />
             </div>
-
           <div className="card-butons">
 
           <Button

@@ -1,40 +1,50 @@
 
+// eslint-disable-next-line no-unused-vars
 import MenuLeft from '../Menu/MenuLeft';
 
 import React, { useState, useEffect } from 'react';
 import { Chart } from 'primereact/chart';
 
+
 //Componentisar os graficos!!!
 
 export default function Graficos(props) {
-    const [chartData, setChartData] = useState({});
+    
+    const [insumo, setInsumo] = useState({});
+    const [entradasEstoque, setEntradasEstoque] = useState({});
+    const [saidasEstoque, setSaidasEstoque] = useState({});
+   
     const [chartOptions, setChartOptions] = useState({});
 
+    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         const documentStyle = getComputedStyle(document.documentElement);
         const textColor = documentStyle.getPropertyValue('--text-color');
         const textColorSecondary = documentStyle.getPropertyValue('--text-color-secondary');
         const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
-        const data = {
+        // eslint-disable-next-line no-unused-vars
+
+        const dataInsumos = {
             labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho'],
             datasets: [
                 {
-                    label: 'Filamento ASA',
-                    data: [65, 59, 80, 81, 56, 55, 40],
+                    nome: 'Filamento ASA',
+                    data: [300,200],
                     fill: false,
                     borderColor: documentStyle.getPropertyValue('--blue-500'),
                     tension: 0.4,
                 },
                 {
                     label: 'Filamento ABS',
-                    data: [28, 48, 40, 19, 86, 27, 90],
+                    data:  [100,200],
                     fill: false,
                     borderColor: documentStyle.getPropertyValue('--pink-500'),
                     tension: 0.4,
                 },
                 {
                     label: 'Filamento APL',
-                    data: [30, 40, 40, 20, 45, 30, 50],
+                    data:  [200,100],
                     fill: false,
                     borderColor: documentStyle.getPropertyValue('--pi-500'),
                     tension: 0.4,
@@ -71,14 +81,14 @@ export default function Graficos(props) {
             },
         };
 
-        setChartData(data);
+        setInsumo(dataInsumos);
         setChartOptions(options);
-    }, []);
+    }, );
 
     return (
         <>
             <div className="card01">
-                <Chart type="line" data={chartData} options={chartOptions} />
+                <Chart type="line" data={insumo} options={chartOptions} />
             </div>
         </>
     )

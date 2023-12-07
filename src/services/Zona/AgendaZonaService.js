@@ -10,7 +10,7 @@ export default class AgendaZonaService extends ApiService{
     }
     update(id,obj){
         
-        return this.patch(`/${id}`, obj);
+        return this.put(`/${id}`, obj);
     }
 
     delete(id){

@@ -84,13 +84,14 @@ export default class LocalStorage extends React.Component {
     confirmDialog({
       message: "Você Realmente quer Deletar esse Cadastro ?",
       icon: "pi pi-info-circle",
-      acceptClassName: "p-button-danger",
+      acceptClassName: "p-button-success",
 
       accept: this.accept,
       reject: this.reject,
     });
     await this.delay(10);
   };
+
 
   render() {
     return (

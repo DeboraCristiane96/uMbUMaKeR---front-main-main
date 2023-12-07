@@ -77,7 +77,7 @@ export default class CreateDevice extends React.Component {
   };
 
   salvar = () =>{
-    const dataOriginal = this.state.dataDeNascimento;
+    const dataOriginal = this.state.ultimaManutencao;
     const data = new Date(dataOriginal);
 
     const dia = data.getDate();

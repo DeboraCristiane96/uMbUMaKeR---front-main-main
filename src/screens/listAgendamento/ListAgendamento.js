@@ -16,6 +16,7 @@ import AgendaZonaService from "../../services/Zona/AgendaZonaService";
 import ZonaService from "../../services/ZonaService";
 import "./ListAgendamento.css";
 import CardListAgendamento from "../../components/cardListAgendamentos/CardListAgendamento";
+import AgendaZona from "../../services/Zona/AgendaZona";
 export default class ListAgendamento extends React.Component {
   
   state = {
